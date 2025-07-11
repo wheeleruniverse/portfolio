@@ -1,14 +1,6 @@
 <template>
   <section class="solar-system-container">
     <div class="solar-system" ref="solarSystemRef">
-      <!-- Orbit rings -->
-      <div class="orbit orbit-1"></div>
-      <div class="orbit orbit-2"></div>
-      <div class="orbit orbit-3"></div>
-      <div class="orbit orbit-4"></div>
-      <div class="orbit orbit-5"></div>
-      <div class="orbit orbit-6"></div>
-      
       <!-- Central Sun -->
       <div class="sun">
         <div class="sun-text">
@@ -16,7 +8,7 @@
         </div>
       </div>
       
-      <!-- Planets -->
+      <!-- Planets (each creates its own orbit ring) -->
       <PlanetComponent
         v-for="planet in planets"
         :key="planet.id"

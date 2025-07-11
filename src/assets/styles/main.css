@@ -39,65 +39,6 @@
     box-shadow: 0 0 2px white, 0 0 4px white, 0 0 6px white;
   }
   
-  .planet {
-    position: absolute;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 600;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  }
-  
-  .planet:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  }
-  
-  .planet-aws {
-    @apply bg-gradient-to-br from-orange-500 to-red-600;
-    width: 120px;
-    height: 120px;
-    animation: orbit 40s linear infinite;
-  }
-  
-  .planet-development {
-    @apply bg-gradient-to-br from-blue-500 to-purple-600;
-    width: 90px;
-    height: 90px;
-    animation: orbit 30s linear infinite;
-  }
-  
-  .planet-community {
-    @apply bg-gradient-to-br from-green-500 to-emerald-600;
-    width: 80px;
-    height: 80px;
-    animation: orbit 35s linear infinite;
-  }
-  
-  .planet-experience {
-    @apply bg-gradient-to-br from-yellow-500 to-orange-500;
-    width: 85px;
-    height: 85px;
-    animation: orbit 25s linear infinite;
-  }
-  
-  .planet-education {
-    @apply bg-gradient-to-br from-purple-500 to-pink-600;
-    width: 70px;
-    height: 70px;
-    animation: orbit 45s linear infinite;
-  }
-  
-  .planet-projects {
-    @apply bg-gradient-to-br from-teal-500 to-cyan-600;
-    width: 75px;
-    height: 75px;
-    animation: orbit 38s linear infinite;
-  }
   
   .solar-system {
     position: relative;
@@ -127,18 +68,6 @@
     animation: float 6s ease-in-out infinite;
   }
   
-  .orbit {
-    position: absolute;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-  }
-  
-  .orbit-1 { width: 340px; height: 340px; }
-  .orbit-2 { width: 460px; height: 460px; }
-  .orbit-3 { width: 580px; height: 580px; }
-  .orbit-4 { width: 700px; height: 700px; }
-  .orbit-5 { width: 820px; height: 820px; }
-  .orbit-6 { width: 940px; height: 940px; }
   
   .nav-floating {
     position: fixed;
@@ -175,23 +104,5 @@
 }
 
 @media (max-width: 768px) {
-  .planet {
-    font-size: 0.8rem;
-  }
-  
-  .planet-aws { width: 80px; height: 80px; }
-  .planet-development { width: 60px; height: 60px; }
-  .planet-community { width: 55px; height: 55px; }
-  .planet-experience { width: 58px; height: 58px; }
-  .planet-education { width: 50px; height: 50px; }
-  .planet-projects { width: 52px; height: 52px; }
-  
   .sun { width: 120px; height: 120px; font-size: 1rem; }
-  
-  .orbit-1 { width: 220px; height: 220px; }
-  .orbit-2 { width: 300px; height: 300px; }
-  .orbit-3 { width: 380px; height: 380px; }
-  .orbit-4 { width: 460px; height: 460px; }
-  .orbit-5 { width: 540px; height: 540px; }
-  .orbit-6 { width: 620px; height: 620px; }
 }

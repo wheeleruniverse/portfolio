@@ -1,6 +1,17 @@
 <template>
+  <!-- Orbit Ring -->
   <div 
-    class="planet-orbit"
+    class="orbit-ring"
+    :style="{ 
+      width: `${planet.orbitRadius * 2}px`, 
+      height: `${planet.orbitRadius * 2}px`
+    }"
+  >
+  </div>
+  
+  <!-- Planet on Orbit -->
+  <div 
+    class="planet-container"
     :style="{ 
       width: `${planet.orbitRadius * 2}px`, 
       height: `${planet.orbitRadius * 2}px`,
@@ -10,16 +21,11 @@
   >
     <div
       class="planet"
-      :class="[
-        `planet-${planet.id}`,
-        `bg-gradient-to-br ${planet.color}`
-      ]"
+      :class="`bg-gradient-to-br ${planet.color}`"
       :style="{ 
-        width: `${planet.size}px`, 
-        height: `${planet.size}px`,
-        transform: `translateX(${planet.orbitRadius}px) rotate(-${planet.startAngle}deg)`,
-        '--orbit-radius': `${planet.orbitRadius}px`,
-        '--counter-rotation': `-${planet.startAngle}deg`
+        width: `${planetSize}px`, 
+        height: `${planetSize}px`,
+        zIndex: planetZIndex
       }"
       @click="handleClick"
       @mouseenter="handleMouseEnter"
@@ -30,7 +36,12 @@
       @keydown.enter="handleClick"
       @keydown.space="handleClick"
     >
-      <div class="planet-content">
+      <div 
+        class="planet-content counter-rotate"
+        :style="{
+          animationDuration: `${planet.orbitSpeed}s`
+        }"
+      >
         <div class="planet-icon">{{ planet.icon }}</div>
         <div class="planet-name">{{ planet.name }}</div>
       </div>
@@ -49,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { Planet } from '@/types'
 
 interface Props {
@@ -63,7 +74,38 @@ const emit = defineEmits<{
 
 const showTooltip = ref(false)
 
-const handleClick = () => {
+// Calculate planet size based on text length and minimum size
+const planetSize = computed(() => {
+  const textLength = props.planet.name.length
+  const baseSize = Math.max(props.planet.size, 90) // Minimum 90px
+  
+  // Responsive text sizing: more padding for longer text
+  let textPadding = 50 // Base padding
+  if (textLength > 6) {
+    textPadding += (textLength - 6) * 12 // 12px per extra character
+  } else if (textLength > 4) {
+    textPadding += (textLength - 4) * 8 // 8px per character over 4
+  }
+  
+  const calculatedSize = Math.max(baseSize, textPadding + 50)
+  
+  // Ensure minimum readable size for long names
+  if (textLength >= 10) {
+    return Math.max(calculatedSize, 140) // Minimum 140px for very long names
+  } else if (textLength >= 8) {
+    return Math.max(calculatedSize, 120) // Minimum 120px for long names
+  }
+  
+  return calculatedSize
+})
+
+// Calculate z-index based on orbit radius (outer planets on top)
+const planetZIndex = computed(() => {
+  return Math.floor(props.planet.orbitRadius / 10)
+})
+
+const handleClick = (event: Event) => {
+  event.stopPropagation()
   emit('click', props.planet.id)
 }
 
@@ -77,19 +119,28 @@ const handleMouseLeave = () => {
 </script>
 
 <style scoped>
-.planet-orbit {
+.orbit-ring {
   position: absolute;
-  border-radius: 50%;
-  animation: orbit linear infinite;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.planet-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  animation: orbit linear infinite;
 }
 
 .planet {
   position: absolute;
   top: 50%;
-  left: 0;
-  transform: translateY(-50%);
+  left: 100%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -103,7 +154,7 @@ const handleMouseLeave = () => {
 }
 
 .planet:hover {
-  transform: translateX(var(--orbit-radius)) rotate(var(--counter-rotation)) scale(1.15);
+  transform: translate(-50%, -50%) scale(1.15);
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
 }
 
@@ -115,6 +166,10 @@ const handleMouseLeave = () => {
 .planet-content {
   text-align: center;
   position: relative;
+}
+
+.counter-rotate {
+  animation: counter-rotate linear infinite;
 }
 
 .planet-icon {
@@ -182,17 +237,32 @@ const handleMouseLeave = () => {
 }
 
 @keyframes orbit {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+  0% { 
+    transform: translate(-50%, -50%) rotate(0deg); 
+  }
+  100% { 
+    transform: translate(-50%, -50%) rotate(360deg); 
+  }
+}
+
+@keyframes counter-rotate {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    transform: rotate(-360deg); 
+  }
 }
 
 @media (max-width: 768px) {
   .planet-icon {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .planet-name {
     font-size: 0.6rem;
+    line-height: 1.1;
+    padding: 0 4px;
   }
   
   .planet-tooltip {
@@ -206,6 +276,17 @@ const handleMouseLeave = () => {
   
   .planet-tooltip p {
     font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .planet-icon {
+    font-size: 1rem;
+  }
+  
+  .planet-name {
+    font-size: 0.55rem;
+    line-height: 1;
   }
 }
 </style>

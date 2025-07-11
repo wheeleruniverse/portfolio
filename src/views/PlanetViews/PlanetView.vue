@@ -85,7 +85,7 @@ const planetsData: Record<string, Planet> = {
     size: 90,
     orbitRadius: 230,
     orbitSpeed: 30,
-    startAngle: 60,
+    startAngle: 0,
     icon: '💻'
   },
   community: {
@@ -97,7 +97,7 @@ const planetsData: Record<string, Planet> = {
     size: 80,
     orbitRadius: 290,
     orbitSpeed: 35,
-    startAngle: 120,
+    startAngle: 0,
     icon: '🤝'
   },
   experience: {
@@ -109,7 +109,7 @@ const planetsData: Record<string, Planet> = {
     size: 85,
     orbitRadius: 350,
     orbitSpeed: 25,
-    startAngle: 180,
+    startAngle: 0,
     icon: '🏢'
   },
   education: {
@@ -121,7 +121,7 @@ const planetsData: Record<string, Planet> = {
     size: 70,
     orbitRadius: 410,
     orbitSpeed: 45,
-    startAngle: 240,
+    startAngle: 0,
     icon: '🎓'
   },
   projects: {
@@ -133,7 +133,7 @@ const planetsData: Record<string, Planet> = {
     size: 75,
     orbitRadius: 470,
     orbitSpeed: 38,
-    startAngle: 300,
+    startAngle: 0,
     icon: '🚀'
   }
 }
