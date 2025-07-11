@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-space-dark text-white font-space;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s ease-in-out infinite alternate;
+  }
+  
+  .star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 1px;
+    background: white;
+    box-shadow: 0 0 2px white, 0 0 4px white, 0 0 6px white;
+  }
+  
+  .planet {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  
+  .planet:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  
+  .planet-aws {
+    @apply bg-gradient-to-br from-orange-500 to-red-600;
+    width: 120px;
+    height: 120px;
+    animation: orbit 40s linear infinite;
+  }
+  
+  .planet-development {
+    @apply bg-gradient-to-br from-blue-500 to-purple-600;
+    width: 90px;
+    height: 90px;
+    animation: orbit 30s linear infinite;
+  }
+  
+  .planet-community {
+    @apply bg-gradient-to-br from-green-500 to-emerald-600;
+    width: 80px;
+    height: 80px;
+    animation: orbit 35s linear infinite;
+  }
+  
+  .planet-experience {
+    @apply bg-gradient-to-br from-yellow-500 to-orange-500;
+    width: 85px;
+    height: 85px;
+    animation: orbit 25s linear infinite;
+  }
+  
+  .planet-education {
+    @apply bg-gradient-to-br from-purple-500 to-pink-600;
+    width: 70px;
+    height: 70px;
+    animation: orbit 45s linear infinite;
+  }
+  
+  .planet-projects {
+    @apply bg-gradient-to-br from-teal-500 to-cyan-600;
+    width: 75px;
+    height: 75px;
+    animation: orbit 38s linear infinite;
+  }
+  
+  .solar-system {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .sun {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFD700, #FFA500, #FF8C00);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .orbit {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+  }
+  
+  .orbit-1 { width: 340px; height: 340px; }
+  .orbit-2 { width: 460px; height: 460px; }
+  .orbit-3 { width: 580px; height: 580px; }
+  .orbit-4 { width: 700px; height: 700px; }
+  .orbit-5 { width: 820px; height: 820px; }
+  .orbit-6 { width: 940px; height: 940px; }
+  
+  .nav-floating {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    background: rgba(75, 31, 142, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 2rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .planet-card {
+    @apply bg-space-navy border border-space-purple rounded-xl p-6 shadow-2xl;
+    backdrop-filter: blur(10px);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .section-title {
+    @apply text-3xl font-bold mb-6 text-space-gold font-orbitron;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+  
+  .btn-primary {
+    @apply bg-space-purple hover:bg-space-purple-dark text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+    box-shadow: 0 4px 15px rgba(75, 31, 142, 0.3);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(75, 31, 142, 0.4);
+  }
+}
+
+@media (max-width: 768px) {
+  .planet {
+    font-size: 0.8rem;
+  }
+  
+  .planet-aws { width: 80px; height: 80px; }
+  .planet-development { width: 60px; height: 60px; }
+  .planet-community { width: 55px; height: 55px; }
+  .planet-experience { width: 58px; height: 58px; }
+  .planet-education { width: 50px; height: 50px; }
+  .planet-projects { width: 52px; height: 52px; }
+  
+  .sun { width: 120px; height: 120px; font-size: 1rem; }
+  
+  .orbit-1 { width: 220px; height: 220px; }
+  .orbit-2 { width: 300px; height: 300px; }
+  .orbit-3 { width: 380px; height: 380px; }
+  .orbit-4 { width: 460px; height: 460px; }
+  .orbit-5 { width: 540px; height: 540px; }
+  .orbit-6 { width: 620px; height: 620px; }
+}
