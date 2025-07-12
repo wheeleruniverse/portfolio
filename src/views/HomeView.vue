@@ -2,7 +2,7 @@
   <div class="home-view">
     <section class="hero-section relative">
       <div class="container mx-auto px-4 py-20 text-center">
-        <h1 class="text-6xl md:text-8xl font-orbitron font-bold mb-6 text-space-gold">
+        <h1 class="text-6xl md:text-8xl font-brand font-bold mb-6 text-brand-gold">
           Wheeler Universe
         </h1>
         <p class="text-xl md:text-2xl mb-8 text-gray-300">
@@ -56,7 +56,7 @@ import SolarSystem from '@/components/SolarSystem/SolarSystem.vue'
 }
 
 .stat-number {
-  @apply text-2xl font-bold text-space-gold font-orbitron;
+  @apply text-2xl font-bold text-brand-gold font-brand;
 }
 
 .stat-label {

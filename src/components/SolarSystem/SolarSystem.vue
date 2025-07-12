@@ -1,10 +1,15 @@
 <template>
   <section class="solar-system-container">
-    <div class="solar-system" ref="solarSystemRef">
-      <!-- Central Sun -->
+    <div class="solar-system" ref="solarSystemRef" :class="{ 'bottom-sheet-active': !!hoveredPlanet }">
+      <!-- Central Sun with Brand Logo -->
       <div class="sun">
-        <div class="sun-text">
-          Wheeler<br>Universe
+        <div class="brand-logo">
+          <img 
+            src="/brand/logo-03.jpg" 
+            alt="Wheeler Universe Logo" 
+            class="logo-image"
+          />
+          <div class="solar-flares"></div>
         </div>
       </div>
       
@@ -14,6 +19,7 @@
         :key="planet.id"
         :planet="planet"
         @click="navigateToPlanet(planet.id)"
+        @hover="handlePlanetHover"
       />
     </div>
     
@@ -24,19 +30,29 @@
       @close="selectedPlanet = null"
       @navigate="navigateToPlanet"
     />
+    
+    <!-- Bottom Sheet for Planet Info -->
+    <BottomSheet
+      :planet="hoveredPlanet"
+      :is-visible="!!hoveredPlanet"
+      @navigate="navigateToPlanet"
+    />
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Planet } from '@/types'
 import PlanetComponent from './PlanetComponent.vue'
 import PlanetInfoModal from './PlanetInfoModal.vue'
+import BottomSheet from './BottomSheet.vue'
 
 const router = useRouter()
 const solarSystemRef = ref<HTMLElement>()
 const selectedPlanet = ref<Planet | null>(null)
+const hoveredPlanet = ref<Planet | null>(null)
+let hoverTimeout: NodeJS.Timeout | null = null
 
 const planets = ref<Planet[]>([
   {
@@ -113,12 +129,37 @@ const planets = ref<Planet[]>([
   }
 ])
 
+const handlePlanetHover = (planet: Planet | null) => {
+  // Clear any existing timeout
+  if (hoverTimeout) {
+    clearTimeout(hoverTimeout)
+    hoverTimeout = null
+  }
+  
+  if (planet) {
+    // Immediately show on hover
+    hoveredPlanet.value = planet
+  } else {
+    // Delay hiding to prevent flicker
+    hoverTimeout = setTimeout(() => {
+      hoveredPlanet.value = null
+    }, 200) // 200ms delay before hiding
+  }
+}
+
 const navigateToPlanet = (planetId: string) => {
   router.push(`/planet/${planetId}`)
 }
 
 onMounted(() => {
   // Add any initialization logic here
+})
+
+onUnmounted(() => {
+  // Clean up timeout
+  if (hoverTimeout) {
+    clearTimeout(hoverTimeout)
+  }
 })
 </script>
 
