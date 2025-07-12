@@ -1,5 +1,5 @@
 <template>
-  <section class="solar-system-container">
+  <section class="solar-system-container" :class="{ 'system-frozen': isSystemFrozen }">
     <div class="solar-system" ref="solarSystemRef">
       <!-- Central Brand Logo -->
       <div class="sun">
@@ -16,6 +16,7 @@
         :key="planet.id"
         :planet="planet"
         @click="navigateToPlanet(planet.id)"
+        @hover="handlePlanetHover"
       />
     </div>
     
@@ -39,6 +40,7 @@ import PlanetInfoModal from './PlanetInfoModal.vue'
 const router = useRouter()
 const solarSystemRef = ref<HTMLElement>()
 const selectedPlanet = ref<Planet | null>(null)
+const isSystemFrozen = ref(false)
 
 const planets = ref<Planet[]>([
   {
@@ -119,6 +121,10 @@ const navigateToPlanet = (planetId: string) => {
   router.push(`/planet/${planetId}`)
 }
 
+const handlePlanetHover = (isHovered: boolean) => {
+  isSystemFrozen.value = isHovered
+}
+
 onMounted(() => {
   // Add any initialization logic here
 })
@@ -131,6 +137,44 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.system-frozen {
+  background: radial-gradient(circle at center, 
+    rgba(135, 206, 250, 0.05) 0%, 
+    rgba(0, 191, 255, 0.03) 30%, 
+    rgba(30, 144, 255, 0.02) 60%, 
+    rgba(25, 25, 112, 0.01) 100%);
+}
+
+.system-frozen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, 
+    transparent 0%, 
+    rgba(135, 206, 250, 0.03) 20%, 
+    rgba(0, 191, 255, 0.02) 40%, 
+    transparent 70%);
+  animation: freeze-atmosphere 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes freeze-atmosphere {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
 }
 
 .sun-text {

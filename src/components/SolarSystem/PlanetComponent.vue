@@ -12,6 +12,7 @@
   <!-- Planet on Orbit -->
   <div 
     class="planet-container"
+    :class="{ 'frozen': showTooltip }"
     :style="{ 
       width: `${planet.orbitRadius * 2}px`, 
       height: `${planet.orbitRadius * 2}px`,
@@ -21,7 +22,10 @@
   >
     <div
       class="planet"
-      :class="`bg-gradient-to-br ${planet.color}`"
+      :class="[
+        `bg-gradient-to-br ${planet.color}`,
+        { 'planet-frozen': showTooltip }
+      ]"
       :style="{ 
         width: `${planetSize}px`, 
         height: `${planetSize}px`,
@@ -70,6 +74,7 @@ interface Props {
 const props = defineProps<Props>()
 const emit = defineEmits<{
   click: [planetId: string]
+  hover: [isHovered: boolean]
 }>()
 
 const showTooltip = ref(false)
@@ -111,10 +116,12 @@ const handleClick = (event: Event) => {
 
 const handleMouseEnter = () => {
   showTooltip.value = true
+  emit('hover', true)
 }
 
 const handleMouseLeave = () => {
   showTooltip.value = false
+  emit('hover', false)
 }
 </script>
 
@@ -134,6 +141,11 @@ const handleMouseLeave = () => {
   top: 50%;
   left: 50%;
   animation: orbit linear infinite;
+  transition: animation-play-state 0.3s ease;
+}
+
+.planet-container.frozen {
+  animation-play-state: paused;
 }
 
 .planet {
@@ -156,6 +168,20 @@ const handleMouseLeave = () => {
 .planet:hover {
   transform: translate(-50%, -50%) scale(1.15);
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+.planet-frozen {
+  animation: freeze-pulse 2s ease-in-out infinite;
+  box-shadow: 
+    0 0 20px rgba(135, 206, 250, 0.6),
+    0 0 40px rgba(0, 191, 255, 0.4),
+    0 0 60px rgba(30, 144, 255, 0.3),
+    inset 0 0 20px rgba(135, 206, 250, 0.2);
+  border: 2px solid rgba(135, 206, 250, 0.5);
+}
+
+.planet-frozen .counter-rotate {
+  animation-play-state: paused;
 }
 
 .planet:focus {
@@ -251,6 +277,25 @@ const handleMouseLeave = () => {
   }
   100% { 
     transform: rotate(-360deg); 
+  }
+}
+
+@keyframes freeze-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(135, 206, 250, 0.6),
+      0 0 40px rgba(0, 191, 255, 0.4),
+      0 0 60px rgba(30, 144, 255, 0.3),
+      inset 0 0 20px rgba(135, 206, 250, 0.2);
+    border-color: rgba(135, 206, 250, 0.5);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(135, 206, 250, 0.8),
+      0 0 60px rgba(0, 191, 255, 0.6),
+      0 0 90px rgba(30, 144, 255, 0.5),
+      inset 0 0 30px rgba(135, 206, 250, 0.4);
+    border-color: rgba(135, 206, 250, 0.8);
   }
 }
 
