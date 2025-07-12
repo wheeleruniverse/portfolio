@@ -21,6 +21,7 @@
     }"
   >
     <div
+      ref="planetRef"
       class="planet"
       :class="[
         `bg-gradient-to-br ${planet.color}`,
@@ -50,21 +51,12 @@
         <div class="planet-name">{{ planet.name }}</div>
       </div>
       
-      <!-- Tooltip -->
-      <div
-        v-if="showTooltip"
-        class="planet-tooltip"
-        :class="{ 'show': showTooltip }"
-      >
-        <h3>{{ planet.title }}</h3>
-        <p>{{ planet.description }}</p>
-      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import type { Planet } from '@/types'
 
 interface Props {
@@ -75,9 +67,11 @@ const props = defineProps<Props>()
 const emit = defineEmits<{
   click: [planetId: string]
   hover: [isHovered: boolean]
+  tooltip: [data: { show: boolean; planet: Planet; x: number; y: number } | null]
 }>()
 
 const showTooltip = ref(false)
+const planetRef = ref<HTMLElement>()
 
 // Calculate planet size based on text length and minimum size
 const planetSize = computed(() => {
@@ -114,14 +108,33 @@ const handleClick = (event: Event) => {
   emit('click', props.planet.id)
 }
 
+const getTooltipPosition = () => {
+  if (!planetRef.value) return { x: 0, y: 0 }
+  
+  const rect = planetRef.value.getBoundingClientRect()
+  return {
+    x: rect.left + rect.width / 2,
+    y: rect.top
+  }
+}
+
 const handleMouseEnter = () => {
   showTooltip.value = true
   emit('hover', true)
+  
+  const position = getTooltipPosition()
+  emit('tooltip', {
+    show: true,
+    planet: props.planet,
+    x: position.x,
+    y: position.y
+  })
 }
 
 const handleMouseLeave = () => {
   showTooltip.value = false
   emit('hover', false)
+  emit('tooltip', null)
 }
 </script>
 
@@ -210,57 +223,6 @@ const handleMouseLeave = () => {
   letter-spacing: 0.5px;
 }
 
-.planet-tooltip {
-  position: absolute;
-  top: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 10;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  min-width: 200px;
-  white-space: normal;
-}
-
-.planet-tooltip.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.planet-tooltip h3 {
-  margin: 0 0 0.25rem 0;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #FFD700;
-}
-
-.planet-tooltip p {
-  margin: 0;
-  font-size: 0.75rem;
-  color: #ccc;
-}
-
-.planet-tooltip::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.9);
-}
 
 @keyframes orbit {
   0% { 
@@ -310,18 +272,6 @@ const handleMouseLeave = () => {
     padding: 0 4px;
   }
   
-  .planet-tooltip {
-    min-width: 150px;
-    font-size: 0.75rem;
-  }
-  
-  .planet-tooltip h3 {
-    font-size: 0.8rem;
-  }
-  
-  .planet-tooltip p {
-    font-size: 0.7rem;
-  }
 }
 
 @media (max-width: 480px) {

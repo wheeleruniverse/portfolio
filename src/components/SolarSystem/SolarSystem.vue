@@ -17,9 +17,26 @@
         :planet="planet"
         @click="navigateToPlanet(planet.id)"
         @hover="handlePlanetHover"
+        @tooltip="handleTooltip"
       />
     </div>
     
+    <!-- Floating Tooltip -->
+    <div
+      v-if="tooltipData"
+      class="floating-tooltip"
+      :style="{
+        left: `${tooltipData.x}px`,
+        top: `${tooltipData.y - 20}px`
+      }"
+    >
+      <div class="tooltip-content">
+        <h3>{{ tooltipData.planet.title }}</h3>
+        <p>{{ tooltipData.planet.description }}</p>
+      </div>
+      <div class="tooltip-arrow"></div>
+    </div>
+
     <!-- Planet Info Modal -->
     <PlanetInfoModal
       v-if="selectedPlanet"
@@ -41,6 +58,7 @@ const router = useRouter()
 const solarSystemRef = ref<HTMLElement>()
 const selectedPlanet = ref<Planet | null>(null)
 const isSystemFrozen = ref(false)
+const tooltipData = ref<{ show: boolean; planet: Planet; x: number; y: number } | null>(null)
 
 const planets = ref<Planet[]>([
   {
@@ -125,6 +143,10 @@ const handlePlanetHover = (isHovered: boolean) => {
   isSystemFrozen.value = isHovered
 }
 
+const handleTooltip = (data: { show: boolean; planet: Planet; x: number; y: number } | null) => {
+  tooltipData.value = data
+}
+
 onMounted(() => {
   // Add any initialization logic here
 })
@@ -177,6 +199,65 @@ onMounted(() => {
   }
 }
 
+.floating-tooltip {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: tooltip-appear 0.3s ease;
+}
+
+.tooltip-content {
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(135, 206, 250, 0.3);
+  max-width: 280px;
+  text-align: center;
+}
+
+.tooltip-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FFD700;
+  font-family: 'Orbitron', monospace;
+}
+
+.tooltip-content p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #e5e5e5;
+  line-height: 1.4;
+}
+
+.tooltip-arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid rgba(0, 0, 0, 0.95);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes tooltip-appear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 .sun-text {
   text-align: center;
   line-height: 1.2;
@@ -185,6 +266,19 @@ onMounted(() => {
 @media (max-width: 768px) {
   .solar-system-container {
     padding: 1rem;
+  }
+  
+  .tooltip-content {
+    max-width: 220px;
+    padding: 0.75rem 1rem;
+  }
+  
+  .tooltip-content h3 {
+    font-size: 0.9rem;
+  }
+  
+  .tooltip-content p {
+    font-size: 0.8rem;
   }
 }
 </style>
