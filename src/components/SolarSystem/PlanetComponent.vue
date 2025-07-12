@@ -114,7 +114,7 @@ const getTooltipPosition = () => {
   const rect = planetRef.value.getBoundingClientRect()
   return {
     x: rect.left + rect.width / 2,
-    y: rect.top
+    y: rect.top - 56
   }
 }
 
