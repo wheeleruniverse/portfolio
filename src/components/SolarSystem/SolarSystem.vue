@@ -1,11 +1,13 @@
 <template>
   <section class="solar-system-container">
     <div class="solar-system" ref="solarSystemRef">
-      <!-- Central Sun -->
+      <!-- Central Brand Logo -->
       <div class="sun">
-        <div class="sun-text">
-          Wheeler<br>Universe
-        </div>
+        <img 
+          src="/wheeleruniverse-logo.jpg" 
+          alt="Wheeler Universe" 
+          class="brand-logo"
+        />
       </div>
       
       <!-- Planets (each creates its own orbit ring) -->
