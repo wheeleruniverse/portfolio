@@ -148,7 +148,7 @@ const handleTooltip = (data: { show: boolean; planet: Planet; x: number; y: numb
 }
 
 onMounted(() => {
-  // Add any initialization logic here
+  // Initialization complete
 })
 </script>
 
@@ -258,10 +258,6 @@ onMounted(() => {
   }
 }
 
-.sun-text {
-  text-align: center;
-  line-height: 1.2;
-}
 
 @media (max-width: 768px) {
   .solar-system-container {
