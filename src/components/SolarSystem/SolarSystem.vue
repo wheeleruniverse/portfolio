@@ -10,6 +10,16 @@
         />
       </div>
       
+      <!-- Loading state -->
+      <div v-if="isLoading" class="loading-message">
+        Loading planets...
+      </div>
+
+      <!-- Error state -->
+      <div v-if="error" class="error-message">
+        Error loading planets: {{ error }}
+      </div>
+
       <!-- Planets (each creates its own orbit ring) -->
       <PlanetComponent
         v-for="planet in planets"
@@ -48,92 +58,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Planet } from '@/types'
 import PlanetComponent from './PlanetComponent.vue'
 import PlanetInfoModal from './PlanetInfoModal.vue'
-
 const router = useRouter()
 const solarSystemRef = ref<HTMLElement>()
 const selectedPlanet = ref<Planet | null>(null)
 const isSystemFrozen = ref(false)
 const tooltipData = ref<{ show: boolean; planet: Planet; x: number; y: number } | null>(null)
 
-const planets = ref<Planet[]>([
-  {
-    id: 'aws',
-    name: 'AWS',
-    title: 'Cloud Expertise',
-    description: 'Explore my AWS certifications and cloud computing skills',
-    color: 'from-orange-500 to-red-600',
-    size: 120,
-    orbitRadius: 170,
-    orbitSpeed: 40,
-    startAngle: 0,
-    icon: '☁️'
-  },
-  {
-    id: 'development',
-    name: 'Development',
-    title: 'Code & Technologies',
-    description: 'Discover my programming languages and development expertise',
-    color: 'from-blue-500 to-purple-600',
-    size: 90,
-    orbitRadius: 230,
-    orbitSpeed: 30,
-    startAngle: 60,
-    icon: '💻'
-  },
-  {
-    id: 'community',
-    name: 'Community',
-    title: 'Building & Contributing',
-    description: 'Learn about my community involvement and contributions',
-    color: 'from-green-500 to-emerald-600',
-    size: 80,
-    orbitRadius: 290,
-    orbitSpeed: 35,
-    startAngle: 120,
-    icon: '🤝'
-  },
-  {
-    id: 'experience',
-    name: 'Experience',
-    title: 'Professional Journey',
-    description: 'View my work history and professional achievements',
-    color: 'from-yellow-500 to-orange-500',
-    size: 85,
-    orbitRadius: 350,
-    orbitSpeed: 25,
-    startAngle: 180,
-    icon: '🏢'
-  },
-  {
-    id: 'education',
-    name: 'Education',
-    title: 'Learning & Growth',
-    description: 'Explore my educational background and continuous learning',
-    color: 'from-purple-500 to-pink-600',
-    size: 70,
-    orbitRadius: 410,
-    orbitSpeed: 45,
-    startAngle: 240,
-    icon: '🎓'
-  },
-  {
-    id: 'projects',
-    name: 'Projects',
-    title: 'Portfolio & Work',
-    description: 'Browse my projects and development portfolio',
-    color: 'from-teal-500 to-cyan-600',
-    size: 75,
-    orbitRadius: 470,
-    orbitSpeed: 38,
-    startAngle: 300,
-    icon: '🚀'
-  }
-])
+const planets = ref<Planet[]>([])
+const isLoading = ref(true)
+const error = ref<string | null>(null)
 
 const navigateToPlanet = (planetId: string) => {
   router.push(`/planet/${planetId}`)
@@ -154,8 +92,28 @@ const handleTooltip = (data: { show: boolean; planet: Planet; x: number; y: numb
   tooltipData.value = data
 }
 
+const loadPlanetsData = async () => {
+  try {
+    isLoading.value = true
+    error.value = null
+    
+    const response = await fetch('/portfolio-config.json')
+    if (!response.ok) {
+      throw new Error(`Failed to load config: ${response.statusText}`)
+    }
+    
+    const config = await response.json()
+    planets.value = config.planets || []
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Failed to load planets'
+    console.error('Error loading planets:', err)
+  } finally {
+    isLoading.value = false
+  }
+}
+
 onMounted(() => {
-  // Initialization complete
+  loadPlanetsData()
 })
 </script>
 
@@ -265,6 +223,20 @@ onMounted(() => {
   }
 }
 
+
+.loading-message, .error-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  font-family: 'Orbitron', monospace;
+}
+
+.error-message {
+  color: #ff6b6b;
+}
 
 @media (max-width: 768px) {
   .solar-system-container {

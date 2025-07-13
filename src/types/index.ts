@@ -55,5 +55,6 @@ export interface SocialLink {
   platform: string
   url: string
   icon: string
+  iconType?: 'svg' | 'emoji'
   label: string
 }

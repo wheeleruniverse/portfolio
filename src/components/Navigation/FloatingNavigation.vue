@@ -22,7 +22,12 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          {{ link.icon }}
+          <span 
+            v-if="link.iconType === 'svg'" 
+            class="nav-icon-svg"
+            v-html="link.icon"
+          ></span>
+          <span v-else class="nav-icon-emoji">{{ link.icon }}</span>
         </a>
       </div>
       
@@ -43,42 +48,16 @@
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { SocialLink } from '@/types'
+import { usePortfolioConfig, getSocialLinks, getBrandAssets } from '@/composables/usePortfolioConfig'
 
 const route = useRoute()
 const router = useRouter()
 
 const currentRoute = computed(() => route.name)
+const { config, isLoading, error } = usePortfolioConfig()
 
-const socialLinks: SocialLink[] = [
-  {
-    id: 'github',
-    platform: 'GitHub',
-    url: 'https://github.com/justin-wheeler',
-    icon: '🐙',
-    label: 'GitHub Profile'
-  },
-  {
-    id: 'linkedin',
-    platform: 'LinkedIn',
-    url: 'https://linkedin.com/in/justin-wheeler',
-    icon: '💼',
-    label: 'LinkedIn Profile'
-  },
-  {
-    id: 'blog',
-    platform: 'Blog',
-    url: 'https://wheeleruniverse.netlify.app',
-    icon: '📝',
-    label: 'Personal Blog'
-  },
-  {
-    id: 'linktree',
-    platform: 'Linktree',
-    url: 'https://linktr.ee/justinwheeler',
-    icon: '🔗',
-    label: 'All Links'
-  }
-]
+const socialLinks = computed(() => getSocialLinks())
+const brandAssets = computed(() => getBrandAssets())
 
 const goHome = () => {
   router.push('/')
@@ -86,7 +65,7 @@ const goHome = () => {
 
 const downloadResume = () => {
   // This would link to your actual resume file
-  window.open('/resume.pdf', '_blank')
+  window.open(brandAssets.value?.resume || '/resume.pdf', '_blank')
 }
 </script>
 
@@ -131,6 +110,24 @@ const downloadResume = () => {
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
+}
+
+.nav-icon-svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon-svg svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.nav-icon-emoji {
+  font-size: 1.2rem;
 }
 
 .nav-button:focus,

@@ -3,6 +3,23 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
+    "./public/portfolio-config.json",
+  ],
+  safelist: [
+    // Planet gradient classes
+    'bg-gradient-to-br',
+    'from-orange-500',
+    'to-red-600',
+    'from-blue-500', 
+    'to-purple-600',
+    'from-green-500',
+    'to-emerald-600',
+    'from-yellow-500',
+    'to-orange-500',
+    'from-purple-500',
+    'to-pink-600',
+    'from-teal-500',
+    'to-cyan-600',
   ],
   theme: {
     extend: {
