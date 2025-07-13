@@ -15,7 +15,7 @@
         v-for="planet in planets"
         :key="planet.id"
         :planet="planet"
-        @click="navigateToPlanet(planet.id)"
+        @click="handlePlanetClick"
         @hover="handlePlanetHover"
         @tooltip="handleTooltip"
       />
@@ -137,6 +137,13 @@ const planets = ref<Planet[]>([
 
 const navigateToPlanet = (planetId: string) => {
   router.push(`/planet/${planetId}`)
+}
+
+const handlePlanetClick = (planetId: string) => {
+  const planet = planets.value.find(p => p.id === planetId)
+  if (planet) {
+    selectedPlanet.value = planet
+  }
 }
 
 const handlePlanetHover = (isHovered: boolean) => {
