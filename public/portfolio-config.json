@@ -118,20 +118,193 @@
   ],
   "certifications": [
     {
-      "id": "aws-saa",
-      "name": "AWS Certified Solutions Architect - Associate",
+      "id": "8DJLFE6CN2441GCQ",
+      "name": "AWS Certified DevOps Engineer - Professional",
+      "vendor": "AWS",
+      "level": "Professional",
       "issuer": "Amazon Web Services",
-      "date": "2023",
-      "credlyUrl": "https://credly.com/badges/your-badge-id",
-      "description": "Demonstrates knowledge of AWS services and ability to design distributed systems"
+      "issueDate": "2020-07-07",
+      "expiryDate": "2027-04-22",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/17cd3344-51e1-48a1-863c-a6a247f11cb3"
     },
     {
-      "id": "aws-ccp",
+      "id": "F9T6LYBL2BF4QC50",
+      "name": "AWS Certified Solutions Architect - Professional",
+      "vendor": "AWS",
+      "level": "Professional",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2020-12-09",
+      "expiryDate": "2027-04-23",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/9f353032-3112-48ee-a34b-80f6790380ca"
+    },
+    {
+      "id": "28BC3BDJ3F4E16G4",
+      "name": "AWS Certified Advanced Networking - Specialty",
+      "vendor": "AWS",
+      "level": "Specialty",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2021-11-01",
+      "expiryDate": "2027-04-24",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/56b6acf9-62e3-4bd9-a993-83d28e39feee"
+    },
+    {
+      "id": "L622V9QJEJ41135K",
+      "name": "AWS Certified Data Analytics - Specialty",
+      "vendor": "AWS",
+      "level": "Specialty",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2021-08-26",
+      "expiryDate": "2027-04-08",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/2124da95-3f71-4611-bd89-260cfc6185f1"
+    },
+    {
+      "id": "9GLXQ97C32QQ1699",
+      "name": "AWS Certified Database - Specialty",
+      "vendor": "AWS",
+      "level": "Specialty",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2020-01-03",
+      "expiryDate": "2027-04-29",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/a6bcd782-d71d-49e3-ab1c-75f35a6a82ef"
+    },
+    {
+      "id": "EH1KSN0BEFEQ15K6",
+      "name": "AWS Certified Machine Learning - Specialty",
+      "vendor": "AWS",
+      "level": "Specialty",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2022-03-07",
+      "expiryDate": "2027-04-25",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/74119fdc-e4e8-4ca4-aebd-7ac4b09876a4"
+    },
+    {
+      "id": "BE4LVD0DHNEQ10WL",
+      "name": "AWS Certified SAP on AWS - Specialty",
+      "vendor": "AWS",
+      "level": "Specialty",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2022-05-19",
+      "expiryDate": "2027-04-29",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/e82e27db-fd2f-46ea-89e2-49475b8e4cce"
+    },
+    {
+      "id": "KX5PP7EKG2V11WSR",
+      "name": "AWS Certified Security - Specialty",
+      "vendor": "AWS",
+      "level": "Specialty",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2019-10-17",
+      "expiryDate": "2027-04-27",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/103c20d6-e118-4225-bce5-5387eb72a5cf"
+    },
+    {
+      "id": "3ee3a9bae9334a4f9adfac05c7ec9350",
+      "name": "AWS Certified Data Engineer - Associate",
+      "vendor": "AWS",
+      "level": "Associate",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2024-02-13",
+      "expiryDate": "2027-02-13",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/e7e0c994-83e0-4e9a-8da3-c7765998ef1c"
+    },
+    {
+      "id": "KNVXP1W2LFF4QFKS",
+      "name": "AWS Certified Developer - Associate",
+      "vendor": "AWS",
+      "level": "Associate",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2018-06-05",
+      "expiryDate": "2027-04-22",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/e5ac3564-da19-46f7-a633-93e26eca220b"
+    },
+    {
+      "id": "74ce817083ae4f978e622830d3e31883",
+      "name": "AWS Certified Machine Learning Engineer - Associate",
+      "vendor": "AWS",
+      "level": "Associate",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2024-10-28",
+      "expiryDate": "2027-10-28",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/532158ae-1735-4d93-b518-8ba23b4bc5d8"
+    },
+    {
+      "id": "6JGG02H2CJREQFC8",
+      "name": "AWS Certified Solutions Architect - Associate",
+      "vendor": "AWS",
+      "level": "Associate",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2018-01-03",
+      "expiryDate": "2027-04-23",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/74692299-3426-4cf3-9545-2fb87a68d1e6"
+    },
+    {
+      "id": "K591NJZ222R1QFWL",
+      "name": "AWS Certified SysOps Administrator - Associate",
+      "vendor": "AWS",
+      "level": "Associate",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2018-12-27",
+      "expiryDate": "2027-04-22",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/9f6d51ee-6b66-4aeb-b376-17bf220271e4"
+    },
+    {
+      "id": "98c94e009ee947b3a5a6025aa832009c",
+      "name": "AWS Certified AI Practitioner",
+      "vendor": "AWS",
+      "level": "Foundational",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2024-10-02",
+      "expiryDate": "2027-10-28",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/f1e77e46-ca99-4038-9613-24aa4b737340"
+    },
+    {
+      "id": "R9P1ZDJC2BEE1LS4",
       "name": "AWS Certified Cloud Practitioner",
-      "issuer": "Amazon Web Services", 
-      "date": "2022",
-      "credlyUrl": "https://credly.com/badges/your-badge-id",
-      "description": "Foundational understanding of AWS cloud concepts and services"
+      "vendor": "AWS",
+      "level": "Foundational",
+      "issuer": "Amazon Web Services",
+      "issueDate": "2018-12-19",
+      "expiryDate": "2027-10-28",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/a4e227ba-b14b-4789-a2ea-ff695b8e29ee"
+    },
+    {
+      "id": "LF-am8711ob2h",
+      "name": "Kubernetes and Cloud Native Associate",
+      "vendor": "CNCF",
+      "level": "Foundational",
+      "issuer": "Cloud Native Computing Foundation",
+      "issueDate": "2022-11-12",
+      "expiryDate": "2025-11-12",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/af4e7eee-0fa1-4b33-95a1-50f1752f93bd"
+    },
+    {
+      "id": "16b6b09c-1707-429b-ad24-ff9c9de55c54",
+      "name": "Google Cloud Digital Leader",
+      "vendor": "GCP",
+      "level": "Foundational",
+      "issuer": "Google Cloud",
+      "issueDate": "2021-06-25",
+      "expiryDate": "2027-06-24",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/16b6b09c-1707-429b-ad24-ff9c9de55c54"
+    },
+    {
+      "id": "H478-5093",
+      "name": "Microsoft Azure Fundamentals",
+      "vendor": "Microsoft",
+      "level": "Foundational",
+      "issuer": "Microsoft",
+      "issueDate": "2020-01-30",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/fd818252-d9d3-40d0-95ab-d395756d51ab"
+    },
+    {
+      "id": "57495344-8244",
+      "name": "Certified SAFe 5 Practitioner",
+      "vendor": "Scaled Agile",
+      "level": "Foundational",
+      "issuer": "Scaled Agile, Inc.",
+      "issueDate": "2020-09-24",
+      "expiryDate": "2021-09-23",
+      "credlyUrl": "https://www.credly.com/earner/earned/badge/f86116d6-df91-4cc6-b11c-7d2711d34b21"
     }
   ],
   "experience": [

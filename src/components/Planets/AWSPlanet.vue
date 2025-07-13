@@ -49,7 +49,9 @@
           <div class="cert-content">
             <h4 class="cert-name">{{ cert.name }}</h4>
             <p class="cert-issuer">{{ cert.issuer }}</p>
-            <p class="cert-date">{{ cert.date }}</p>
+            <p class="cert-level">{{ cert.level }}</p>
+            <p class="cert-date">Issued: {{ cert.issueDate }}</p>
+            <p class="cert-expiry" v-if="cert.expiryDate">Expires: {{ cert.expiryDate }}</p>
             <a
               v-if="cert.credlyUrl"
               :href="cert.credlyUrl"
@@ -124,7 +126,8 @@ const loadCertifications = async () => {
     }
     
     const config = await response.json()
-    certifications.value = config.certifications || []
+    // Filter for AWS certifications only
+    certifications.value = (config.certifications || []).filter((cert: any) => cert.vendor === 'AWS')
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to load certifications'
     console.error('Error loading certifications:', err)
@@ -314,9 +317,20 @@ const cloudJourney = ref([
   margin-bottom: 0.25rem;
 }
 
-.cert-date {
+.cert-level {
+  color: #FFD700;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.cert-date, .cert-expiry {
   font-size: 0.8rem;
   color: #999;
+  margin-bottom: 0.25rem;
+}
+
+.cert-expiry {
   margin-bottom: 0.5rem;
 }
 

@@ -14,8 +14,11 @@ export interface Planet {
 export interface Certification {
   id: string
   name: string
+  vendor: string
+  level: string
   issuer: string
-  date: string
+  issueDate: string
+  expiryDate?: string
   credlyUrl?: string
   badge?: string
 }
