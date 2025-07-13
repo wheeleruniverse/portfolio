@@ -98,9 +98,11 @@ const planetSize = computed(() => {
   return calculatedSize
 })
 
-// Calculate z-index based on orbit radius (outer planets on top)
+// Calculate z-index based on orbit radius (inner planets on top for clickability)
 const planetZIndex = computed(() => {
-  return Math.floor(props.planet.orbitRadius / 10)
+  // Reverse z-index: smaller orbit radius = higher z-index
+  // Max orbit is 470, so we use 50 - (radius/10) to reverse the order
+  return Math.floor(50 - (props.planet.orbitRadius / 10))
 })
 
 const handleClick = (event: Event) => {
@@ -155,6 +157,7 @@ const handleMouseLeave = () => {
   left: 50%;
   animation: orbit linear infinite;
   transition: animation-play-state 0.3s ease;
+  pointer-events: none;
 }
 
 .planet-container.frozen {
@@ -176,6 +179,7 @@ const handleMouseLeave = () => {
   font-weight: 600;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  pointer-events: auto;
 }
 
 .planet:hover {
