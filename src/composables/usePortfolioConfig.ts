@@ -16,6 +16,7 @@ interface PortfolioConfig {
     platform: string
     url: string
     icon: string
+    iconType: 'emoji' | 'svg'
     label: string
   }>
   planets: Planet[]
@@ -93,9 +94,8 @@ const loadConfig = async (): Promise<void> => {
       if (!response.ok) {
         throw new Error(`Failed to load portfolio config: ${response.statusText}`)
       }
-      
-      const data = await response.json()
-      config.value = data
+
+      config.value = await response.json()
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Failed to load portfolio configuration'
       console.error('Error loading portfolio config:', err)
@@ -122,13 +122,6 @@ export const usePortfolioConfig = () => {
 }
 
 // Helper functions to get specific data
-export const getPersonalInfo = () => config.value?.personal
 export const getSocialLinks = () => config.value?.social || []
 export const getPlanets = () => config.value?.planets || []
-export const getCertifications = () => config.value?.certifications || []
-export const getExperience = () => config.value?.experience || []
-export const getProjects = () => config.value?.projects || []
-export const getSkills = () => config.value?.skills
-export const getEducation = () => config.value?.education || []
-export const getCommunity = () => config.value?.community || []
 export const getBrandAssets = () => config.value?.brand

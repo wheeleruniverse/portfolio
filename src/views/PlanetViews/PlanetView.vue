@@ -61,7 +61,7 @@ interface Props {
 
 const props = defineProps<Props>()
 const route = useRoute()
-const { config, isLoading, error } = usePortfolioConfig()
+usePortfolioConfig();
 
 const planetId = computed(() => props.id || route.params.id as string)
 

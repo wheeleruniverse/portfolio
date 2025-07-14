@@ -47,14 +47,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { SocialLink } from '@/types'
 import { usePortfolioConfig, getSocialLinks, getBrandAssets } from '@/composables/usePortfolioConfig'
 
 const route = useRoute()
 const router = useRouter()
 
 const currentRoute = computed(() => route.name)
-const { config, isLoading, error } = usePortfolioConfig()
+usePortfolioConfig();
 
 const socialLinks = computed(() => getSocialLinks())
 const brandAssets = computed(() => getBrandAssets())
