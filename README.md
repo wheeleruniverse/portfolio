@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c182530f-a9a3-4ad8-a713-364fde4f8443/deploy-status)](https://app.netlify.com/projects/wheeleruniverse-blog/deploys)
+
 # Wheeler Universe Portfolio
 
 A modern, interactive space-themed portfolio website showcasing Justin Wheeler's professional journey through the cosmos of cloud expertise, development skills, and community contributions.
