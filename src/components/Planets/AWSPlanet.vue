@@ -106,6 +106,35 @@
           </div>
         </div>
       </div>
+      
+      <!-- Service Usage Statistics -->
+      <div v-if="!isLoading && !error && serviceUsageStats.length > 0" class="service-usage-section">
+        <h4 class="usage-title">Most Used AWS Services</h4>
+        <p class="usage-description">
+          Based on {{ awsProjects.length }} AWS projects in my portfolio
+        </p>
+        <div class="usage-chart">
+          <div
+            v-for="(stat, index) in serviceUsageStats"
+            :key="stat.service"
+            class="usage-bar-container"
+          >
+            <div class="usage-bar-info">
+              <span class="service-name">{{ stat.service }}</span>
+              <span class="service-count">{{ stat.count }}</span>
+            </div>
+            <div class="usage-bar-track">
+              <div 
+                class="usage-bar"
+                :style="{ 
+                  width: `${(stat.count / serviceUsageStats[0].count) * 100}%`,
+                  '--bar-delay': `${index * 100}ms`
+                }"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="cloud-journey">
@@ -135,6 +164,7 @@ import type { Certification, Project } from '@/types'
 const router = useRouter()
 const certifications = ref<Certification[]>([])
 const awsProjects = ref<Project[]>([])
+const serviceUsageStats = ref<Array<{service: string, count: number}>>([])
 const isLoading = ref(true)
 const error = ref<string | null>(null)
 
@@ -158,6 +188,9 @@ const loadData = async () => {
         tech.startsWith('AWS') || tech.startsWith('Amazon')
       )
     })
+    
+    // Calculate service usage statistics
+    calculateServiceUsage()
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to load data'
     console.error('Error loading data:', err)
@@ -166,10 +199,33 @@ const loadData = async () => {
   }
 }
 
+const calculateServiceUsage = () => {
+  const serviceCount: Record<string, number> = {}
+  
+  awsProjects.value.forEach(project => {
+    const awsServices = filterAWSServices(project.technologies)
+    awsServices.forEach(service => {
+      serviceCount[service] = (serviceCount[service] || 0) + 1
+    })
+  })
+  
+  // Convert to array and sort by count (descending), then by name (ascending)
+  serviceUsageStats.value = Object.entries(serviceCount)
+    .map(([service, count]) => ({ service, count }))
+    .sort((a, b) => {
+      if (b.count !== a.count) {
+        return b.count - a.count // Sort by count descending
+      }
+      return a.service.localeCompare(b.service) // Then by name ascending
+    })
+    .slice(0, 10) // Top 10 services
+}
+
 const filterAWSServices = (technologies: string[]) => {
   return technologies
     .filter(tech => tech.startsWith('AWS') || tech.startsWith('Amazon'))
     .map(tech => tech.replace(/^(AWS |Amazon )/, ''))
+    .sort()
 }
 
 const navigateToProject = (projectId: string) => {
@@ -431,6 +487,90 @@ const cloudJourney = ref([
   font-size: 0.9rem;
   font-weight: 500;
   opacity: 0.8;
+}
+
+.service-usage-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.usage-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #FFD700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.usage-description {
+  text-align: center;
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.usage-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.usage-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.usage-bar-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.service-name {
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.service-count {
+  background: rgba(255, 215, 0, 0.2);
+  color: #FFD700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  min-width: 30px;
+  text-align: center;
+}
+
+.usage-bar-track {
+  background: rgba(255, 255, 255, 0.1);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.usage-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  border-radius: 4px;
+  transition: width 1s ease-out;
+  animation: slideIn 1s ease-out var(--bar-delay, 0ms);
+  transform-origin: left;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 .journey-timeline {
