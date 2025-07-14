@@ -28,7 +28,7 @@
     {
       "id": "blog",
       "platform": "Blog",
-      "url": "https://wheeleruniverse.netlify.app",
+      "url": "https://blog.wheeleruniverse.com",
       "icon": "📓",
       "iconType": "emoji",
       "label": "Personal Blog"
@@ -425,15 +425,15 @@
   },
   "education": [
     {
-      "id": "degree",
-      "institution": "University Name",
-      "degree": "Bachelor of Science in Computer Science",
-      "startDate": "2018",
-      "endDate": "2022",
-      "location": "City, State",
+      "id": "bachelor",
+      "institution": "Full Sail University",
+      "degree": "Bachelor of Science Degree, Game Design and Development",
+      "startDate": "2013",
+      "endDate": "2016",
+      "location": "Winter Park, Florida (Remote)",
       "highlights": [
-        "Graduated with honors",
-        "Relevant coursework in software engineering and algorithms"
+        "Core Courses: Creative Presentation, Psychology of Play, Technology in Entertainment and Media Industries, English Composition, Discrete Mathematics, Design Tools, Fundamentals of Physical Science, Statistics, Building Functional Groups, Professional Writing, Historical Archetypes and Mythology, Systems Thinking",
+        "Game Design Courses: Project and Portfolio I-VII: Interactive Design/Game Design, Game Design I-II, Level Design, World Building, Game Mechanics, Prototyping, Game Design Preproduction, Game Systems Integration, Game Balancing, Programming Foundations I-II, Game Development"
       ]
     }
   ],
