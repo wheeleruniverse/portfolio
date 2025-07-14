@@ -67,22 +67,42 @@
     </section>
 
     <section class="services-section">
-      <h3 class="subsection-title">AWS Services Expertise</h3>
-      <div class="services-grid">
+      <h3 class="subsection-title">AWS Projects & Services</h3>
+      <p class="services-description">
+        Real-world projects showcasing AWS services in action. Click on any project to learn more.
+      </p>
+      
+      <!-- Loading state -->
+      <div v-if="isLoading" class="loading-message">
+        Loading AWS projects...
+      </div>
+      
+      <!-- Error state -->
+      <div v-if="error" class="error-message">
+        Error loading projects: {{ error }}
+      </div>
+      
+      <!-- Projects grid -->
+      <div v-if="!isLoading && !error" class="services-grid">
         <div
-          v-for="service in services"
-          :key="service.category"
-          class="service-category"
+          v-for="project in awsProjects"
+          :key="project.id"
+          class="service-category project-card"
+          @click="navigateToProject(project.id)"
         >
-          <h4 class="service-title">{{ service.category }}</h4>
+          <h4 class="service-title">{{ project.name }}</h4>
+          <p class="project-description">{{ project.description }}</p>
           <div class="service-items">
             <span
-              v-for="item in service.items"
-              :key="item"
+              v-for="service in filterAWSServices(project.technologies)"
+              :key="service"
               class="service-item"
             >
-              {{ item }}
+              {{ service }}
             </span>
+          </div>
+          <div class="project-action">
+            <span class="action-text">Click to view project details →</span>
           </div>
         </div>
       </div>
@@ -109,13 +129,16 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import type { Certification } from '@/types'
+import { useRouter } from 'vue-router'
+import type { Certification, Project } from '@/types'
 
+const router = useRouter()
 const certifications = ref<Certification[]>([])
+const awsProjects = ref<Project[]>([])
 const isLoading = ref(true)
 const error = ref<string | null>(null)
 
-const loadCertifications = async () => {
+const loadData = async () => {
   try {
     isLoading.value = true
     error.value = null
@@ -128,44 +151,35 @@ const loadCertifications = async () => {
     const config = await response.json()
     // Filter for AWS certifications only
     certifications.value = (config.certifications || []).filter((cert: any) => cert.vendor === 'AWS')
+    
+    // Filter projects that have AWS/Amazon technologies
+    awsProjects.value = (config.projects || []).filter((project: Project) => {
+      return project.technologies.some((tech: string) => 
+        tech.startsWith('AWS') || tech.startsWith('Amazon')
+      )
+    })
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to load certifications'
-    console.error('Error loading certifications:', err)
+    error.value = err instanceof Error ? err.message : 'Failed to load data'
+    console.error('Error loading data:', err)
   } finally {
     isLoading.value = false
   }
 }
 
+const filterAWSServices = (technologies: string[]) => {
+  return technologies
+    .filter(tech => tech.startsWith('AWS') || tech.startsWith('Amazon'))
+    .map(tech => tech.replace(/^(AWS |Amazon )/, ''))
+}
+
+const navigateToProject = (projectId: string) => {
+  router.push({ name: 'planet', params: { id: 'projects' }, query: { project: projectId } })
+}
+
 onMounted(() => {
-  loadCertifications()
+  loadData()
 })
 
-const services = ref([
-  {
-    category: 'AWS COVID-19 ETL Pipeline',
-    items: ['Lambda', 'DynamoDB', 'S3', 'CloudWatch Events', 'SNS', 'QuickSight']
-  },
-  {
-    category: 'Storage',
-    items: ['S3', 'EBS', 'EFS', 'Glacier', 'FSx']
-  },
-  {
-    category: 'Database',
-    items: ['RDS', 'DynamoDB', 'Aurora', 'ElastiCache', 'Neptune']
-  },
-  {
-    category: 'Networking',
-    items: ['VPC', 'CloudFront', 'Route 53', 'API Gateway', 'Load Balancer']
-  },
-  {
-    category: 'Security',
-    items: ['IAM', 'KMS', 'Secrets Manager', 'WAF', 'Shield', 'GuardDuty']
-  },
-  {
-    category: 'DevOps',
-    items: ['CodePipeline', 'CodeBuild', 'CodeDeploy', 'CloudFormation', 'CDK']
-  }
-])
 
 const cloudJourney = ref([
   {
@@ -351,8 +365,29 @@ const cloudJourney = ref([
   gap: 1.5rem;
 }
 
+.services-description {
+  text-align: center;
+  color: #ccc;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
 .service-category {
   @apply planet-card;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-category.project-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.service-category.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.5);
 }
 
 .service-title {
@@ -362,10 +397,18 @@ const cloudJourney = ref([
   margin-bottom: 1rem;
 }
 
+.project-description {
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
 .service-items {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .service-item {
@@ -375,6 +418,19 @@ const cloudJourney = ref([
   font-size: 0.85rem;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.project-action {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-text {
+  color: #FFD700;
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 .journey-timeline {

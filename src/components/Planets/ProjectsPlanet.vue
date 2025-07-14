@@ -15,7 +15,9 @@
         <div
           v-for="project in featuredProjects"
           :key="project.id"
+          :id="`project-${project.id}`"
           class="project-card featured"
+          :class="{ 'highlighted': highlightedProject === project.id }"
         >
           <div class="project-image" v-if="project.image">
             <img :src="project.image" :alt="project.name" />
@@ -75,7 +77,9 @@
             <div
               v-for="project in category.projects"
               :key="project.id"
+              :id="`project-${project.id}`"
               class="mini-project"
+              :class="{ 'highlighted': highlightedProject === project.id }"
             >
               <div class="mini-project-header">
                 <h5 class="mini-project-title">{{ project.name }}</h5>
@@ -188,15 +192,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
 import type { Project } from '@/types'
 
 interface Config {
   projects: Project[]
 }
 
+const route = useRoute()
 const config = ref<Config | null>(null)
 const featuredProjects = ref<Project[]>([])
+const highlightedProject = ref<string | null>(null)
 
 const loadConfig = async () => {
   try {
@@ -206,8 +213,27 @@ const loadConfig = async () => {
     
     // Filter featured projects
     featuredProjects.value = data.projects?.filter((project: Project) => project.featured) || []
+    
+    // Check if we need to highlight a specific project
+    const projectId = route.query.project as string
+    if (projectId) {
+      highlightedProject.value = projectId
+      await nextTick()
+      scrollToProject(projectId)
+    }
   } catch (error) {
     console.error('Error loading portfolio config:', error)
+  }
+}
+
+const scrollToProject = (projectId: string) => {
+  const element = document.getElementById(`project-${projectId}`)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    // Clear highlight after a few seconds
+    setTimeout(() => {
+      highlightedProject.value = null
+    }, 3000)
   }
 }
 
@@ -305,6 +331,24 @@ onMounted(() => {
 
 .project-card.featured {
   border-color: rgba(14, 165, 233, 0.5);
+}
+
+.project-card.highlighted {
+  border-color: rgba(255, 215, 0, 0.8);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  animation: pulse-highlight 2s ease-in-out;
+}
+
+@keyframes pulse-highlight {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  }
 }
 
 .project-image {
@@ -463,6 +507,12 @@ onMounted(() => {
   padding: 1rem;
   border-radius: 0.5rem;
   border-left: 3px solid #0EA5E9;
+}
+
+.mini-project.highlighted {
+  border-left-color: #FFD700;
+  background: rgba(255, 215, 0, 0.1);
+  animation: pulse-highlight 2s ease-in-out;
 }
 
 .mini-project-header {
