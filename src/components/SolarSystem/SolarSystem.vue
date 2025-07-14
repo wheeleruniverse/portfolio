@@ -1,19 +1,20 @@
 <template>
-  <section class="solar-system-container" :class="{ 'system-frozen': isSystemFrozen }">
+  <section
+    class="solar-system-container"
+    :class="{ 'system-frozen': isSystemFrozen }"
+  >
     <div class="solar-system" ref="solarSystemRef">
       <!-- Central Brand Logo -->
       <div class="sun">
-        <img 
-          src="/wheeleruniverse-logo.jpg" 
-          alt="Wheeler Universe" 
+        <img
+          src="/wheeleruniverse-logo.jpg"
+          alt="Wheeler Universe"
           class="brand-logo"
         />
       </div>
-      
+
       <!-- Loading state -->
-      <div v-if="isLoading" class="loading-message">
-        Loading planets...
-      </div>
+      <div v-if="isLoading" class="loading-message">Loading planets...</div>
 
       <!-- Error state -->
       <div v-if="error" class="error-message">
@@ -30,14 +31,14 @@
         @tooltip="handleTooltip"
       />
     </div>
-    
+
     <!-- Floating Tooltip -->
     <div
       v-if="tooltipData"
       class="floating-tooltip"
       :style="{
         left: `${tooltipData.x}px`,
-        top: `${tooltipData.y - 20}px`
+        top: `${tooltipData.y - 20}px`,
       }"
     >
       <div class="tooltip-content">
@@ -58,63 +59,70 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import type { Planet } from '@/types'
-import PlanetComponent from './PlanetComponent.vue'
-import PlanetInfoModal from './PlanetInfoModal.vue'
-const router = useRouter()
-const solarSystemRef = ref<HTMLElement>()
-const selectedPlanet = ref<Planet | null>(null)
-const isSystemFrozen = ref(false)
-const tooltipData = ref<{ show: boolean; planet: Planet; x: number; y: number } | null>(null)
+import type { Planet } from '@/types';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import PlanetComponent from './PlanetComponent.vue';
+import PlanetInfoModal from './PlanetInfoModal.vue';
+const router = useRouter();
+const solarSystemRef = ref<HTMLElement>();
+const selectedPlanet = ref<Planet | null>(null);
+const isSystemFrozen = ref(false);
+const tooltipData = ref<{
+  show: boolean;
+  planet: Planet;
+  x: number;
+  y: number;
+} | null>(null);
 
-const planets = ref<Planet[]>([])
-const isLoading = ref(true)
-const error = ref<string | null>(null)
+const planets = ref<Planet[]>([]);
+const isLoading = ref(true);
+const error = ref<string | null>(null);
 
 const navigateToPlanet = (planetId: string) => {
-  router.push(`/planet/${planetId}`)
-}
+  router.push(`/planet/${planetId}`);
+};
 
 const handlePlanetClick = (planetId: string) => {
-  const planet = planets.value.find(p => p.id === planetId)
+  const planet = planets.value.find(p => p.id === planetId);
   if (planet) {
-    selectedPlanet.value = planet
+    selectedPlanet.value = planet;
   }
-}
+};
 
 const handlePlanetHover = (isHovered: boolean) => {
-  isSystemFrozen.value = isHovered
-}
+  isSystemFrozen.value = isHovered;
+};
 
-const handleTooltip = (data: { show: boolean; planet: Planet; x: number; y: number } | null) => {
-  tooltipData.value = data
-}
+const handleTooltip = (
+  data: { show: boolean; planet: Planet; x: number; y: number } | null
+) => {
+  tooltipData.value = data;
+};
 
 const loadPlanetsData = async () => {
   try {
-    isLoading.value = true
-    error.value = null
-    
-    const response = await fetch('/portfolio-config.json')
+    isLoading.value = true;
+    error.value = null;
+
+    const response = await fetch('/portfolio-config.json');
     if (!response.ok) {
-      throw new Error(`Failed to load config: ${response.statusText}`)
+      throw new Error(`Failed to load config: ${response.statusText}`);
     }
-    
-    const config = await response.json()
-    planets.value = config.planets || []
+
+    const config = await response.json();
+    planets.value = config.planets || [];
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to load planets'
-    console.error('Error loading planets:', err)
+    error.value = err instanceof Error ? err.message : 'Failed to load planets';
+    console.error('Error loading planets:', err);
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
-}
+};
 
 onMounted(() => {
-  loadPlanetsData()
-})
+  loadPlanetsData();
+});
 </script>
 
 <style scoped>
@@ -129,11 +137,13 @@ onMounted(() => {
 }
 
 .system-frozen {
-  background: radial-gradient(circle at center, 
-    rgba(135, 206, 250, 0.05) 0%, 
-    rgba(0, 191, 255, 0.03) 30%, 
-    rgba(30, 144, 255, 0.02) 60%, 
-    rgba(25, 25, 112, 0.01) 100%);
+  background: radial-gradient(
+    circle at center,
+    rgba(135, 206, 250, 0.05) 0%,
+    rgba(0, 191, 255, 0.03) 30%,
+    rgba(30, 144, 255, 0.02) 60%,
+    rgba(25, 25, 112, 0.01) 100%
+  );
 }
 
 .system-frozen::before {
@@ -143,18 +153,21 @@ onMounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 50% 50%, 
-    transparent 0%, 
-    rgba(135, 206, 250, 0.03) 20%, 
-    rgba(0, 191, 255, 0.02) 40%, 
-    transparent 70%);
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 0%,
+    rgba(135, 206, 250, 0.03) 20%,
+    rgba(0, 191, 255, 0.02) 40%,
+    transparent 70%
+  );
   animation: freeze-atmosphere 3s ease-in-out infinite;
   pointer-events: none;
   z-index: -1;
 }
 
 @keyframes freeze-atmosphere {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.3;
     transform: scale(1);
   }
@@ -178,7 +191,7 @@ onMounted(() => {
   border-radius: 0.75rem;
   padding: 1rem 1.25rem;
   backdrop-filter: blur(20px);
-  box-shadow: 
+  box-shadow:
     0 10px 25px rgba(0, 0, 0, 0.5),
     0 0 20px rgba(135, 206, 250, 0.3);
   max-width: 280px;
@@ -189,7 +202,7 @@ onMounted(() => {
   margin: 0 0 0.5rem 0;
   font-size: 1rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   font-family: 'Orbitron', monospace;
 }
 
@@ -223,8 +236,8 @@ onMounted(() => {
   }
 }
 
-
-.loading-message, .error-message {
+.loading-message,
+.error-message {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -242,16 +255,16 @@ onMounted(() => {
   .solar-system-container {
     padding: 1rem;
   }
-  
+
   .tooltip-content {
     max-width: 220px;
     padding: 0.75rem 1rem;
   }
-  
+
   .tooltip-content h3 {
     font-size: 0.9rem;
   }
-  
+
   .tooltip-content p {
     font-size: 0.8rem;
   }

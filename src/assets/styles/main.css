@@ -6,14 +6,14 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     @apply bg-space-dark text-white font-space;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
   }
-  
+
   * {
     box-sizing: border-box;
   }
@@ -26,7 +26,7 @@
     border-radius: 50%;
     animation: twinkle 2s ease-in-out infinite alternate;
   }
-  
+
   .star::before {
     content: '';
     position: absolute;
@@ -36,10 +36,12 @@
     width: 1px;
     height: 1px;
     background: white;
-    box-shadow: 0 0 2px white, 0 0 4px white, 0 0 6px white;
+    box-shadow:
+      0 0 2px white,
+      0 0 4px white,
+      0 0 6px white;
   }
-  
-  
+
   .solar-system {
     position: relative;
     width: 100%;
@@ -49,7 +51,7 @@
     justify-content: center;
     overflow: hidden;
   }
-  
+
   .sun {
     position: absolute;
     width: 200px;
@@ -65,26 +67,25 @@
     height: 100%;
     object-fit: contain;
     border-radius: 50%;
-    filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.8)) 
-            drop-shadow(0 0 40px rgba(255, 69, 0, 0.6)) 
-            drop-shadow(0 0 60px rgba(255, 215, 0, 0.4));
+    filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.8))
+      drop-shadow(0 0 40px rgba(255, 69, 0, 0.6))
+      drop-shadow(0 0 60px rgba(255, 215, 0, 0.4));
     animation: glow 3s ease-in-out infinite alternate;
   }
 
   @keyframes glow {
     from {
-      filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.8)) 
-              drop-shadow(0 0 40px rgba(255, 69, 0, 0.6)) 
-              drop-shadow(0 0 60px rgba(255, 215, 0, 0.4));
+      filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.8))
+        drop-shadow(0 0 40px rgba(255, 69, 0, 0.6))
+        drop-shadow(0 0 60px rgba(255, 215, 0, 0.4));
     }
     to {
-      filter: drop-shadow(0 0 30px rgba(255, 140, 0, 1)) 
-              drop-shadow(0 0 50px rgba(255, 69, 0, 0.8)) 
-              drop-shadow(0 0 80px rgba(255, 215, 0, 0.6));
+      filter: drop-shadow(0 0 30px rgba(255, 140, 0, 1))
+        drop-shadow(0 0 50px rgba(255, 69, 0, 0.8))
+        drop-shadow(0 0 80px rgba(255, 215, 0, 0.6));
     }
   }
-  
-  
+
   .nav-floating {
     position: fixed;
     top: 2rem;
@@ -96,23 +97,23 @@
     padding: 1rem 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   .planet-card {
     @apply bg-space-navy border border-space-purple rounded-xl p-6 shadow-2xl;
     backdrop-filter: blur(10px);
     border-color: rgba(255, 255, 255, 0.1);
   }
-  
+
   .section-title {
     @apply text-3xl font-bold mb-6 text-space-gold font-orbitron;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
   }
-  
+
   .btn-primary {
     @apply bg-space-purple hover:bg-space-purple-dark text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300;
     box-shadow: 0 4px 15px rgba(75, 31, 142, 0.3);
   }
-  
+
   .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(75, 31, 142, 0.4);
@@ -120,11 +121,14 @@
 }
 
 @media (max-width: 768px) {
-  .sun { width: 120px; height: 120px; }
-  
+  .sun {
+    width: 120px;
+    height: 120px;
+  }
+
   .brand-logo {
-    filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.8)) 
-            drop-shadow(0 0 30px rgba(255, 69, 0, 0.6)) 
-            drop-shadow(0 0 45px rgba(255, 215, 0, 0.4));
+    filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.8))
+      drop-shadow(0 0 30px rgba(255, 69, 0, 0.6))
+      drop-shadow(0 0 45px rgba(255, 215, 0, 0.4));
   }
 }

@@ -3,7 +3,7 @@
     <div class="planet-header">
       <div class="container mx-auto px-4 py-8">
         <div class="planet-hero">
-          <div 
+          <div
             class="planet-large"
             :class="`bg-gradient-to-br ${planetData?.color}`"
           >
@@ -12,10 +12,7 @@
           <div class="planet-info">
             <h1 class="planet-title">{{ planetData?.title }}</h1>
             <p class="planet-description">{{ planetData?.description }}</p>
-            <button
-              @click="$router.push('/')"
-              class="btn-return"
-            >
+            <button @click="$router.push('/')" class="btn-return">
               ← Return to Solar System
             </button>
           </div>
@@ -25,10 +22,7 @@
 
     <div class="planet-content">
       <div class="container mx-auto px-4 py-12">
-        <component
-          :is="planetComponent"
-          v-if="planetComponent"
-        />
+        <component :is="planetComponent" v-if="planetComponent" />
         <div v-else class="planet-not-found">
           <h2>Planet Not Found</h2>
           <p>The planet you're looking for doesn't exist in this universe.</p>
@@ -42,37 +36,40 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import type { Planet } from '@/types'
-import { usePortfolioConfig, getPlanets } from '@/composables/usePortfolioConfig'
+import {
+  getPlanets,
+  usePortfolioConfig,
+} from '@/composables/usePortfolioConfig';
+import type { Planet } from '@/types';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 // Planet components
-import AWSPlanet from '@/components/Planets/AWSPlanet.vue'
-import DevelopmentPlanet from '@/components/Planets/DevelopmentPlanet.vue'
-import CommunityPlanet from '@/components/Planets/CommunityPlanet.vue'
-import ExperiencePlanet from '@/components/Planets/ExperiencePlanet.vue'
-import EducationPlanet from '@/components/Planets/EducationPlanet.vue'
-import ProjectsPlanet from '@/components/Planets/ProjectsPlanet.vue'
+import AWSPlanet from '@/components/Planets/AWSPlanet.vue';
+import CommunityPlanet from '@/components/Planets/CommunityPlanet.vue';
+import DevelopmentPlanet from '@/components/Planets/DevelopmentPlanet.vue';
+import EducationPlanet from '@/components/Planets/EducationPlanet.vue';
+import ExperiencePlanet from '@/components/Planets/ExperiencePlanet.vue';
+import ProjectsPlanet from '@/components/Planets/ProjectsPlanet.vue';
 
 interface Props {
-  id: string
+  id: string;
 }
 
-const props = defineProps<Props>()
-const route = useRoute()
+const props = defineProps<Props>();
+const route = useRoute();
 usePortfolioConfig();
 
-const planetId = computed(() => props.id || route.params.id as string)
+const planetId = computed(() => props.id || (route.params.id as string));
 
 const planetsData = computed(() => {
-  const planets = getPlanets()
-  const planetsMap: Record<string, Planet> = {}
+  const planets = getPlanets();
+  const planetsMap: Record<string, Planet> = {};
   planets.forEach(planet => {
-    planetsMap[planet.id] = planet
-  })
-  return planetsMap
-})
+    planetsMap[planet.id] = planet;
+  });
+  return planetsMap;
+});
 
 const planetComponents = {
   aws: AWSPlanet,
@@ -80,11 +77,13 @@ const planetComponents = {
   community: CommunityPlanet,
   experience: ExperiencePlanet,
   education: EducationPlanet,
-  projects: ProjectsPlanet
-}
+  projects: ProjectsPlanet,
+};
 
-const planetData = computed(() => planetsData.value[planetId.value])
-const planetComponent = computed(() => planetComponents[planetId.value as keyof typeof planetComponents])
+const planetData = computed(() => planetsData.value[planetId.value]);
+const planetComponent = computed(
+  () => planetComponents[planetId.value as keyof typeof planetComponents]
+);
 </script>
 
 <style scoped>
@@ -94,7 +93,11 @@ const planetComponent = computed(() => planetComponents[planetId.value as keyof 
 }
 
 .planet-header {
-  background: linear-gradient(135deg, rgba(75, 31, 142, 0.2), rgba(45, 19, 85, 0.2));
+  background: linear-gradient(
+    135deg,
+    rgba(75, 31, 142, 0.2),
+    rgba(45, 19, 85, 0.2)
+  );
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
 }
@@ -126,7 +129,7 @@ const planetComponent = computed(() => planetComponents[planetId.value as keyof 
 .planet-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 0.5rem;
   font-family: 'Orbitron', monospace;
 }
@@ -165,7 +168,7 @@ const planetComponent = computed(() => planetComponents[planetId.value as keyof 
 
 .planet-not-found h2 {
   font-size: 2rem;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 1rem;
   font-family: 'Orbitron', monospace;
 }
@@ -182,17 +185,17 @@ const planetComponent = computed(() => planetComponents[planetId.value as keyof 
     text-align: center;
     gap: 1.5rem;
   }
-  
+
   .planet-large {
     width: 120px;
     height: 120px;
     font-size: 2.5rem;
   }
-  
+
   .planet-title {
     font-size: 2rem;
   }
-  
+
   .planet-description {
     font-size: 1rem;
   }

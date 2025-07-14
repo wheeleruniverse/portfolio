@@ -4,7 +4,8 @@
       <div class="hero-content">
         <h2 class="section-title">Projects & Portfolio</h2>
         <p class="hero-description">
-          A collection of projects showcasing my technical skills and problem-solving abilities across different domains.
+          A collection of projects showcasing my technical skills and
+          problem-solving abilities across different domains.
         </p>
       </div>
     </section>
@@ -17,7 +18,7 @@
           :key="project.id"
           :id="`project-${project.id}`"
           class="project-card featured"
-          :class="{ 'highlighted': highlightedProject === project.id }"
+          :class="{ highlighted: highlightedProject === project.id }"
         >
           <div class="project-image" v-if="project.image">
             <img :src="project.image" :alt="project.name" />
@@ -79,7 +80,7 @@
               :key="project.id"
               :id="`project-${project.id}`"
               class="mini-project"
-              :class="{ 'highlighted': highlightedProject === project.id }"
+              :class="{ highlighted: highlightedProject === project.id }"
             >
               <div class="mini-project-header">
                 <h5 class="mini-project-title">{{ project.name }}</h5>
@@ -154,7 +155,6 @@
       </div>
     </section>
 
-
     <section class="project-highlights">
       <h3 class="subsection-title">Project Highlights</h3>
       <div class="highlights-grid">
@@ -162,28 +162,32 @@
           <div class="highlight-icon">🏆</div>
           <h4 class="highlight-title">Wheeler Recommends</h4>
           <p class="highlight-description">
-            Personal recommendation engine for books, movies, and resources with AI-powered suggestions.
+            Personal recommendation engine for books, movies, and resources with
+            AI-powered suggestions.
           </p>
         </div>
         <div class="highlight-card">
           <div class="highlight-icon">☁️</div>
           <h4 class="highlight-title">Cloud Architecture Templates</h4>
           <p class="highlight-description">
-            Reusable AWS CloudFormation and CDK templates for common architectural patterns.
+            Reusable AWS CloudFormation and CDK templates for common
+            architectural patterns.
           </p>
         </div>
         <div class="highlight-card">
           <div class="highlight-icon">🤖</div>
           <h4 class="highlight-title">DevOps Automation Tools</h4>
           <p class="highlight-description">
-            Custom tools and scripts for automating deployment, monitoring, and maintenance tasks.
+            Custom tools and scripts for automating deployment, monitoring, and
+            maintenance tasks.
           </p>
         </div>
         <div class="highlight-card">
           <div class="highlight-icon">📚</div>
           <h4 class="highlight-title">Learning Resources Hub</h4>
           <p class="highlight-description">
-            Curated collection of technical resources, tutorials, and guides for developers.
+            Curated collection of technical resources, tutorials, and guides for
+            developers.
           </p>
         </div>
       </div>
@@ -192,89 +196,94 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
-import type { Project } from '@/types'
+import type { Project } from '@/types';
+import { nextTick, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 interface Config {
-  projects: Project[]
+  projects: Project[];
 }
 
-const route = useRoute()
-const config = ref<Config | null>(null)
-const featuredProjects = ref<Project[]>([])
-const highlightedProject = ref<string | null>(null)
+const route = useRoute();
+const config = ref<Config | null>(null);
+const featuredProjects = ref<Project[]>([]);
+const highlightedProject = ref<string | null>(null);
 
 const loadConfig = async () => {
   try {
-    const response = await fetch('/portfolio-config.json')
-    const data = await response.json()
-    config.value = data
-    
+    const response = await fetch('/portfolio-config.json');
+    const data = await response.json();
+    config.value = data;
+
     // Filter featured projects
-    featuredProjects.value = data.projects?.filter((project: Project) => project.featured) || []
-    
+    featuredProjects.value =
+      data.projects?.filter((project: Project) => project.featured) || [];
+
     // Check if we need to highlight a specific project
-    const projectId = route.query.project as string
+    const projectId = route.query.project as string;
     if (projectId) {
-      highlightedProject.value = projectId
-      await nextTick()
-      scrollToProject(projectId)
+      highlightedProject.value = projectId;
+      await nextTick();
+      scrollToProject(projectId);
     }
   } catch (error) {
-    console.error('Error loading portfolio config:', error)
+    console.error('Error loading portfolio config:', error);
   }
-}
+};
 
 const scrollToProject = (projectId: string) => {
-  const element = document.getElementById(`project-${projectId}`)
+  const element = document.getElementById(`project-${projectId}`);
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     // Clear highlight after a few seconds
     setTimeout(() => {
-      highlightedProject.value = null
-    }, 3000)
+      highlightedProject.value = null;
+    }, 3000);
   }
-}
+};
 
 const projectCategories = ref([
   {
     name: 'Web Applications',
     icon: '🌐',
-    description: 'Full-stack web applications with modern frameworks and cloud deployment',
-    projects: [] as Project[]
+    description:
+      'Full-stack web applications with modern frameworks and cloud deployment',
+    projects: [] as Project[],
   },
   {
     name: 'Data Engineering',
     icon: '📊',
     description: 'Data processing, ETL pipelines, and analytics solutions',
-    projects: [] as Project[]
+    projects: [] as Project[],
   },
   {
     name: 'Cloud & DevOps',
     icon: '☁️',
-    description: 'Infrastructure as code, automation tools, and cloud solutions',
-    projects: [] as Project[]
-  }
-])
+    description:
+      'Infrastructure as code, automation tools, and cloud solutions',
+    projects: [] as Project[],
+  },
+]);
 
 const updateProjectCategories = () => {
-  if (!config.value?.projects) return
-  
-  const webProjects = config.value.projects.filter(p => p.category === 'web')
-  const dataProjects = config.value.projects.filter(p => p.category === 'data')
-  const cloudProjects = config.value.projects.filter(p => p.category === 'cloud')
-  
-  projectCategories.value[0].projects = webProjects
-  projectCategories.value[1].projects = dataProjects
-  projectCategories.value[2].projects = cloudProjects
-}
+  if (!config.value?.projects) return;
+
+  const webProjects = config.value.projects.filter(p => p.category === 'web');
+  const dataProjects = config.value.projects.filter(p => p.category === 'data');
+  const cloudProjects = config.value.projects.filter(
+    p => p.category === 'cloud'
+  );
+
+  projectCategories.value[0].projects = webProjects;
+  projectCategories.value[1].projects = dataProjects;
+  projectCategories.value[2].projects = cloudProjects;
+};
 
 onMounted(() => {
   loadConfig().then(() => {
-    updateProjectCategories()
-  })
-})
+    updateProjectCategories();
+  });
+});
 </script>
 
 <style scoped>
@@ -305,7 +314,7 @@ onMounted(() => {
 .subsection-title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 2rem;
   font-family: 'Orbitron', monospace;
 }
@@ -368,7 +377,7 @@ onMounted(() => {
 .project-placeholder {
   width: 100%;
   height: 200px;
-  background: linear-gradient(135deg, #0EA5E9, #0284C7);
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
@@ -390,7 +399,7 @@ onMounted(() => {
 .project-title {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 0.75rem;
   font-family: 'Orbitron', monospace;
 }
@@ -411,7 +420,7 @@ onMounted(() => {
 
 .tech-badge {
   background: rgba(14, 165, 233, 0.2);
-  color: #0EA5E9;
+  color: #0ea5e9;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.8rem;
@@ -439,12 +448,12 @@ onMounted(() => {
 }
 
 .project-link.live {
-  background: #22C55E;
+  background: #22c55e;
   color: white;
 }
 
 .project-link.live:hover {
-  background: #16A34A;
+  background: #16a34a;
   transform: translateY(-2px);
 }
 
@@ -484,7 +493,7 @@ onMounted(() => {
 .category-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -506,11 +515,11 @@ onMounted(() => {
   background: rgba(255, 255, 255, 0.05);
   padding: 1rem;
   border-radius: 0.5rem;
-  border-left: 3px solid #0EA5E9;
+  border-left: 3px solid #0ea5e9;
 }
 
 .mini-project.highlighted {
-  border-left-color: #FFD700;
+  border-left-color: #ffd700;
   background: rgba(255, 215, 0, 0.1);
   animation: pulse-highlight 2s ease-in-out;
 }
@@ -534,13 +543,13 @@ onMounted(() => {
 }
 
 .mini-link {
-  color: #0EA5E9;
+  color: #0ea5e9;
   text-decoration: none;
   font-size: 1rem;
 }
 
 .mini-link:hover {
-  color: #0284C7;
+  color: #0284c7;
 }
 
 .mini-project-description {
@@ -558,7 +567,7 @@ onMounted(() => {
 
 .mini-tech-badge {
   background: rgba(14, 165, 233, 0.2);
-  color: #0EA5E9;
+  color: #0ea5e9;
   padding: 0.15rem 0.5rem;
   border-radius: 0.75rem;
   font-size: 0.7rem;
@@ -589,7 +598,7 @@ onMounted(() => {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0EA5E9, #0284C7);
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -603,7 +612,7 @@ onMounted(() => {
 .stat-number {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   font-family: 'Orbitron', monospace;
 }
 
@@ -612,7 +621,6 @@ onMounted(() => {
   color: #ccc;
   margin-top: 0.25rem;
 }
-
 
 .highlights-grid {
   display: grid;
@@ -639,7 +647,7 @@ onMounted(() => {
 .highlight-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 0.5rem;
 }
 
@@ -653,28 +661,28 @@ onMounted(() => {
   .projects-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .categories-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .stat-card {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .highlights-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .project-links {
     flex-direction: column;
   }
-  
+
   .mini-project-header {
     flex-direction: column;
     align-items: flex-start;

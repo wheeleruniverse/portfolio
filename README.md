@@ -38,17 +38,20 @@ A modern, interactive space-themed portfolio website showcasing Justin Wheeler's
 ### Installation
 
 1. Clone the repository
+
 ```bash
 git clone https://github.com/justinwheeler/wheeler-universe-portfolio.git
 cd wheeler-universe-portfolio
 ```
 
 2. Install dependencies
+
 ```bash
 npm install
 ```
 
 3. Start the development server
+
 ```bash
 npm run dev
 ```
@@ -84,14 +87,18 @@ wheeler-universe-portfolio/
 ## 🎨 Customization
 
 ### Colors
+
 The color scheme is defined in `tailwind.config.js`:
+
 - Primary: Deep purple (#4B1F8E)
 - Secondary: Coral (#F4A460)
 - Accent: Gold (#FFD700)
 - Background: Dark navy (#0B1426)
 
 ### Content
+
 Update the content in each planet component:
+
 - AWS certifications in `AWSPlanet.vue`
 - Skills in `DevelopmentPlanet.vue`
 - Community activities in `CommunityPlanet.vue`
@@ -102,22 +109,26 @@ Update the content in each planet component:
 ## 🌟 Features in Detail
 
 ### Solar System Animation
+
 - Realistic orbital mechanics with different speeds
 - Hover effects and interactive tooltips
 - Smooth transitions between views
 
 ### Responsive Design
+
 - Mobile-first approach
 - Adaptive layouts for different screen sizes
 - Touch-friendly navigation
 
 ### Accessibility
+
 - Keyboard navigation support
 - Screen reader friendly
 - High contrast options
 - Semantic HTML structure
 
 ### Performance
+
 - Lazy loading for components
 - Optimized images and assets
 - Minimal bundle size
@@ -126,11 +137,13 @@ Update the content in each planet component:
 ## 🚀 Deployment
 
 ### Netlify
+
 1. Connect your GitHub repository
 2. Build command: `npm run build`
 3. Publish directory: `dist`
 
 ### Vercel
+
 1. Import your GitHub repository
 2. Framework preset: Vite
 3. Build command: `npm run build`

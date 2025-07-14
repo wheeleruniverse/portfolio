@@ -4,7 +4,8 @@
       <div class="hero-content">
         <h2 class="section-title">Development Expertise</h2>
         <p class="hero-description">
-          Full-stack development experience with modern technologies and best practices.
+          Full-stack development experience with modern technologies and best
+          practices.
         </p>
       </div>
     </section>
@@ -30,7 +31,10 @@
                 <span class="tech-level">{{ tech.level }}</span>
               </div>
               <div class="tech-bar">
-                <div class="tech-progress" :style="`width: ${tech.percentage}%`"></div>
+                <div
+                  class="tech-progress"
+                  :style="`width: ${tech.percentage}%`"
+                ></div>
               </div>
             </div>
           </div>
@@ -84,11 +88,7 @@
           <h4 class="spec-title">{{ spec.title }}</h4>
           <p class="spec-description">{{ spec.description }}</p>
           <div class="spec-skills">
-            <span
-              v-for="skill in spec.skills"
-              :key="skill"
-              class="skill-tag"
-            >
+            <span v-for="skill in spec.skills" :key="skill" class="skill-tag">
               {{ skill }}
             </span>
           </div>
@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const techStack = ref([
   {
@@ -110,8 +110,8 @@ const techStack = ref([
       { name: 'TypeScript', level: 'Advanced', percentage: 85 },
       { name: 'JavaScript', level: 'Expert', percentage: 95 },
       { name: 'HTML/CSS', level: 'Expert', percentage: 95 },
-      { name: 'Tailwind CSS', level: 'Advanced', percentage: 88 }
-    ]
+      { name: 'Tailwind CSS', level: 'Advanced', percentage: 88 },
+    ],
   },
   {
     name: 'Backend',
@@ -120,8 +120,8 @@ const techStack = ref([
       { name: 'Python', level: 'Advanced', percentage: 80 },
       { name: 'Java', level: 'Intermediate', percentage: 70 },
       { name: 'C#', level: 'Intermediate', percentage: 65 },
-      { name: 'PHP', level: 'Intermediate', percentage: 60 }
-    ]
+      { name: 'PHP', level: 'Intermediate', percentage: 60 },
+    ],
   },
   {
     name: 'Database',
@@ -130,8 +130,8 @@ const techStack = ref([
       { name: 'MySQL', level: 'Advanced', percentage: 80 },
       { name: 'MongoDB', level: 'Intermediate', percentage: 75 },
       { name: 'Redis', level: 'Intermediate', percentage: 70 },
-      { name: 'DynamoDB', level: 'Advanced', percentage: 82 }
-    ]
+      { name: 'DynamoDB', level: 'Advanced', percentage: 82 },
+    ],
   },
   {
     name: 'DevOps',
@@ -140,37 +140,50 @@ const techStack = ref([
       { name: 'Kubernetes', level: 'Intermediate', percentage: 70 },
       { name: 'CI/CD', level: 'Advanced', percentage: 88 },
       { name: 'Terraform', level: 'Advanced', percentage: 85 },
-      { name: 'AWS CDK', level: 'Advanced', percentage: 90 }
-    ]
-  }
-])
+      { name: 'AWS CDK', level: 'Advanced', percentage: 90 },
+    ],
+  },
+]);
 
 const specializations = ref([
   {
     icon: '☁️',
     title: 'Cloud-Native Development',
-    description: 'Building scalable applications designed for cloud environments',
-    skills: ['Microservices', 'Serverless', 'Container Orchestration', 'API Gateway']
+    description:
+      'Building scalable applications designed for cloud environments',
+    skills: [
+      'Microservices',
+      'Serverless',
+      'Container Orchestration',
+      'API Gateway',
+    ],
   },
   {
     icon: '🔧',
     title: 'DevOps & Automation',
     description: 'Implementing CI/CD pipelines and infrastructure as code',
-    skills: ['GitLab CI', 'GitHub Actions', 'Jenkins', 'Ansible']
+    skills: ['GitLab CI', 'GitHub Actions', 'Jenkins', 'Ansible'],
   },
   {
     icon: '🎨',
     title: 'Frontend Architecture',
-    description: 'Creating responsive, accessible, and performant user interfaces',
-    skills: ['Component Libraries', 'State Management', 'PWA', 'Web Performance']
+    description:
+      'Creating responsive, accessible, and performant user interfaces',
+    skills: [
+      'Component Libraries',
+      'State Management',
+      'PWA',
+      'Web Performance',
+    ],
   },
   {
     icon: '🔒',
     title: 'Security & Compliance',
-    description: 'Implementing security best practices and compliance frameworks',
-    skills: ['OAuth', 'JWT', 'OWASP', 'Data Encryption']
-  }
-])
+    description:
+      'Implementing security best practices and compliance frameworks',
+    skills: ['OAuth', 'JWT', 'OWASP', 'Data Encryption'],
+  },
+]);
 </script>
 
 <style scoped>
@@ -200,7 +213,7 @@ const specializations = ref([
 .subsection-title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 2rem;
   font-family: 'Orbitron', monospace;
 }
@@ -218,7 +231,7 @@ const specializations = ref([
 .tech-category-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -267,20 +280,20 @@ const specializations = ref([
 
 .tech-progress {
   height: 100%;
-  background: linear-gradient(90deg, #4F46E5, #7C3AED);
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
   transition: width 0.3s ease;
 }
 
 .proficiency-expert .tech-progress {
-  background: linear-gradient(90deg, #10B981, #059669);
+  background: linear-gradient(90deg, #10b981, #059669);
 }
 
 .proficiency-advanced .tech-progress {
-  background: linear-gradient(90deg, #3B82F6, #1D4ED8);
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
 }
 
 .proficiency-intermediate .tech-progress {
-  background: linear-gradient(90deg, #F59E0B, #D97706);
+  background: linear-gradient(90deg, #f59e0b, #d97706);
 }
 
 .stats-grid {
@@ -307,7 +320,7 @@ const specializations = ref([
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -321,7 +334,7 @@ const specializations = ref([
 .stat-number {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   font-family: 'Orbitron', monospace;
 }
 
@@ -356,7 +369,7 @@ const specializations = ref([
 .spec-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 1rem;
 }
 
@@ -375,7 +388,7 @@ const specializations = ref([
 
 .skill-tag {
   background: rgba(79, 70, 229, 0.2);
-  color: #A5B4FC;
+  color: #a5b4fc;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.8rem;
@@ -386,15 +399,15 @@ const specializations = ref([
   .tech-categories {
     grid-template-columns: 1fr;
   }
-  
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .specializations-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .stat-card {
     flex-direction: column;
     text-align: center;

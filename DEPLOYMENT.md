@@ -5,13 +5,16 @@ This guide will help you deploy the Wheeler Universe portfolio to various hostin
 ## 🚀 Quick Start
 
 ### Development
+
 ```bash
 npm install
 npm run dev
 ```
+
 Visit `http://localhost:3000`
 
 ### Production Build
+
 ```bash
 npm run build
 npm run preview
@@ -20,6 +23,7 @@ npm run preview
 ## 📦 Build Output
 
 The production build creates a `dist/` directory with:
+
 - Optimized HTML, CSS, and JavaScript
 - Static assets with cache-friendly filenames
 - Gzip-compressed assets for fast loading
@@ -29,6 +33,7 @@ The production build creates a `dist/` directory with:
 ### 1. Netlify (Recommended)
 
 **Automatic Deployment:**
+
 1. Push your code to GitHub
 2. Connect repository to Netlify
 3. Build settings:
@@ -37,12 +42,14 @@ The production build creates a `dist/` directory with:
    - Node version: 18+
 
 **Manual Deployment:**
+
 ```bash
 npm run build
 # Upload dist/ folder to Netlify
 ```
 
 The `netlify.toml` file is already configured for:
+
 - SPA routing
 - Build configuration
 - Environment settings
@@ -50,11 +57,13 @@ The `netlify.toml` file is already configured for:
 ### 2. Vercel
 
 **Automatic Deployment:**
+
 1. Import GitHub repository to Vercel
 2. Framework preset: Vite
 3. Build settings are auto-detected
 
 **Manual Deployment:**
+
 ```bash
 npm install -g vercel
 npm run build
@@ -62,6 +71,7 @@ vercel --prod
 ```
 
 The `vercel.json` file configures:
+
 - SPA routing
 - Cache headers
 - Static asset optimization
@@ -95,12 +105,14 @@ firebase deploy
 No environment variables are required for basic deployment.
 
 Optional variables:
+
 - `VITE_APP_TITLE`: Custom app title
 - `BASE_URL`: Custom base URL for routing
 
 ## 🎯 Performance Optimizations
 
 The build includes:
+
 - Tree-shaking for minimal bundle size
 - Code splitting for better caching
 - Asset optimization
@@ -109,6 +121,7 @@ The build includes:
 ## 📊 Build Analysis
 
 To analyze bundle size:
+
 ```bash
 npm run build
 npx vite-bundle-analyzer dist/assets/*.js
@@ -117,6 +130,7 @@ npx vite-bundle-analyzer dist/assets/*.js
 ## 🔒 Security Headers
 
 For production deployments, consider adding:
+
 - Content Security Policy (CSP)
 - X-Frame-Options
 - X-Content-Type-Options
@@ -125,6 +139,7 @@ For production deployments, consider adding:
 ## 📱 Mobile Optimization
 
 The site is fully responsive and includes:
+
 - Viewport meta tag
 - Touch-friendly navigation
 - Optimized images
@@ -143,6 +158,7 @@ The site is fully responsive and includes:
 ## 🔍 SEO Optimization
 
 Built-in SEO features:
+
 - Meta tags
 - Open Graph tags
 - Twitter Card tags
@@ -153,6 +169,7 @@ Built-in SEO features:
 ## 📝 Custom Domain
 
 After deployment, you can configure:
+
 1. Custom domain in hosting platform
 2. SSL certificate (usually automatic)
 3. CDN configuration
@@ -161,6 +178,7 @@ After deployment, you can configure:
 ## 🎨 Customization
 
 Before deploying, customize:
+
 - Content in planet components
 - Personal information
 - Social media links
@@ -170,6 +188,7 @@ Before deploying, customize:
 ## 📞 Support
 
 For deployment issues:
+
 1. Check build logs
 2. Verify Node.js version (18+)
 3. Clear npm cache: `npm cache clean --force`

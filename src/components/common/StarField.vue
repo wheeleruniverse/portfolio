@@ -10,29 +10,29 @@
         width: `${star.size}px`,
         height: `${star.size}px`,
         animationDelay: `${star.delay}s`,
-        animationDuration: `${star.duration}s`
+        animationDuration: `${star.duration}s`,
       }"
     ></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue';
 
 interface Star {
-  id: number
-  x: number
-  y: number
-  size: number
-  delay: number
-  duration: number
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  delay: number;
+  duration: number;
 }
 
-const stars = ref<Star[]>([])
+const stars = ref<Star[]>([]);
 
 const generateStars = (count: number) => {
-  const starArray: Star[] = []
-  
+  const starArray: Star[] = [];
+
   for (let i = 0; i < count; i++) {
     starArray.push({
       id: i,
@@ -40,16 +40,16 @@ const generateStars = (count: number) => {
       y: Math.random() * 100,
       size: Math.random() * 3 + 1,
       delay: Math.random() * 2,
-      duration: Math.random() * 3 + 2
-    })
+      duration: Math.random() * 3 + 2,
+    });
   }
-  
-  return starArray
-}
+
+  return starArray;
+};
 
 onMounted(() => {
-  stars.value = generateStars(150)
-})
+  stars.value = generateStars(150);
+});
 </script>
 
 <style scoped>
@@ -71,7 +71,11 @@ onMounted(() => {
 }
 
 @keyframes twinkle {
-  0% { opacity: 0.3; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>

@@ -4,7 +4,8 @@
       <div class="hero-content">
         <h2 class="section-title">Community & Contributions</h2>
         <p class="hero-description">
-          Passionate about sharing knowledge, building communities, and helping others grow in their tech journey.
+          Passionate about sharing knowledge, building communities, and helping
+          others grow in their tech journey.
         </p>
       </div>
     </section>
@@ -16,8 +17,8 @@
           <div class="badge-content">
             <h3 class="badge-title">AWS Community Builder</h3>
             <p class="badge-description">
-              Recognized by AWS for contributions to the cloud community through content creation, 
-              mentorship, and knowledge sharing.
+              Recognized by AWS for contributions to the cloud community through
+              content creation, mentorship, and knowledge sharing.
             </p>
           </div>
         </div>
@@ -35,7 +36,9 @@
           <div class="contribution-icon">{{ contribution.icon }}</div>
           <div class="contribution-content">
             <h4 class="contribution-title">{{ contribution.title }}</h4>
-            <p class="contribution-description">{{ contribution.description }}</p>
+            <p class="contribution-description">
+              {{ contribution.description }}
+            </p>
             <div class="contribution-stats">
               <div class="stat-item">
                 <span class="stat-number">{{ contribution.count }}</span>
@@ -50,22 +53,14 @@
     <section class="blog-section">
       <h3 class="subsection-title">Recent Blog Posts</h3>
       <div class="blog-grid">
-        <div
-          v-for="post in blogPosts"
-          :key="post.id"
-          class="blog-card"
-        >
+        <div v-for="post in blogPosts" :key="post.id" class="blog-card">
           <div class="blog-content">
             <h4 class="blog-title">{{ post.title }}</h4>
             <p class="blog-excerpt">{{ post.excerpt }}</p>
             <div class="blog-meta">
               <span class="blog-date">{{ post.publishedAt }}</span>
               <div class="blog-tags">
-                <span
-                  v-for="tag in post.tags"
-                  :key="tag"
-                  class="blog-tag"
-                >
+                <span v-for="tag in post.tags" :key="tag" class="blog-tag">
                   {{ tag }}
                 </span>
               </div>
@@ -146,8 +141,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { BlogPost } from '@/types'
+import type { BlogPost } from '@/types';
+import { ref } from 'vue';
 
 const contributions = ref([
   {
@@ -155,115 +150,126 @@ const contributions = ref([
     description: 'Sharing insights on AWS, development, and cloud architecture',
     icon: '📝',
     count: '25+',
-    metric: 'Articles'
+    metric: 'Articles',
   },
   {
     title: 'Community Mentorship',
-    description: 'Helping developers transition to cloud and advance their careers',
+    description:
+      'Helping developers transition to cloud and advance their careers',
     icon: '🤝',
     count: '50+',
-    metric: 'Mentees'
+    metric: 'Mentees',
   },
   {
     title: 'Open Source',
     description: 'Contributing to projects and maintaining developer tools',
     icon: '💻',
     count: '15+',
-    metric: 'Projects'
+    metric: 'Projects',
   },
   {
     title: 'Speaking Events',
     description: 'Presenting at conferences, meetups, and community events',
     icon: '🎤',
     count: '10+',
-    metric: 'Talks'
-  }
-])
+    metric: 'Talks',
+  },
+]);
 
 const blogPosts = ref<BlogPost[]>([
   {
     id: '1',
     title: 'Building Serverless Applications with AWS Lambda',
-    excerpt: 'A comprehensive guide to creating scalable serverless applications using AWS Lambda, API Gateway, and DynamoDB.',
+    excerpt:
+      'A comprehensive guide to creating scalable serverless applications using AWS Lambda, API Gateway, and DynamoDB.',
     publishedAt: '2024-01-15',
     url: 'https://wheeleruniverse.netlify.app/blog/serverless-lambda-guide',
-    tags: ['AWS', 'Lambda', 'Serverless', 'API Gateway']
+    tags: ['AWS', 'Lambda', 'Serverless', 'API Gateway'],
   },
   {
     id: '2',
     title: 'Cloud Security Best Practices',
-    excerpt: 'Essential security practices for cloud deployments, including IAM policies, encryption, and monitoring.',
+    excerpt:
+      'Essential security practices for cloud deployments, including IAM policies, encryption, and monitoring.',
     publishedAt: '2024-01-08',
     url: 'https://wheeleruniverse.netlify.app/blog/cloud-security-practices',
-    tags: ['Security', 'AWS', 'IAM', 'Best Practices']
+    tags: ['Security', 'AWS', 'IAM', 'Best Practices'],
   },
   {
     id: '3',
     title: 'Infrastructure as Code with AWS CDK',
-    excerpt: 'Learn how to manage cloud infrastructure using AWS CDK and TypeScript for better maintainability.',
+    excerpt:
+      'Learn how to manage cloud infrastructure using AWS CDK and TypeScript for better maintainability.',
     publishedAt: '2023-12-20',
     url: 'https://wheeleruniverse.netlify.app/blog/aws-cdk-infrastructure',
-    tags: ['AWS CDK', 'Infrastructure', 'TypeScript', 'DevOps']
-  }
-])
+    tags: ['AWS CDK', 'Infrastructure', 'TypeScript', 'DevOps'],
+  },
+]);
 
 const speakingEvents = ref([
   {
     title: 'The Future of Cloud Development',
     venue: 'Red Monk Developer Interview',
-    description: 'Discussed trends in cloud-native development and the evolving role of developers in the cloud era.',
+    description:
+      'Discussed trends in cloud-native development and the evolving role of developers in the cloud era.',
     date: '2024-02-15',
     type: 'Interview',
-    url: 'https://redmonk.com/interviews/wheeler-cloud-development'
+    url: 'https://redmonk.com/interviews/wheeler-cloud-development',
   },
   {
     title: 'AWS Community Builder Panel',
     venue: 'AWS re:Invent 2023',
-    description: 'Panel discussion on community building and knowledge sharing in the AWS ecosystem.',
+    description:
+      'Panel discussion on community building and knowledge sharing in the AWS ecosystem.',
     date: '2023-11-30',
     type: 'Panel',
-    url: null
+    url: null,
   },
   {
     title: 'Serverless Architecture Patterns',
     venue: 'Local AWS User Group',
-    description: 'Presented common serverless patterns and best practices for building scalable applications.',
+    description:
+      'Presented common serverless patterns and best practices for building scalable applications.',
     date: '2023-09-15',
     type: 'Talk',
-    url: null
-  }
-])
+    url: null,
+  },
+]);
 
 const communityInvolvement = ref([
   {
     organization: 'AWS Community Builders',
     role: 'Community Builder',
-    description: 'Selected member of the AWS Community Builders program, focusing on Serverless and DevOps.',
+    description:
+      'Selected member of the AWS Community Builders program, focusing on Serverless and DevOps.',
     icon: '☁️',
-    activities: ['Content Creation', 'Mentoring', 'Speaking', 'Feedback']
+    activities: ['Content Creation', 'Mentoring', 'Speaking', 'Feedback'],
   },
   {
     organization: 'Virtual Coffee',
     role: 'Active Member',
-    description: 'Participating in an inclusive community of developers supporting each other\'s growth.',
+    description:
+      "Participating in an inclusive community of developers supporting each other's growth.",
     icon: '☕',
-    activities: ['Mentoring', 'Networking', 'Lightning Talks', 'Code Reviews']
+    activities: ['Mentoring', 'Networking', 'Lightning Talks', 'Code Reviews'],
   },
   {
     organization: 'Dev.to',
     role: 'Technical Writer',
-    description: 'Regular contributor writing about cloud technologies and development practices.',
+    description:
+      'Regular contributor writing about cloud technologies and development practices.',
     icon: '✍️',
-    activities: ['Technical Articles', 'Tutorials', 'Community Engagement']
+    activities: ['Technical Articles', 'Tutorials', 'Community Engagement'],
   },
   {
     organization: 'Local Tech Meetups',
     role: 'Speaker & Organizer',
-    description: 'Helping organize and speak at local technology meetups and conferences.',
+    description:
+      'Helping organize and speak at local technology meetups and conferences.',
     icon: '🎪',
-    activities: ['Speaking', 'Organizing', 'Networking', 'Workshops']
-  }
-])
+    activities: ['Speaking', 'Organizing', 'Networking', 'Workshops'],
+  },
+]);
 </script>
 
 <style scoped>
@@ -299,7 +305,11 @@ const communityInvolvement = ref([
   align-items: center;
   gap: 2rem;
   max-width: 600px;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.1),
+    rgba(22, 163, 74, 0.1)
+  );
   border-color: rgba(34, 197, 94, 0.3);
 }
 
@@ -308,7 +318,7 @@ const communityInvolvement = ref([
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #22C55E, #16A34A);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -322,7 +332,7 @@ const communityInvolvement = ref([
 .badge-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #22C55E;
+  color: #22c55e;
   margin-bottom: 0.5rem;
   font-family: 'Orbitron', monospace;
 }
@@ -342,7 +352,7 @@ const communityInvolvement = ref([
 .subsection-title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 2rem;
   font-family: 'Orbitron', monospace;
 }
@@ -371,7 +381,7 @@ const communityInvolvement = ref([
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #22C55E, #16A34A);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -410,7 +420,7 @@ const communityInvolvement = ref([
 .stat-number {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #22C55E;
+  color: #22c55e;
   font-family: 'Orbitron', monospace;
 }
 
@@ -476,7 +486,7 @@ const communityInvolvement = ref([
 
 .blog-tag {
   background: rgba(34, 197, 94, 0.2);
-  color: #22C55E;
+  color: #22c55e;
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
   font-size: 0.7rem;
@@ -488,7 +498,7 @@ const communityInvolvement = ref([
 }
 
 .blog-link {
-  color: #22C55E;
+  color: #22c55e;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
@@ -529,7 +539,7 @@ const communityInvolvement = ref([
 }
 
 .speaking-venue {
-  color: #22C55E;
+  color: #22c55e;
   font-weight: 500;
   margin-bottom: 0.75rem;
 }
@@ -554,7 +564,7 @@ const communityInvolvement = ref([
 
 .speaking-type {
   background: rgba(34, 197, 94, 0.2);
-  color: #22C55E;
+  color: #22c55e;
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
   font-size: 0.7rem;
@@ -562,7 +572,7 @@ const communityInvolvement = ref([
 }
 
 .speaking-link {
-  color: #22C55E;
+  color: #22c55e;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
@@ -603,7 +613,7 @@ const communityInvolvement = ref([
 }
 
 .involvement-role {
-  color: #22C55E;
+  color: #22c55e;
   font-weight: 500;
   text-align: center;
   margin-bottom: 1rem;
@@ -626,7 +636,7 @@ const communityInvolvement = ref([
 
 .activity-tag {
   background: rgba(34, 197, 94, 0.2);
-  color: #22C55E;
+  color: #22c55e;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.8rem;
@@ -639,33 +649,33 @@ const communityInvolvement = ref([
     text-align: center;
     gap: 1rem;
   }
-  
+
   .badge-icon {
     width: 80px;
     height: 80px;
     font-size: 3rem;
   }
-  
+
   .contributions-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .contribution-card {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .blog-grid,
   .speaking-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .blog-meta {
     flex-direction: column;
     gap: 0.5rem;
     align-items: flex-start;
   }
-  
+
   .speaking-meta {
     flex-direction: column;
     gap: 0.5rem;

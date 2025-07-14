@@ -8,32 +8,23 @@
       >
         ×
       </button>
-      
+
       <div class="modal-header">
         <div class="planet-preview">
-          <div 
-            class="planet-mini"
-            :class="`bg-gradient-to-br ${planet.color}`"
-          >
+          <div class="planet-mini" :class="`bg-gradient-to-br ${planet.color}`">
             <span class="planet-icon">{{ planet.icon }}</span>
           </div>
         </div>
         <h2 class="modal-title">{{ planet.title }}</h2>
         <p class="modal-description">{{ planet.description }}</p>
       </div>
-      
+
       <div class="modal-body">
         <div class="action-buttons">
-          <button
-            class="btn-primary"
-            @click="$emit('navigate', planet.id)"
-          >
+          <button class="btn-primary" @click="$emit('navigate', planet.id)">
             Explore {{ planet.name }}
           </button>
-          <button
-            class="btn-secondary"
-            @click="$emit('close')"
-          >
+          <button class="btn-secondary" @click="$emit('close')">
             Stay in Orbit
           </button>
         </div>
@@ -43,23 +34,23 @@
 </template>
 
 <script setup lang="ts">
-import type { Planet } from '@/types'
+import type { Planet } from '@/types';
 
 interface Props {
-  planet: Planet
+  planet: Planet;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 const emit = defineEmits<{
-  close: []
-  navigate: [planetId: string]
-}>()
+  close: [];
+  navigate: [planetId: string];
+}>();
 
 const handleOverlayClick = (event: MouseEvent) => {
   if (event.target === event.currentTarget) {
-    emit('close')
+    emit('close');
   }
-}
+};
 </script>
 
 <style scoped>
@@ -134,7 +125,7 @@ const handleOverlayClick = (event: MouseEvent) => {
 .modal-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 0.5rem;
   font-family: 'Orbitron', monospace;
 }
@@ -151,7 +142,7 @@ const handleOverlayClick = (event: MouseEvent) => {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #4B1F8E, #2D1355);
+  background: linear-gradient(135deg, #4b1f8e, #2d1355);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -187,11 +178,11 @@ const handleOverlayClick = (event: MouseEvent) => {
   .modal-content {
     padding: 1.5rem;
   }
-  
+
   .action-buttons {
     flex-direction: column;
   }
-  
+
   .planet-mini {
     width: 60px;
     height: 60px;

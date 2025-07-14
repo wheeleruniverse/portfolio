@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import StarField from '@/components/common/StarField.vue'
-import FloatingNavigation from '@/components/Navigation/FloatingNavigation.vue'
+import StarField from '@/components/common/StarField.vue';
+import FloatingNavigation from '@/components/Navigation/FloatingNavigation.vue';
+import { RouterView } from 'vue-router';
 </script>

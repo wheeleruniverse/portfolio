@@ -9,9 +9,9 @@
       >
         🌌
       </button>
-      
+
       <div class="nav-divider" v-if="currentRoute !== 'home'"></div>
-      
+
       <div class="nav-links">
         <a
           v-for="link in socialLinks"
@@ -22,17 +22,17 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span 
-            v-if="link.iconType === 'svg'" 
+          <span
+            v-if="link.iconType === 'svg'"
             class="nav-icon-svg"
             v-html="link.icon"
           ></span>
           <span v-else class="nav-icon-emoji">{{ link.icon }}</span>
         </a>
       </div>
-      
+
       <div class="nav-divider"></div>
-      
+
       <button
         @click="downloadResume"
         class="nav-button nav-resume"
@@ -45,27 +45,31 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { usePortfolioConfig, getSocialLinks, getBrandAssets } from '@/composables/usePortfolioConfig'
+import {
+  getBrandAssets,
+  getSocialLinks,
+  usePortfolioConfig,
+} from '@/composables/usePortfolioConfig';
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
-const currentRoute = computed(() => route.name)
+const currentRoute = computed(() => route.name);
 usePortfolioConfig();
 
-const socialLinks = computed(() => getSocialLinks())
-const brandAssets = computed(() => getBrandAssets())
+const socialLinks = computed(() => getSocialLinks());
+const brandAssets = computed(() => getBrandAssets());
 
 const goHome = () => {
-  router.push('/')
-}
+  router.push('/');
+};
 
 const downloadResume = () => {
   // This would link to your actual resume file
-  window.open(brandAssets.value?.resume || '/resume.pdf', '_blank')
-}
+  window.open(brandAssets.value?.resume || '/resume.pdf', '_blank');
+};
 </script>
 
 <style scoped>
@@ -131,7 +135,7 @@ const downloadResume = () => {
 
 .nav-button:focus,
 .nav-link:focus {
-  outline: 2px solid #FFD700;
+  outline: 2px solid #ffd700;
   outline-offset: 2px;
 }
 
@@ -161,14 +165,14 @@ const downloadResume = () => {
     right: 1rem;
     padding: 0.5rem;
   }
-  
+
   .nav-button,
   .nav-link {
     width: 2rem;
     height: 2rem;
     font-size: 1rem;
   }
-  
+
   .nav-content {
     gap: 0.25rem;
   }

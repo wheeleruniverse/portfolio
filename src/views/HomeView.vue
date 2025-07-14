@@ -2,13 +2,18 @@
   <div class="home-view">
     <section class="hero-section relative">
       <div class="container mx-auto px-4 py-20 text-center">
-        <h1 class="text-6xl md:text-8xl font-orbitron font-bold mb-6 text-space-gold">
+        <h1
+          class="text-6xl md:text-8xl font-orbitron font-bold mb-6 text-space-gold"
+        >
           Wheeler Universe
         </h1>
         <p class="text-xl md:text-2xl mb-8 text-gray-300">
-          Explore the cosmos of cloud expertise, development skills, and community contributions
+          Explore the cosmos of cloud expertise, development skills, and
+          community contributions
         </p>
-        <div class="stats-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
+        <div
+          class="stats-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto"
+        >
           <div class="stat-card">
             <div class="stat-number">15+</div>
             <div class="stat-label">AWS Certifications</div>
@@ -34,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import SolarSystem from '@/components/SolarSystem/SolarSystem.vue'
+import SolarSystem from '@/components/SolarSystem/SolarSystem.vue';
 </script>
 
 <style scoped>

@@ -321,13 +321,7 @@
         "Reduced infrastructure costs by 30% through optimization strategies",
         "Led migration of legacy applications to cloud-native architecture"
       ],
-      "technologies": [
-        "AWS",
-        "Terraform",
-        "Kubernetes",
-        "Python",
-        "TypeScript"
-      ]
+      "technologies": ["AWS", "Terraform", "Kubernetes", "Python", "TypeScript"]
     },
     {
       "id": "previous-role",
@@ -342,13 +336,7 @@
         "Collaborated with cross-functional teams to deliver projects on time",
         "Mentored junior developers and conducted code reviews"
       ],
-      "technologies": [
-        "React",
-        "Node.js",
-        "AWS",
-        "PostgreSQL",
-        "Docker"
-      ]
+      "technologies": ["React", "Node.js", "AWS", "PostgreSQL", "Docker"]
     }
   ],
   "projects": [
@@ -356,12 +344,7 @@
       "id": "portfolio",
       "name": "Wheeler Universe Portfolio",
       "description": "Interactive solar system portfolio built with Vue.js and TypeScript",
-      "technologies": [
-        "Vue.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Vite"
-      ],
+      "technologies": ["Vue.js", "TypeScript", "Tailwind CSS", "Vite"],
       "githubUrl": "https://github.com/justinwheeler/portfolio",
       "liveUrl": "https://wheeleruniverse.com",
       "featured": false,
@@ -371,12 +354,7 @@
       "id": "blog",
       "name": "Wheeler Universe Blog",
       "description": "A modern blog aggregation website built with Vue 3, TypeScript, and Tailwind CSS. This application aggregates blog posts from multiple platforms under the Wheeler Universe brand.",
-      "technologies": [
-        "Vue.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Vite"
-      ],
+      "technologies": ["Vue.js", "TypeScript", "Tailwind CSS", "Vite"],
       "githubUrl": "https://github.com/wheeleruniverse/blog",
       "liveUrl": "https://blog.wheeleruniverse.com",
       "featured": true,
@@ -435,12 +413,7 @@
       "id": "cgc-resume-from-json",
       "name": "Resume Site from JSON",
       "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
-      "technologies": [
-        "C#",
-        "Blazor",
-        "Next.js",
-        "Vercel"
-      ],
+      "technologies": ["C#", "Blazor", "Next.js", "Vercel"],
       "githubUrl": "https://github.com/wheeleruniverse/cgc-resume-from-json",
       "featured": false,
       "category": "data"
@@ -531,41 +504,11 @@
     }
   ],
   "skills": {
-    "cloud": [
-      "AWS",
-      "Azure",
-      "Google Cloud",
-      "Terraform",
-      "CloudFormation"
-    ],
-    "programming": [
-      "Python",
-      "TypeScript",
-      "JavaScript",
-      "Go",
-      "Java"
-    ],
-    "frontend": [
-      "Vue.js",
-      "React",
-      "HTML5",
-      "CSS3",
-      "Tailwind CSS"
-    ],
-    "backend": [
-      "Node.js",
-      "FastAPI",
-      "Express",
-      "PostgreSQL",
-      "MongoDB"
-    ],
-    "devops": [
-      "Docker",
-      "Kubernetes",
-      "CI/CD",
-      "GitHub Actions",
-      "Jenkins"
-    ]
+    "cloud": ["AWS", "Azure", "Google Cloud", "Terraform", "CloudFormation"],
+    "programming": ["Python", "TypeScript", "JavaScript", "Go", "Java"],
+    "frontend": ["Vue.js", "React", "HTML5", "CSS3", "Tailwind CSS"],
+    "backend": ["Node.js", "FastAPI", "Express", "PostgreSQL", "MongoDB"],
+    "devops": ["Docker", "Kubernetes", "CI/CD", "GitHub Actions", "Jenkins"]
   },
   "education": [
     {

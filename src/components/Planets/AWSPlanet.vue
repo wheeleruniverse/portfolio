@@ -4,7 +4,8 @@
       <div class="hero-content">
         <h2 class="section-title">AWS Cloud Expertise</h2>
         <p class="hero-description">
-          With all active AWS certifications and years of hands-on experience, I bring comprehensive cloud expertise to every project.
+          With all active AWS certifications and years of hands-on experience, I
+          bring comprehensive cloud expertise to every project.
         </p>
         <div class="aws-stats">
           <div class="stat-item">
@@ -25,17 +26,17 @@
 
     <section class="certifications-section">
       <h3 class="subsection-title">AWS Certifications</h3>
-      
+
       <!-- Loading state -->
       <div v-if="isLoading" class="loading-message">
         Loading certifications...
       </div>
-      
+
       <!-- Error state -->
       <div v-if="error" class="error-message">
         Error loading certifications: {{ error }}
       </div>
-      
+
       <!-- Certifications grid -->
       <div v-if="!isLoading && !error" class="certifications-grid">
         <div
@@ -51,7 +52,9 @@
             <p class="cert-issuer">{{ cert.issuer }}</p>
             <p class="cert-level">{{ cert.level }}</p>
             <p class="cert-date">Issued: {{ cert.issueDate }}</p>
-            <p class="cert-expiry" v-if="cert.expiryDate">Expires: {{ cert.expiryDate }}</p>
+            <p class="cert-expiry" v-if="cert.expiryDate">
+              Expires: {{ cert.expiryDate }}
+            </p>
             <a
               v-if="cert.credlyUrl"
               :href="cert.credlyUrl"
@@ -69,19 +72,20 @@
     <section class="services-section">
       <h3 class="subsection-title">AWS Projects & Services</h3>
       <p class="services-description">
-        Real-world projects showcasing AWS services in action. Click on any project to learn more.
+        Real-world projects showcasing AWS services in action. Click on any
+        project to learn more.
       </p>
-      
+
       <!-- Loading state -->
       <div v-if="isLoading" class="loading-message">
         Loading AWS projects...
       </div>
-      
+
       <!-- Error state -->
       <div v-if="error" class="error-message">
         Error loading projects: {{ error }}
       </div>
-      
+
       <!-- Projects grid -->
       <div v-if="!isLoading && !error" class="services-grid">
         <div
@@ -106,9 +110,12 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Service Usage Statistics -->
-      <div v-if="!isLoading && !error && serviceUsageStats.length > 0" class="service-usage-section">
+      <div
+        v-if="!isLoading && !error && serviceUsageStats.length > 0"
+        class="service-usage-section"
+      >
         <h4 class="usage-title">Most Used AWS Services</h4>
         <p class="usage-description">
           Based on {{ awsProjects.length }} AWS projects in my portfolio
@@ -124,11 +131,11 @@
               <span class="service-count">{{ stat.count }}</span>
             </div>
             <div class="usage-bar-track">
-              <div 
+              <div
                 class="usage-bar"
-                :style="{ 
-                  width: `${(stat.count / serviceUsageStats[0].count) * 100}%`,
-                  '--bar-delay': `${index * 100}ms`
+                :style="{
+                  'width': `${(stat.count / serviceUsageStats[0].count) * 100}%`,
+                  '--bar-delay': `${index * 100}ms`,
                 }"
               ></div>
             </div>
@@ -157,113 +164,123 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import type { Certification, Project } from '@/types'
+import type { Certification, Project } from '@/types';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
-const certifications = ref<Certification[]>([])
-const awsProjects = ref<Project[]>([])
-const serviceUsageStats = ref<Array<{service: string, count: number}>>([])
-const isLoading = ref(true)
-const error = ref<string | null>(null)
+const router = useRouter();
+const certifications = ref<Certification[]>([]);
+const awsProjects = ref<Project[]>([]);
+const serviceUsageStats = ref<Array<{ service: string; count: number }>>([]);
+const isLoading = ref(true);
+const error = ref<string | null>(null);
 
 const loadData = async () => {
   try {
-    isLoading.value = true
-    error.value = null
-    
-    const response = await fetch('/portfolio-config.json')
+    isLoading.value = true;
+    error.value = null;
+
+    const response = await fetch('/portfolio-config.json');
     if (!response.ok) {
-      throw new Error(`Failed to load config: ${response.statusText}`)
+      throw new Error(`Failed to load config: ${response.statusText}`);
     }
-    
-    const config = await response.json()
+
+    const config = await response.json();
     // Filter for AWS certifications only
-    certifications.value = (config.certifications || []).filter((cert: any) => cert.vendor === 'AWS')
-    
+    certifications.value = (config.certifications || []).filter(
+      (cert: any) => cert.vendor === 'AWS'
+    );
+
     // Filter projects that have AWS/Amazon technologies
     awsProjects.value = (config.projects || []).filter((project: Project) => {
-      return project.technologies.some((tech: string) => 
-        tech.startsWith('AWS') || tech.startsWith('Amazon')
-      )
-    })
-    
+      return project.technologies.some(
+        (tech: string) => tech.startsWith('AWS') || tech.startsWith('Amazon')
+      );
+    });
+
     // Calculate service usage statistics
-    calculateServiceUsage()
+    calculateServiceUsage();
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to load data'
-    console.error('Error loading data:', err)
+    error.value = err instanceof Error ? err.message : 'Failed to load data';
+    console.error('Error loading data:', err);
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
-}
+};
 
 const calculateServiceUsage = () => {
-  const serviceCount: Record<string, number> = {}
-  
+  const serviceCount: Record<string, number> = {};
+
   awsProjects.value.forEach(project => {
-    const awsServices = filterAWSServices(project.technologies)
+    const awsServices = filterAWSServices(project.technologies);
     awsServices.forEach(service => {
-      serviceCount[service] = (serviceCount[service] || 0) + 1
-    })
-  })
-  
+      serviceCount[service] = (serviceCount[service] || 0) + 1;
+    });
+  });
+
   // Convert to array and sort by count (descending), then by name (ascending)
   serviceUsageStats.value = Object.entries(serviceCount)
     .map(([service, count]) => ({ service, count }))
     .sort((a, b) => {
       if (b.count !== a.count) {
-        return b.count - a.count // Sort by count descending
+        return b.count - a.count; // Sort by count descending
       }
-      return a.service.localeCompare(b.service) // Then by name ascending
+      return a.service.localeCompare(b.service); // Then by name ascending
     })
-    .slice(0, 10) // Top 10 services
-}
+    .slice(0, 10); // Top 10 services
+};
 
 const filterAWSServices = (technologies: string[]) => {
   return technologies
     .filter(tech => tech.startsWith('AWS') || tech.startsWith('Amazon'))
     .map(tech => tech.replace(/^(AWS |Amazon )/, ''))
-    .sort()
-}
+    .sort();
+};
 
 const navigateToProject = (projectId: string) => {
-  router.push({ name: 'planet', params: { id: 'projects' }, query: { project: projectId } })
-}
+  router.push({
+    name: 'planet',
+    params: { id: 'projects' },
+    query: { project: projectId },
+  });
+};
 
 onMounted(() => {
-  loadData()
-})
-
+  loadData();
+});
 
 const cloudJourney = ref([
   {
     year: '2019',
     title: 'Cloud Journey Begins',
-    description: 'Started learning AWS fundamentals and got first hands-on experience with EC2 and S3.'
+    description:
+      'Started learning AWS fundamentals and got first hands-on experience with EC2 and S3.',
   },
   {
     year: '2020',
     title: 'First Certifications',
-    description: 'Achieved AWS Cloud Practitioner and Solutions Architect Associate certifications.'
+    description:
+      'Achieved AWS Cloud Practitioner and Solutions Architect Associate certifications.',
   },
   {
     year: '2022',
     title: 'Associate Level Complete',
-    description: 'Completed all three Associate-level certifications and began working with enterprise clients.'
+    description:
+      'Completed all three Associate-level certifications and began working with enterprise clients.',
   },
   {
     year: '2023',
     title: 'Professional & Specialty',
-    description: 'Achieved Professional-level certifications and specialized in Security and DevOps.'
+    description:
+      'Achieved Professional-level certifications and specialized in Security and DevOps.',
   },
   {
     year: '2024',
     title: 'AWS Community Builder',
-    description: 'Became an AWS Community Builder, sharing knowledge and helping others in their cloud journey.'
-  }
-])
+    description:
+      'Became an AWS Community Builder, sharing knowledge and helping others in their cloud journey.',
+  },
+]);
 </script>
 
 <style scoped>
@@ -298,7 +315,7 @@ const cloudJourney = ref([
 .stat-number {
   font-size: 2rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   font-family: 'Orbitron', monospace;
 }
 
@@ -317,12 +334,13 @@ const cloudJourney = ref([
 .subsection-title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 2rem;
   font-family: 'Orbitron', monospace;
 }
 
-.loading-message, .error-message {
+.loading-message,
+.error-message {
   text-align: center;
   padding: 2rem;
   font-family: 'Orbitron', monospace;
@@ -364,7 +382,7 @@ const cloudJourney = ref([
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
+  background: linear-gradient(135deg, #ffd700, #ffa500);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -388,13 +406,14 @@ const cloudJourney = ref([
 }
 
 .cert-level {
-  color: #FFD700;
+  color: #ffd700;
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-.cert-date, .cert-expiry {
+.cert-date,
+.cert-expiry {
   font-size: 0.8rem;
   color: #999;
   margin-bottom: 0.25rem;
@@ -405,7 +424,7 @@ const cloudJourney = ref([
 }
 
 .cert-link {
-  color: #FFD700;
+  color: #ffd700;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
@@ -449,7 +468,7 @@ const cloudJourney = ref([
 .service-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 1rem;
 }
 
@@ -483,7 +502,7 @@ const cloudJourney = ref([
 }
 
 .action-text {
-  color: #FFD700;
+  color: #ffd700;
   font-size: 0.9rem;
   font-weight: 500;
   opacity: 0.8;
@@ -498,7 +517,7 @@ const cloudJourney = ref([
 .usage-title {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -538,7 +557,7 @@ const cloudJourney = ref([
 
 .service-count {
   background: rgba(255, 215, 0, 0.2);
-  color: #FFD700;
+  color: #ffd700;
   padding: 0.25rem 0.5rem;
   border-radius: 0.75rem;
   font-size: 0.8rem;
@@ -557,7 +576,7 @@ const cloudJourney = ref([
 
 .usage-bar {
   height: 100%;
-  background: linear-gradient(90deg, #FFD700, #FFA500);
+  background: linear-gradient(90deg, #ffd700, #ffa500);
   border-radius: 4px;
   transition: width 1s ease-out;
   animation: slideIn 1s ease-out var(--bar-delay, 0ms);
@@ -586,13 +605,13 @@ const cloudJourney = ref([
   padding: 1.5rem;
   background: rgba(11, 20, 38, 0.8);
   border-radius: 1rem;
-  border-left: 4px solid #FFD700;
+  border-left: 4px solid #ffd700;
 }
 
 .timeline-year {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   font-family: 'Orbitron', monospace;
   min-width: 80px;
 }
@@ -618,25 +637,25 @@ const cloudJourney = ref([
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .certifications-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .certification-card {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .services-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .timeline-item {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .timeline-year {
     min-width: auto;
   }

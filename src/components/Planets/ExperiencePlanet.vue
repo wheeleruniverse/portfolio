@@ -4,7 +4,8 @@
       <div class="hero-content">
         <h2 class="section-title">Professional Experience</h2>
         <p class="hero-description">
-          8+ years of professional experience building scalable solutions and leading technical initiatives.
+          8+ years of professional experience building scalable solutions and
+          leading technical initiatives.
         </p>
       </div>
     </section>
@@ -19,8 +20,14 @@
           :class="{ 'timeline-current': !experience.endDate }"
         >
           <div class="timeline-marker">
-            <div class="timeline-dot" :class="{ 'current': !experience.endDate }"></div>
-            <div class="timeline-line" v-if="index < experiences.length - 1"></div>
+            <div
+              class="timeline-dot"
+              :class="{ current: !experience.endDate }"
+            ></div>
+            <div
+              class="timeline-line"
+              v-if="index < experiences.length - 1"
+            ></div>
           </div>
           <div class="timeline-content">
             <div class="experience-card">
@@ -28,8 +35,11 @@
                 <h4 class="experience-position">{{ experience.position }}</h4>
                 <div class="experience-company">{{ experience.company }}</div>
                 <div class="experience-duration">
-                  {{ experience.startDate }} - {{ experience.endDate || 'Present' }}
-                  <span class="experience-badge" v-if="!experience.endDate">Current</span>
+                  {{ experience.startDate }} -
+                  {{ experience.endDate || 'Present' }}
+                  <span class="experience-badge" v-if="!experience.endDate"
+                    >Current</span
+                  >
                 </div>
               </div>
               <div class="experience-description">
@@ -133,8 +143,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Experience } from '@/types'
+import type { Experience } from '@/types';
+import { ref } from 'vue';
 
 const experiences = ref<Experience[]>([
   {
@@ -143,14 +153,24 @@ const experiences = ref<Experience[]>([
     position: 'Senior Cloud Architect',
     startDate: '2022-01',
     endDate: undefined,
-    description: 'Leading cloud architecture initiatives and driving digital transformation for enterprise clients.',
+    description:
+      'Leading cloud architecture initiatives and driving digital transformation for enterprise clients.',
     achievements: [
       'Architected and implemented multi-cloud solutions serving 1M+ users',
       'Reduced infrastructure costs by 40% through cloud optimization',
       'Led team of 8 engineers in successful cloud migration projects',
-      'Established DevOps practices reducing deployment time by 60%'
+      'Established DevOps practices reducing deployment time by 60%',
     ],
-    technologies: ['AWS', 'Azure', 'Kubernetes', 'Terraform', 'Docker', 'Python', 'Node.js', 'React']
+    technologies: [
+      'AWS',
+      'Azure',
+      'Kubernetes',
+      'Terraform',
+      'Docker',
+      'Python',
+      'Node.js',
+      'React',
+    ],
   },
   {
     id: 'cloud-engineer',
@@ -158,14 +178,23 @@ const experiences = ref<Experience[]>([
     position: 'Cloud Engineer',
     startDate: '2020-03',
     endDate: '2021-12',
-    description: 'Designed and implemented cloud infrastructure solutions for high-growth startups.',
+    description:
+      'Designed and implemented cloud infrastructure solutions for high-growth startups.',
     achievements: [
       'Built serverless applications handling 100K+ requests per day',
       'Implemented CI/CD pipelines reducing deployment failures by 75%',
       'Mentored 5 junior developers in cloud technologies',
-      'Achieved 99.9% uptime for critical production systems'
+      'Achieved 99.9% uptime for critical production systems',
     ],
-    technologies: ['AWS', 'Lambda', 'API Gateway', 'DynamoDB', 'CloudFormation', 'Java', 'JavaScript']
+    technologies: [
+      'AWS',
+      'Lambda',
+      'API Gateway',
+      'DynamoDB',
+      'CloudFormation',
+      'Java',
+      'JavaScript',
+    ],
   },
   {
     id: 'full-stack-developer',
@@ -173,14 +202,24 @@ const experiences = ref<Experience[]>([
     position: 'Full Stack Developer',
     startDate: '2018-06',
     endDate: '2020-02',
-    description: 'Developed web applications and APIs for diverse client base across multiple industries.',
+    description:
+      'Developed web applications and APIs for diverse client base across multiple industries.',
     achievements: [
       'Delivered 20+ client projects on time and under budget',
       'Improved application performance by 50% through optimization',
       'Implemented responsive designs serving desktop and mobile users',
-      'Collaborated with UX/UI teams to deliver exceptional user experiences'
+      'Collaborated with UX/UI teams to deliver exceptional user experiences',
     ],
-    technologies: ['Vue.js', 'Node.js', 'PostgreSQL', 'MongoDB', 'Express.js', 'HTML', 'CSS', 'JavaScript']
+    technologies: [
+      'Vue.js',
+      'Node.js',
+      'PostgreSQL',
+      'MongoDB',
+      'Express.js',
+      'HTML',
+      'CSS',
+      'JavaScript',
+    ],
   },
   {
     id: 'junior-developer',
@@ -188,16 +227,17 @@ const experiences = ref<Experience[]>([
     position: 'Junior Developer',
     startDate: '2016-09',
     endDate: '2018-05',
-    description: 'Started career building web applications and learning software development best practices.',
+    description:
+      'Started career building web applications and learning software development best practices.',
     achievements: [
       'Contributed to 10+ feature releases for main product',
       'Maintained 95% code coverage through comprehensive testing',
       'Participated in agile development processes',
-      'Completed AWS certification while working full-time'
+      'Completed AWS certification while working full-time',
     ],
-    technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS', 'Git', 'Linux']
-  }
-])
+    technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS', 'Git', 'Linux'],
+  },
+]);
 
 const skillCategories = ref([
   {
@@ -205,8 +245,8 @@ const skillCategories = ref([
     skills: [
       { name: 'AWS', years: 6, percentage: 95 },
       { name: 'Azure', years: 3, percentage: 75 },
-      { name: 'Google Cloud', years: 2, percentage: 60 }
-    ]
+      { name: 'Google Cloud', years: 2, percentage: 60 },
+    ],
   },
   {
     category: 'Programming Languages',
@@ -214,8 +254,8 @@ const skillCategories = ref([
       { name: 'JavaScript/TypeScript', years: 8, percentage: 95 },
       { name: 'Python', years: 5, percentage: 85 },
       { name: 'Java', years: 4, percentage: 75 },
-      { name: 'PHP', years: 6, percentage: 80 }
-    ]
+      { name: 'PHP', years: 6, percentage: 80 },
+    ],
   },
   {
     category: 'DevOps & Tools',
@@ -223,8 +263,8 @@ const skillCategories = ref([
       { name: 'Docker', years: 5, percentage: 90 },
       { name: 'Kubernetes', years: 3, percentage: 75 },
       { name: 'Terraform', years: 4, percentage: 85 },
-      { name: 'CI/CD', years: 6, percentage: 90 }
-    ]
+      { name: 'CI/CD', years: 6, percentage: 90 },
+    ],
   },
   {
     category: 'Databases',
@@ -232,10 +272,10 @@ const skillCategories = ref([
       { name: 'PostgreSQL', years: 6, percentage: 90 },
       { name: 'MySQL', years: 7, percentage: 85 },
       { name: 'MongoDB', years: 4, percentage: 75 },
-      { name: 'DynamoDB', years: 5, percentage: 85 }
-    ]
-  }
-])
+      { name: 'DynamoDB', years: 5, percentage: 85 },
+    ],
+  },
+]);
 </script>
 
 <style scoped>
@@ -265,7 +305,7 @@ const skillCategories = ref([
 .subsection-title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 2rem;
   font-family: 'Orbitron', monospace;
 }
@@ -293,20 +333,20 @@ const skillCategories = ref([
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #FFD700;
-  border: 3px solid #0B1426;
+  background: #ffd700;
+  border: 3px solid #0b1426;
   z-index: 2;
 }
 
 .timeline-dot.current {
-  background: #22C55E;
+  background: #22c55e;
   box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
 }
 
 .timeline-line {
   width: 2px;
   height: 100px;
-  background: linear-gradient(to bottom, #FFD700, rgba(255, 215, 0, 0.3));
+  background: linear-gradient(to bottom, #ffd700, rgba(255, 215, 0, 0.3));
   margin-top: 1rem;
 }
 
@@ -326,7 +366,11 @@ const skillCategories = ref([
 
 .timeline-current .experience-card {
   border-color: rgba(34, 197, 94, 0.3);
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), rgba(11, 20, 38, 0.95));
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.05),
+    rgba(11, 20, 38, 0.95)
+  );
 }
 
 .experience-header {
@@ -336,14 +380,14 @@ const skillCategories = ref([
 .experience-position {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 0.5rem;
   font-family: 'Orbitron', monospace;
 }
 
 .experience-company {
   font-size: 1.1rem;
-  color: #22C55E;
+  color: #22c55e;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -357,7 +401,7 @@ const skillCategories = ref([
 }
 
 .experience-badge {
-  background: #22C55E;
+  background: #22c55e;
   color: white;
   padding: 0.2rem 0.5rem;
   border-radius: 0.5rem;
@@ -403,7 +447,7 @@ const skillCategories = ref([
   content: '✓';
   position: absolute;
   left: 0;
-  color: #22C55E;
+  color: #22c55e;
   font-weight: bold;
 }
 
@@ -426,7 +470,7 @@ const skillCategories = ref([
 
 .tech-tag {
   background: rgba(255, 215, 0, 0.2);
-  color: #FFD700;
+  color: #ffd700;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.8rem;
@@ -446,7 +490,7 @@ const skillCategories = ref([
 .skill-category-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -494,7 +538,7 @@ const skillCategories = ref([
 
 .skill-progress {
   height: 100%;
-  background: linear-gradient(90deg, #FFD700, #FFA500);
+  background: linear-gradient(90deg, #ffd700, #ffa500);
   transition: width 0.3s ease;
 }
 
@@ -522,7 +566,7 @@ const skillCategories = ref([
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
+  background: linear-gradient(135deg, #ffd700, #ffa500);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -536,7 +580,7 @@ const skillCategories = ref([
 .stat-number {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   font-family: 'Orbitron', monospace;
 }
 
@@ -550,28 +594,28 @@ const skillCategories = ref([
   .timeline {
     padding-left: 1rem;
   }
-  
+
   .timeline-marker {
     left: -1rem;
   }
-  
+
   .timeline-content {
     margin-left: 1rem;
   }
-  
+
   .experience-duration {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .skills-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .stat-card {
     flex-direction: column;
     text-align: center;

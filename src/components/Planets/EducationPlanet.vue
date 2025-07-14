@@ -4,7 +4,8 @@
       <div class="hero-content">
         <h2 class="section-title">Education & Learning</h2>
         <p class="hero-description">
-          Committed to continuous learning and professional development through formal education and self-directed study.
+          Committed to continuous learning and professional development through
+          formal education and self-directed study.
         </p>
       </div>
     </section>
@@ -37,7 +38,9 @@
     </section>
 
     <section class="certifications-learning">
-      <h3 class="subsection-title">Certifications & Professional Development</h3>
+      <h3 class="subsection-title">
+        Certifications & Professional Development
+      </h3>
       <div class="cert-categories">
         <div
           v-for="category in certificationCategories"
@@ -120,7 +123,10 @@
       <h3 class="subsection-title">Skills Development</h3>
       <div class="skills-chart">
         <div class="skills-note">
-          <p>My learning philosophy: Stay curious, practice consistently, and never stop growing.</p>
+          <p>
+            My learning philosophy: Stay curious, practice consistently, and
+            never stop growing.
+          </p>
         </div>
         <div class="learning-stats">
           <div class="learning-stat">
@@ -158,7 +164,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const formalEducation = ref([
   {
@@ -167,13 +173,14 @@ const formalEducation = ref([
     institution: 'State University',
     year: '2016',
     icon: '🎓',
-    description: 'Comprehensive study of computer science fundamentals, software engineering, and system design.',
+    description:
+      'Comprehensive study of computer science fundamentals, software engineering, and system design.',
     highlights: [
       'Graduated Magna Cum Laude',
       'President of Computer Science Club',
       'Capstone project: Cloud-based inventory management system',
-      'Relevant coursework: Data Structures, Algorithms, Database Systems, Web Development'
-    ]
+      'Relevant coursework: Data Structures, Algorithms, Database Systems, Web Development',
+    ],
   },
   {
     id: 'associates',
@@ -181,41 +188,87 @@ const formalEducation = ref([
     institution: 'Community College',
     year: '2014',
     icon: '💻',
-    description: 'Foundation in information technology concepts and practical application.',
+    description:
+      'Foundation in information technology concepts and practical application.',
     highlights: [
-      'Dean\'s List for 4 consecutive semesters',
+      "Dean's List for 4 consecutive semesters",
       'IT Help Desk volunteer',
-      'Networking and System Administration focus'
-    ]
-  }
-])
+      'Networking and System Administration focus',
+    ],
+  },
+]);
 
 const certificationCategories = ref([
   {
     name: 'Cloud Computing',
     certifications: [
-      { name: 'AWS Solutions Architect Professional', issuer: 'Amazon Web Services', date: '2023', badge: '☁️' },
-      { name: 'AWS DevOps Engineer Professional', issuer: 'Amazon Web Services', date: '2023', badge: '⚙️' },
-      { name: 'AWS Security Specialty', issuer: 'Amazon Web Services', date: '2023', badge: '🔒' },
-      { name: 'Microsoft Azure Fundamentals', issuer: 'Microsoft', date: '2022', badge: '💙' }
-    ]
+      {
+        name: 'AWS Solutions Architect Professional',
+        issuer: 'Amazon Web Services',
+        date: '2023',
+        badge: '☁️',
+      },
+      {
+        name: 'AWS DevOps Engineer Professional',
+        issuer: 'Amazon Web Services',
+        date: '2023',
+        badge: '⚙️',
+      },
+      {
+        name: 'AWS Security Specialty',
+        issuer: 'Amazon Web Services',
+        date: '2023',
+        badge: '🔒',
+      },
+      {
+        name: 'Microsoft Azure Fundamentals',
+        issuer: 'Microsoft',
+        date: '2022',
+        badge: '💙',
+      },
+    ],
   },
   {
     name: 'Development & Programming',
     certifications: [
-      { name: 'JavaScript Algorithms and Data Structures', issuer: 'freeCodeCamp', date: '2020', badge: '🔤' },
-      { name: 'Vue.js 3 Certification', issuer: 'Vue School', date: '2021', badge: '🟢' },
-      { name: 'Node.js Application Development', issuer: 'OpenJS Foundation', date: '2021', badge: '🟢' }
-    ]
+      {
+        name: 'JavaScript Algorithms and Data Structures',
+        issuer: 'freeCodeCamp',
+        date: '2020',
+        badge: '🔤',
+      },
+      {
+        name: 'Vue.js 3 Certification',
+        issuer: 'Vue School',
+        date: '2021',
+        badge: '🟢',
+      },
+      {
+        name: 'Node.js Application Development',
+        issuer: 'OpenJS Foundation',
+        date: '2021',
+        badge: '🟢',
+      },
+    ],
   },
   {
     name: 'Project Management',
     certifications: [
-      { name: 'Agile Project Management', issuer: 'Scrum Alliance', date: '2022', badge: '🔄' },
-      { name: 'Google Project Management', issuer: 'Google', date: '2022', badge: '📊' }
-    ]
-  }
-])
+      {
+        name: 'Agile Project Management',
+        issuer: 'Scrum Alliance',
+        date: '2022',
+        badge: '🔄',
+      },
+      {
+        name: 'Google Project Management',
+        issuer: 'Google',
+        date: '2022',
+        badge: '📊',
+      },
+    ],
+  },
+]);
 
 const learningPlatforms = ref([
   {
@@ -223,63 +276,84 @@ const learningPlatforms = ref([
     description: 'Official AWS training courses and labs',
     icon: '☁️',
     courses: '30+',
-    hours: '200+'
+    hours: '200+',
   },
   {
     name: 'Pluralsight',
     description: 'Technology skills platform for developers',
     icon: '📚',
     courses: '25+',
-    hours: '150+'
+    hours: '150+',
   },
   {
     name: 'freeCodeCamp',
     description: 'Free coding bootcamp and certification',
     icon: '🔥',
     courses: '10+',
-    hours: '300+'
+    hours: '300+',
   },
   {
     name: 'YouTube/Udemy',
     description: 'Various technical courses and tutorials',
     icon: '📹',
     courses: '50+',
-    hours: '100+'
-  }
-])
+    hours: '100+',
+  },
+]);
 
 const learningMilestones = ref([
   {
     year: '2024',
     title: 'Advanced Cloud Architecture',
-    description: 'Deepening expertise in multi-cloud architectures and advanced AWS services.',
-    achievements: ['AWS Community Builder', 'Technical Blog Launch', 'Conference Speaking']
+    description:
+      'Deepening expertise in multi-cloud architectures and advanced AWS services.',
+    achievements: [
+      'AWS Community Builder',
+      'Technical Blog Launch',
+      'Conference Speaking',
+    ],
   },
   {
     year: '2023',
     title: 'Professional Certifications',
-    description: 'Achieved professional-level AWS certifications and specialty credentials.',
-    achievements: ['AWS Pro Certifications', 'Security Specialty', 'DevOps Expertise']
+    description:
+      'Achieved professional-level AWS certifications and specialty credentials.',
+    achievements: [
+      'AWS Pro Certifications',
+      'Security Specialty',
+      'DevOps Expertise',
+    ],
   },
   {
     year: '2022',
     title: 'Leadership Development',
-    description: 'Focused on developing leadership skills and project management capabilities.',
-    achievements: ['Team Lead Role', 'Project Management Cert', 'Mentorship Program']
+    description:
+      'Focused on developing leadership skills and project management capabilities.',
+    achievements: [
+      'Team Lead Role',
+      'Project Management Cert',
+      'Mentorship Program',
+    ],
   },
   {
     year: '2021',
     title: 'Modern Web Development',
-    description: 'Mastered modern JavaScript frameworks and full-stack development.',
-    achievements: ['Vue.js Expert', 'Node.js Proficiency', 'API Design']
+    description:
+      'Mastered modern JavaScript frameworks and full-stack development.',
+    achievements: ['Vue.js Expert', 'Node.js Proficiency', 'API Design'],
   },
   {
     year: '2020',
     title: 'Cloud Fundamentals',
-    description: 'Started cloud computing journey with AWS fundamentals and first certifications.',
-    achievements: ['First AWS Cert', 'Cloud Practitioner', 'Solutions Architect']
-  }
-])
+    description:
+      'Started cloud computing journey with AWS fundamentals and first certifications.',
+    achievements: [
+      'First AWS Cert',
+      'Cloud Practitioner',
+      'Solutions Architect',
+    ],
+  },
+]);
 </script>
 
 <style scoped>
@@ -311,7 +385,7 @@ const learningMilestones = ref([
 .subsection-title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 2rem;
   font-family: 'Orbitron', monospace;
 }
@@ -339,7 +413,7 @@ const learningMilestones = ref([
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #9333EA, #7C3AED);
+  background: linear-gradient(135deg, #9333ea, #7c3aed);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -353,14 +427,14 @@ const learningMilestones = ref([
 .education-degree {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 0.5rem;
   font-family: 'Orbitron', monospace;
 }
 
 .education-institution {
   font-size: 1.1rem;
-  color: #9333EA;
+  color: #9333ea;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -401,7 +475,7 @@ const learningMilestones = ref([
   content: '•';
   position: absolute;
   left: 0;
-  color: #9333EA;
+  color: #9333ea;
   font-weight: bold;
 }
 
@@ -418,7 +492,7 @@ const learningMilestones = ref([
 .cert-category-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -449,7 +523,7 @@ const learningMilestones = ref([
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #9333EA, #7C3AED);
+  background: linear-gradient(135deg, #9333ea, #7c3aed);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -469,7 +543,7 @@ const learningMilestones = ref([
 
 .cert-issuer {
   font-size: 0.9rem;
-  color: #9333EA;
+  color: #9333ea;
   margin-bottom: 0.25rem;
 }
 
@@ -503,7 +577,7 @@ const learningMilestones = ref([
 .platform-name {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 0.5rem;
 }
 
@@ -525,7 +599,7 @@ const learningMilestones = ref([
 .stat-number {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #9333EA;
+  color: #9333ea;
   font-family: 'Orbitron', monospace;
 }
 
@@ -548,7 +622,7 @@ const learningMilestones = ref([
   padding: 1.5rem;
   background: rgba(11, 20, 38, 0.8);
   border-radius: 1rem;
-  border-left: 4px solid #9333EA;
+  border-left: 4px solid #9333ea;
   transition: all 0.3s ease;
 }
 
@@ -560,7 +634,7 @@ const learningMilestones = ref([
 .milestone-year {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
   font-family: 'Orbitron', monospace;
   min-width: 80px;
 }
@@ -590,7 +664,7 @@ const learningMilestones = ref([
 
 .achievement-tag {
   background: rgba(147, 51, 234, 0.2);
-  color: #A855F7;
+  color: #a855f7;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.8rem;
@@ -636,7 +710,7 @@ const learningMilestones = ref([
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #9333EA, #7C3AED);
+  background: linear-gradient(135deg, #9333ea, #7c3aed);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -650,7 +724,7 @@ const learningMilestones = ref([
 .learning-stat .stat-number {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #ffd700;
 }
 
 .learning-stat .stat-label {
@@ -662,33 +736,33 @@ const learningMilestones = ref([
   .education-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .education-card {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .cert-categories {
     grid-template-columns: 1fr;
   }
-  
+
   .learning-platforms {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .milestone-item {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .milestone-year {
     min-width: auto;
   }
-  
+
   .learning-stats {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .learning-stat {
     flex-direction: column;
     text-align: center;
