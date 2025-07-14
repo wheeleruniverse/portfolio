@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c182530f-a9a3-4ad8-a713-364fde4f8443/deploy-status)](https://app.netlify.com/projects/wheeleruniverse-blog/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3d9eb3ad-5fe9-475f-9a0a-9fcbbdfffb09/deploy-status)](https://app.netlify.com/projects/wheeleruniverse-portfolio/deploys)
 
 # Wheeler Universe Portfolio
 
