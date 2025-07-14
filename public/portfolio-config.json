@@ -19,7 +19,7 @@
     },
     {
       "id": "linkedin",
-      "platform": "LinkedIn", 
+      "platform": "LinkedIn",
       "url": "https://www.linkedin.com/in/wheeleruniverse/",
       "icon": "<svg viewBox='0 0 24 24' fill='currentColor'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg>",
       "iconType": "svg",
@@ -321,7 +321,13 @@
         "Reduced infrastructure costs by 30% through optimization strategies",
         "Led migration of legacy applications to cloud-native architecture"
       ],
-      "technologies": ["AWS", "Terraform", "Kubernetes", "Python", "TypeScript"]
+      "technologies": [
+        "AWS",
+        "Terraform",
+        "Kubernetes",
+        "Python",
+        "TypeScript"
+      ]
     },
     {
       "id": "previous-role",
@@ -336,7 +342,13 @@
         "Collaborated with cross-functional teams to deliver projects on time",
         "Mentored junior developers and conducted code reviews"
       ],
-      "technologies": ["React", "Node.js", "AWS", "PostgreSQL", "Docker"]
+      "technologies": [
+        "React",
+        "Node.js",
+        "AWS",
+        "PostgreSQL",
+        "Docker"
+      ]
     }
   ],
   "projects": [
@@ -344,7 +356,12 @@
       "id": "portfolio",
       "name": "Wheeler Universe Portfolio",
       "description": "Interactive solar system portfolio built with Vue.js and TypeScript",
-      "technologies": ["Vue.js", "TypeScript", "Tailwind CSS", "Vite"],
+      "technologies": [
+        "Vue.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Vite"
+      ],
       "githubUrl": "https://github.com/justinwheeler/portfolio",
       "liveUrl": "https://wheeleruniverse.com",
       "featured": false,
@@ -354,7 +371,12 @@
       "id": "blog",
       "name": "Wheeler Universe Blog",
       "description": "A modern blog aggregation website built with Vue 3, TypeScript, and Tailwind CSS. This application aggregates blog posts from multiple platforms under the Wheeler Universe brand.",
-      "technologies": ["Vue.js", "TypeScript", "Tailwind CSS", "Vite"],
+      "technologies": [
+        "Vue.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Vite"
+      ],
       "githubUrl": "https://github.com/wheeleruniverse/blog",
       "liveUrl": "https://blog.wheeleruniverse.com",
       "featured": true,
@@ -363,8 +385,22 @@
     {
       "id": "wheelerrecommends",
       "name": "Wheeler Recommends Site",
-      "description": "Serverless PHP movie recommendation engine!",
-      "technologies": ["PHP"],
+      "description": "This repository contains the code for a serverless PHP movie recommendation engine. It demonstrates unconventional techniques for bold developers leveraging AWS Serverless technologies to host dynamic websites. The project prioritizes cost-efficiency, rapid scalability, and ease of maintenance.\n\n",
+      "technologies": [
+        "PHP",
+        "AWS Lambda",
+        "Amazon CloudFront",
+        "Amazon S3",
+        "Amazon API Gateway",
+        "Amazon Athena",
+        "Amazon EventBridge",
+        "Amazon Route53",
+        "AWS Certificate Manager",
+        "Bref",
+        "Serverless Lift",
+        "GitHub Actions",
+        "CSS"
+      ],
       "githubUrl": "https://github.com/wheeleruniverse/wheelerrecommends",
       "liveUrl": "https://wheelerrecommends.com/",
       "featured": true,
@@ -373,8 +409,24 @@
     {
       "id": "wheelerrecommends-scraper",
       "name": "Wheeler Recommends Scraper",
-      "description": "Serverless web scraper that uses Python, Beautiful Soup, and Selenium!",
-      "technologies": ["Python 3.x", "Beautiful Soup", "Selenium"],
+      "description": "This repository contains a serverless web scraper designed to collect data from wheelerrecommends.com. It leverages Python, Beautiful Soup, and Selenium to scrape website content and stores the data in S3 for further analysis using AWS Glue and Athena.",
+      "technologies": [
+        "Python",
+        "Beautiful Soup",
+        "Selenium",
+        "pyodbc",
+        "AWS Lambda",
+        "Amazon S3",
+        "Amazon EventBridge",
+        "AWS Glue",
+        "AWS Glue Data Catalog",
+        "Amazon Athena",
+        "Amazon API Gateway",
+        "Amazon ECR",
+        "Docker",
+        "Serverless Framework",
+        "GitHub Actions"
+      ],
       "githubUrl": "https://github.com/wheeleruniverse/wheelerrecommends-scraper",
       "featured": true,
       "category": "data"
@@ -383,8 +435,34 @@
       "id": "cgc-resume-from-json",
       "name": "Resume Site from JSON",
       "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
-      "technologies": ["C#", "Blazor", "Next.js", "Vercel"],
+      "technologies": [
+        "C#",
+        "Blazor",
+        "Next.js",
+        "Vercel"
+      ],
       "githubUrl": "https://github.com/wheeleruniverse/cgc-resume-from-json",
+      "featured": false,
+      "category": "data"
+    },
+    {
+      "id": "cgc-resume-from-json",
+      "name": "Resume Site from JSON",
+      "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
+      "technologies": [
+        "Python (3.6+)",
+        "Flask",
+        "psycopg2",
+        "configparser",
+        "redis",
+        "Gunicorn",
+        "Terraform",
+        "Amazon EC2",
+        "Amazon RDS (PostgreSQL)",
+        "Amazon ElastiCache (Redis)",
+        "Amazon VPC"
+      ],
+      "githubUrl": "https://github.com/wheeleruniverse/cgc-aws-app-performance",
       "featured": false,
       "category": "data"
     },
@@ -392,7 +470,18 @@
       "id": "cgc-multicloud-madness",
       "name": "Multicloud Serverless Image Processing Pipeline",
       "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
-      "technologies": ["C#", "node.js", "Amazon Route53", "Amazon S3", "AWS Lambda", "GCP Vision", "Azure Tables Storage", "AWS CloudFront"],
+      "technologies": [
+        "C#",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "AWS Serverless Application Model (SAM)",
+        "Amazon Route53",
+        "Amazon S3",
+        "Amazon CloudFront",
+        "Azure Tables Storage",
+        "Google Cloud Vision API"
+      ],
       "githubUrl": "https://github.com/wheeleruniverse/cgc-multicloud-madness",
       "featured": false,
       "category": "cloud"
@@ -401,7 +490,23 @@
       "id": "cgc-aws-ml-recommendation-engine",
       "name": "AWS ML Recommendation Engine",
       "description": "A Netflix-style movie recommendation engine built with AWS SageMaker and served through a serverless PHP website using AWS Lambda and Bref.",
-      "technologies": ["AWS SageMaker", "Amazon API Gateway", "Amazon Athena", "Amazon CloudFront", "Amazon ECR", "Amazon Route53", "Amazon S3", "AWS Lambda", "Boto3", "Jupyter Notebooks", "NumPy", "Pandas", "Seaborn", "Bref Framework", "Docker"],
+      "technologies": [
+        "AWS SageMaker",
+        "Amazon API Gateway",
+        "Amazon Athena",
+        "Amazon CloudFront",
+        "Amazon ECR",
+        "Amazon Route53",
+        "Amazon S3",
+        "AWS Lambda",
+        "Boto3",
+        "Jupyter Notebooks",
+        "NumPy",
+        "Pandas",
+        "Seaborn",
+        "Bref Framework",
+        "Docker"
+      ],
       "githubUrl": "https://github.com/wheeleruniverse/cgc-aws-ml-recommendation-engine",
       "featured": true,
       "category": "cloud"
@@ -410,18 +515,57 @@
       "id": "cgc-aws-covid-etl",
       "name": "AWS COVID-19 ETL Pipeline",
       "description": "A serverless, event-driven ETL pipeline for processing COVID-19 data from the New York Times and Johns Hopkins datasets using AWS services.",
-      "technologies": ["AWS Lambda", "Amazon DynamoDB", "Amazon S3", "AWS CloudWatch Events", "Amazon SNS", "AWS QuickSight", "Python 3.x", "Boto3"],
+      "technologies": [
+        "AWS Lambda",
+        "Amazon DynamoDB",
+        "Amazon S3",
+        "AWS CloudWatch Events",
+        "Amazon SNS",
+        "AWS QuickSight",
+        "Python 3.x",
+        "Boto3"
+      ],
       "githubUrl": "https://github.com/wheeleruniverse/cgc-aws-covid-etl",
       "featured": false,
       "category": "data"
     }
   ],
   "skills": {
-    "cloud": ["AWS", "Azure", "Google Cloud", "Terraform", "CloudFormation"],
-    "programming": ["Python", "TypeScript", "JavaScript", "Go", "Java"],
-    "frontend": ["Vue.js", "React", "HTML5", "CSS3", "Tailwind CSS"],
-    "backend": ["Node.js", "FastAPI", "Express", "PostgreSQL", "MongoDB"],
-    "devops": ["Docker", "Kubernetes", "CI/CD", "GitHub Actions", "Jenkins"]
+    "cloud": [
+      "AWS",
+      "Azure",
+      "Google Cloud",
+      "Terraform",
+      "CloudFormation"
+    ],
+    "programming": [
+      "Python",
+      "TypeScript",
+      "JavaScript",
+      "Go",
+      "Java"
+    ],
+    "frontend": [
+      "Vue.js",
+      "React",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS"
+    ],
+    "backend": [
+      "Node.js",
+      "FastAPI",
+      "Express",
+      "PostgreSQL",
+      "MongoDB"
+    ],
+    "devops": [
+      "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "GitHub Actions",
+      "Jenkins"
+    ]
   },
   "education": [
     {
@@ -446,7 +590,7 @@
       "description": "A comprehensive guide to building serverless applications"
     },
     {
-      "id": "blog-post-2", 
+      "id": "blog-post-2",
       "title": "Modern Frontend Development with Vue.js",
       "url": "https://wheeleruniverse.netlify.app/posts/vue-modern-dev",
       "date": "2024",
