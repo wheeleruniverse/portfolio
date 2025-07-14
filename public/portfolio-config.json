@@ -419,8 +419,8 @@
       "category": "data"
     },
     {
-      "id": "cgc-resume-from-json",
-      "name": "Resume Site from JSON",
+      "id": "cgc-aws-app-performance",
+      "name": "AWS App Performance w/ ElastiCache",
       "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
       "technologies": [
         "Amazon EC2",
