@@ -351,23 +351,14 @@
       "category": "web"
     },
     {
-      "id": "cloud-project",
-      "name": "Cloud Infrastructure Project",
-      "description": "Serverless application with automated CI/CD pipeline",
-      "technologies": ["AWS Lambda", "API Gateway", "DynamoDB", "CloudFormation"],
-      "githubUrl": "https://github.com/justinwheeler/cloud-project",
+      "id": "cgc-aws-covid-etl",
+      "name": "AWS COVID-19 ETL Pipeline",
+      "description": "A serverless, event-driven ETL pipeline for processing COVID-19 data from the New York Times and Johns Hopkins datasets using AWS services.",
+      "technologies": ["AWS Lambda", "Amazon DynamoDB", "Amazon S3", "AWS CloudWatch Events", "Amazon SNS", "AWS QuickSight", "Python 3.x", "Boto3"],
+      "githubUrl": "https://github.com/wheeleruniverse/cgc-aws-covid-etl",
+      "liveUrl": null,
       "featured": true,
-      "category": "cloud"
-    },
-    {
-      "id": "ai-project",
-      "name": "AI-Powered Recommendation System",
-      "description": "Machine learning recommendation engine with real-time updates",
-      "technologies": ["Python", "TensorFlow", "FastAPI", "Redis"],
-      "githubUrl": "https://github.com/justinwheeler/ai-recommendations",
-      "liveUrl": "https://wheeler-recommends.com",
-      "featured": true,
-      "category": "ai"
+      "category": "data"
     }
   ],
   "skills": {

@@ -142,8 +142,8 @@ onMounted(() => {
 
 const services = ref([
   {
-    category: 'Compute',
-    items: ['EC2', 'Lambda', 'ECS', 'EKS', 'Fargate', 'Batch']
+    category: 'AWS COVID-19 ETL Pipeline',
+    items: ['Lambda', 'DynamoDB', 'S3', 'CloudWatch Events', 'SNS', 'QuickSight']
   },
   {
     category: 'Storage',
