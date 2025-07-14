@@ -18,13 +18,13 @@
           class="project-card featured"
         >
           <div class="project-image" v-if="project.image">
-            <img :src="project.image" :alt="project.title" />
+            <img :src="project.image" :alt="project.name" />
           </div>
           <div class="project-placeholder" v-else>
             <div class="placeholder-icon">🚀</div>
           </div>
           <div class="project-content">
-            <h4 class="project-title">{{ project.title }}</h4>
+            <h4 class="project-title">{{ project.name }}</h4>
             <p class="project-description">{{ project.description }}</p>
             <div class="project-tech">
               <span
@@ -78,7 +78,7 @@
               class="mini-project"
             >
               <div class="mini-project-header">
-                <h5 class="mini-project-title">{{ project.title }}</h5>
+                <h5 class="mini-project-title">{{ project.name }}</h5>
                 <div class="mini-project-links">
                   <a
                     v-if="project.liveUrl"
@@ -150,35 +150,6 @@
       </div>
     </section>
 
-    <section class="open-source">
-      <h3 class="subsection-title">Open Source Contributions</h3>
-      <div class="open-source-grid">
-        <div
-          v-for="contribution in openSourceContributions"
-          :key="contribution.project"
-          class="contribution-card"
-        >
-          <div class="contribution-header">
-            <h4 class="contribution-project">{{ contribution.project }}</h4>
-            <div class="contribution-type">{{ contribution.type }}</div>
-          </div>
-          <p class="contribution-description">{{ contribution.description }}</p>
-          <div class="contribution-impact">
-            <span class="impact-label">Impact:</span>
-            <span class="impact-text">{{ contribution.impact }}</span>
-          </div>
-          <div class="contribution-tech">
-            <span
-              v-for="tech in contribution.technologies"
-              :key="tech"
-              class="tech-badge small"
-            >
-              {{ tech }}
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section class="project-highlights">
       <h3 class="subsection-title">Project Highlights</h3>
@@ -217,158 +188,67 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import type { Project } from '@/types'
 
-const featuredProjects = ref<Project[]>([
-  {
-    id: 'wheeler-recommends',
-    title: 'Wheeler Recommends',
-    description: 'Personal recommendation platform featuring curated lists of books, movies, and technical resources with AI-powered suggestions and user ratings.',
-    technologies: ['Vue.js', 'Node.js', 'PostgreSQL', 'OpenAI API', 'AWS Lambda', 'Docker'],
-    githubUrl: 'https://github.com/justinwheeler/wheeler-recommends',
-    liveUrl: 'https://wheeler-recommends.com',
-    image: undefined
-  },
-  {
-    id: 'cloud-architecture-templates',
-    title: 'Cloud Architecture Templates',
-    description: 'Comprehensive collection of AWS CloudFormation and CDK templates for common architectural patterns including serverless, microservices, and multi-tier applications.',
-    technologies: ['AWS CDK', 'TypeScript', 'CloudFormation', 'AWS Lambda', 'API Gateway', 'DynamoDB'],
-    githubUrl: 'https://github.com/justinwheeler/cloud-templates',
-    liveUrl: undefined,
-    image: undefined
-  },
-  {
-    id: 'portfolio-website',
-    title: 'Wheeler Universe Portfolio',
-    description: 'This interactive space-themed portfolio website built with Vue 3, featuring a solar system navigation and responsive design.',
-    technologies: ['Vue 3', 'TypeScript', 'Tailwind CSS', 'Vite', 'GSAP', 'CSS Animations'],
-    githubUrl: 'https://github.com/justinwheeler/wheeler-universe-portfolio',
-    liveUrl: 'https://wheeleruniverse.com',
-    image: undefined
+interface Config {
+  projects: Project[]
+}
+
+const config = ref<Config | null>(null)
+const featuredProjects = ref<Project[]>([])
+
+const loadConfig = async () => {
+  try {
+    const response = await fetch('/portfolio-config.json')
+    const data = await response.json()
+    config.value = data
+    
+    // Filter featured projects
+    featuredProjects.value = data.projects?.filter((project: Project) => project.featured) || []
+  } catch (error) {
+    console.error('Error loading portfolio config:', error)
   }
-])
+}
 
 const projectCategories = ref([
   {
     name: 'Web Applications',
     icon: '🌐',
     description: 'Full-stack web applications with modern frameworks and cloud deployment',
-    projects: [
-      {
-        id: 'task-manager',
-        title: 'Task Management App',
-        description: 'Collaborative task management with real-time updates',
-        technologies: ['Vue.js', 'Node.js', 'Socket.io', 'MongoDB'],
-        githubUrl: 'https://github.com/justinwheeler/task-manager',
-        liveUrl: undefined
-      },
-      {
-        id: 'blog-platform',
-        title: 'Personal Blog Platform',
-        description: 'Custom blog platform with markdown support and SEO optimization',
-        technologies: ['Nuxt.js', 'Netlify CMS', 'Tailwind CSS'],
-        githubUrl: 'https://github.com/justinwheeler/blog-platform',
-        liveUrl: 'https://wheeleruniverse.netlify.app'
-      },
-      {
-        id: 'weather-app',
-        title: 'Weather Dashboard',
-        description: 'Real-time weather data with location-based forecasts',
-        technologies: ['React', 'OpenWeatherMap API', 'Chart.js'],
-        githubUrl: 'https://github.com/justinwheeler/weather-dashboard',
-        liveUrl: undefined
-      }
-    ]
+    projects: [] as Project[]
+  },
+  {
+    name: 'Data Engineering',
+    icon: '📊',
+    description: 'Data processing, ETL pipelines, and analytics solutions',
+    projects: [] as Project[]
   },
   {
     name: 'Cloud & DevOps',
     icon: '☁️',
     description: 'Infrastructure as code, automation tools, and cloud solutions',
-    projects: [
-      {
-        id: 'terraform-modules',
-        title: 'Terraform Modules',
-        description: 'Reusable Terraform modules for AWS infrastructure',
-        technologies: ['Terraform', 'AWS', 'HCL', 'Bash'],
-        githubUrl: 'https://github.com/justinwheeler/terraform-modules',
-        liveUrl: undefined
-      },
-      {
-        id: 'ci-cd-pipeline',
-        title: 'CI/CD Pipeline Templates',
-        description: 'GitLab CI and GitHub Actions templates for various project types',
-        technologies: ['GitLab CI', 'GitHub Actions', 'Docker', 'Kubernetes'],
-        githubUrl: 'https://github.com/justinwheeler/cicd-templates',
-        liveUrl: undefined
-      },
-      {
-        id: 'monitoring-stack',
-        title: 'Monitoring Stack',
-        description: 'Complete monitoring solution with Prometheus and Grafana',
-        technologies: ['Prometheus', 'Grafana', 'AlertManager', 'Docker'],
-        githubUrl: 'https://github.com/justinwheeler/monitoring-stack',
-        liveUrl: undefined
-      }
-    ]
-  },
-  {
-    name: 'Tools & Utilities',
-    icon: '🔧',
-    description: 'Developer tools, CLIs, and automation scripts',
-    projects: [
-      {
-        id: 'aws-cli-helper',
-        title: 'AWS CLI Helper',
-        description: 'Utility scripts for common AWS CLI operations',
-        technologies: ['Python', 'AWS CLI', 'Boto3', 'Click'],
-        githubUrl: 'https://github.com/justinwheeler/aws-cli-helper',
-        liveUrl: undefined
-      },
-      {
-        id: 'docker-compose-generator',
-        title: 'Docker Compose Generator',
-        description: 'Interactive CLI tool for generating Docker Compose files',
-        technologies: ['Node.js', 'Inquirer.js', 'YAML', 'CLI'],
-        githubUrl: 'https://github.com/justinwheeler/docker-compose-gen',
-        liveUrl: undefined
-      },
-      {
-        id: 'git-workflow-tools',
-        title: 'Git Workflow Tools',
-        description: 'Collection of Git hooks and workflow automation scripts',
-        technologies: ['Bash', 'Git', 'Python', 'JSON'],
-        githubUrl: 'https://github.com/justinwheeler/git-workflow-tools',
-        liveUrl: undefined
-      }
-    ]
+    projects: [] as Project[]
   }
 ])
 
-const openSourceContributions = ref([
-  {
-    project: 'Vue.js Ecosystem',
-    type: 'Bug Fixes',
-    description: 'Contributed bug fixes and improvements to Vue.js ecosystem packages',
-    impact: 'Fixed issues affecting thousands of developers',
-    technologies: ['Vue.js', 'TypeScript', 'JavaScript']
-  },
-  {
-    project: 'AWS CDK Community',
-    type: 'Documentation',
-    description: 'Improved documentation and examples for AWS CDK constructs',
-    impact: 'Enhanced developer experience for cloud infrastructure',
-    technologies: ['AWS CDK', 'TypeScript', 'Markdown']
-  },
-  {
-    project: 'Open Source Security',
-    type: 'Security Patches',
-    description: 'Identified and patched security vulnerabilities in popular packages',
-    impact: 'Improved security for applications using these packages',
-    technologies: ['Node.js', 'Security Analysis', 'Various']
-  }
-])
+const updateProjectCategories = () => {
+  if (!config.value?.projects) return
+  
+  const webProjects = config.value.projects.filter(p => p.category === 'web')
+  const dataProjects = config.value.projects.filter(p => p.category === 'data')
+  const cloudProjects = config.value.projects.filter(p => p.category === 'cloud')
+  
+  projectCategories.value[0].projects = webProjects
+  projectCategories.value[1].projects = dataProjects
+  projectCategories.value[2].projects = cloudProjects
+}
+
+onMounted(() => {
+  loadConfig().then(() => {
+    updateProjectCategories()
+  })
+})
 </script>
 
 <style scoped>
@@ -392,7 +272,6 @@ const openSourceContributions = ref([
 .featured-projects,
 .project-categories,
 .github-stats,
-.open-source,
 .project-highlights {
   margin-bottom: 4rem;
 }
@@ -684,70 +563,6 @@ const openSourceContributions = ref([
   margin-top: 0.25rem;
 }
 
-.open-source-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-.contribution-card {
-  @apply planet-card;
-  transition: all 0.3s ease;
-}
-
-.contribution-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
-}
-
-.contribution-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.contribution-project {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #FFD700;
-}
-
-.contribution-type {
-  background: rgba(14, 165, 233, 0.2);
-  color: #0EA5E9;
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-  font-size: 0.8rem;
-  border: 1px solid rgba(14, 165, 233, 0.3);
-}
-
-.contribution-description {
-  color: #ccc;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-}
-
-.contribution-impact {
-  margin-bottom: 1rem;
-}
-
-.impact-label {
-  font-weight: 600;
-  color: white;
-  margin-right: 0.5rem;
-}
-
-.impact-text {
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-.contribution-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
 
 .highlights-grid {
   display: grid;

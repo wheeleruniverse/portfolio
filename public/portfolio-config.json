@@ -351,12 +351,20 @@
       "category": "web"
     },
     {
+      "id": "cgc-aws-ml-recommendation-engine",
+      "name": "AWS ML Recommendation Engine",
+      "description": "A Netflix-style movie recommendation engine built with AWS SageMaker and served through a serverless PHP website using AWS Lambda and Bref.",
+      "technologies": ["AWS SageMaker", "Amazon API Gateway", "Amazon Athena", "Amazon CloudFront", "Amazon ECR", "Amazon Route53", "Amazon S3", "AWS Lambda", "Boto3", "Jupyter Notebooks", "NumPy", "Pandas", "Seaborn", "Bref Framework", "Docker"],
+      "githubUrl": "https://github.com/wheeleruniverse/cgc-aws-ml-recommendation-engine",
+      "featured": true,
+      "category": "ai"
+    },
+    {
       "id": "cgc-aws-covid-etl",
       "name": "AWS COVID-19 ETL Pipeline",
       "description": "A serverless, event-driven ETL pipeline for processing COVID-19 data from the New York Times and Johns Hopkins datasets using AWS services.",
       "technologies": ["AWS Lambda", "Amazon DynamoDB", "Amazon S3", "AWS CloudWatch Events", "Amazon SNS", "AWS QuickSight", "Python 3.x", "Boto3"],
       "githubUrl": "https://github.com/wheeleruniverse/cgc-aws-covid-etl",
-      "liveUrl": null,
       "featured": true,
       "category": "data"
     }

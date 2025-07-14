@@ -25,12 +25,14 @@ export interface Certification {
 
 export interface Project {
   id: string
-  title: string
+  name: string
   description: string
   technologies: string[]
   githubUrl?: string
   liveUrl?: string
   image?: string
+  featured?: boolean
+  category?: string
 }
 
 export interface Experience {
