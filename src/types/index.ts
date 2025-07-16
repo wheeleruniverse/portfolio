@@ -46,6 +46,17 @@ export interface Experience {
   technologies: string[];
 }
 
+export interface Education {
+  id: string;
+  institution: string;
+  degree: string;
+  startDate: string;
+  endDate: string;
+  location?: string;
+  icon?: string;
+  highlights: string[];
+}
+
 export interface BlogPost {
   id: string;
   title: string;

@@ -19,7 +19,7 @@
         v-for="cert in certifications"
         :key="cert.id"
         class="certification-card"
-        :class="{ 'expired': isExpired(cert) }"
+        :class="{ expired: isExpired(cert) }"
       >
         <div class="cert-badge">
           <div class="cert-icon" :class="{ 'expired-icon': isExpired(cert) }">
@@ -33,7 +33,8 @@
           <p class="cert-date">Issued: {{ cert.issueDate }}</p>
           <p class="cert-expiry" v-if="cert.expiryDate">
             <span :class="{ 'expired-text': isExpired(cert) }">
-              {{ isExpired(cert) ? 'Expired:' : 'Expires:' }} {{ cert.expiryDate }}
+              {{ isExpired(cert) ? 'Expired:' : 'Expires:' }}
+              {{ cert.expiryDate }}
             </span>
           </p>
           <div class="cert-actions">
@@ -46,9 +47,7 @@
             >
               View Credential
             </a>
-            <span v-if="isExpired(cert)" class="expired-badge">
-              Expired
-            </span>
+            <span v-if="isExpired(cert)" class="expired-badge"> Expired </span>
           </div>
         </div>
       </div>
@@ -72,10 +71,10 @@ const props = defineProps<Props>();
 
 const isExpired = (cert: Certification): boolean => {
   if (!cert.expiryDate) return false;
-  
+
   const expiryDate = new Date(cert.expiryDate);
   const today = new Date();
-  
+
   return expiryDate < today;
 };
 
@@ -84,12 +83,12 @@ const certifications = computed(() => {
   return [...props.certifications].sort((a, b) => {
     const aExpired = isExpired(a);
     const bExpired = isExpired(b);
-    
+
     // If one is expired and one is not, active comes first
     if (aExpired !== bExpired) {
       return aExpired ? 1 : -1;
     }
-    
+
     // If both are same status, sort by issue date (newest first)
     return new Date(b.issueDate).getTime() - new Date(a.issueDate).getTime();
   });

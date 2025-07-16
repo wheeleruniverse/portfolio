@@ -332,7 +332,6 @@ const cloudJourney = ref([
   color: #ff6b6b;
 }
 
-
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -536,7 +535,6 @@ const cloudJourney = ref([
     flex-direction: column;
     gap: 1rem;
   }
-
 
   .services-grid {
     grid-template-columns: 1fr;

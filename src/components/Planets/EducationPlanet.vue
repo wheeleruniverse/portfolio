@@ -18,143 +18,139 @@
           :key="education.id"
           class="education-card"
         >
-          <div class="education-icon">{{ education.icon }}</div>
-          <div class="education-content">
-            <h4 class="education-degree">{{ education.degree }}</h4>
-            <p class="education-institution">{{ education.institution }}</p>
-            <p class="education-year">{{ education.year }}</p>
-            <p class="education-description">{{ education.description }}</p>
-            <div class="education-highlights" v-if="education.highlights">
-              <h5>Highlights:</h5>
-              <ul>
-                <li v-for="highlight in education.highlights" :key="highlight">
-                  {{ highlight }}
-                </li>
-              </ul>
+          <div class="education-header">
+            <div class="education-icon">{{ education.icon || '🎓' }}</div>
+            <div class="education-info">
+              <h4 class="education-degree">{{ education.degree }}</h4>
+              <p class="education-institution">{{ education.institution }}</p>
+              <p class="education-year">
+                {{ education.startDate }} - {{ education.endDate }}
+              </p>
+              <p class="education-location" v-if="education.location">
+                {{ education.location }}
+              </p>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="certifications-learning">
-      <h3 class="subsection-title">
-        Certifications & Professional Development
-      </h3>
-      <div class="cert-categories">
-        <div
-          v-for="category in certificationCategories"
-          :key="category.name"
-          class="cert-category"
-        >
-          <h4 class="cert-category-title">{{ category.name }}</h4>
-          <div class="cert-items">
-            <div
-              v-for="cert in category.certifications"
-              :key="cert.name"
-              class="cert-item"
-            >
-              <div class="cert-badge">{{ cert.badge }}</div>
-              <div class="cert-details">
-                <h5 class="cert-name">{{ cert.name }}</h5>
-                <p class="cert-issuer">{{ cert.issuer }}</p>
-                <p class="cert-date">{{ cert.date }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="online-learning">
-      <h3 class="subsection-title">Online Learning & Courses</h3>
-      <div class="learning-platforms">
-        <div
-          v-for="platform in learningPlatforms"
-          :key="platform.name"
-          class="platform-card"
-        >
-          <div class="platform-icon">{{ platform.icon }}</div>
-          <div class="platform-content">
-            <h4 class="platform-name">{{ platform.name }}</h4>
-            <p class="platform-description">{{ platform.description }}</p>
-            <div class="platform-stats">
-              <div class="stat-item">
-                <span class="stat-number">{{ platform.courses }}</span>
-                <span class="stat-label">Courses</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-number">{{ platform.hours }}</span>
-                <span class="stat-label">Hours</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="learning-journey">
-      <h3 class="subsection-title">Learning Journey</h3>
-      <div class="journey-timeline">
-        <div
-          v-for="milestone in learningMilestones"
-          :key="milestone.year"
-          class="milestone-item"
-        >
-          <div class="milestone-year">{{ milestone.year }}</div>
-          <div class="milestone-content">
-            <h4 class="milestone-title">{{ milestone.title }}</h4>
-            <p class="milestone-description">{{ milestone.description }}</p>
-            <div class="milestone-achievements">
-              <span
-                v-for="achievement in milestone.achievements"
-                :key="achievement"
-                class="achievement-tag"
-              >
-                {{ achievement }}
-              </span>
-            </div>
+          <div
+            class="education-highlights"
+            v-if="education.highlights && education.highlights.length > 0"
+          >
+            <h5>Key Takeaways:</h5>
+            <ul>
+              <li v-for="highlight in education.highlights" :key="highlight">
+                {{ highlight }}
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
     <section class="skills-development">
-      <h3 class="subsection-title">Skills Development</h3>
-      <div class="skills-chart">
-        <div class="skills-note">
-          <p>
-            My learning philosophy: Stay curious, practice consistently, and
-            never stop growing.
+      <h3 class="subsection-title">Continuous Learning Journey</h3>
+
+      <div class="learning-philosophy">
+        <div class="philosophy-content">
+          <h4 class="philosophy-title">4+ Years of Daily Learning</h4>
+          <p class="philosophy-description">
+            "One of the most productive things people can do is set aside a few
+            minutes EVERY day to learn something new." This philosophy has
+            driven my continuous growth through platforms like Pluralsight and A
+            Cloud Guru.
           </p>
+          <div class="philosophy-links">
+            <a
+              href="https://app.pluralsight.com/profile/wheeleruniverse"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="profile-link"
+            >
+              📚 View Pluralsight Profile
+            </a>
+            <a
+              href="https://blog.wheeleruniverse.com/lessons-learned-pluralsight-4-years"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="blog-link"
+            >
+              ✍️ Read My Learning Journey
+            </a>
+          </div>
         </div>
-        <div class="learning-stats">
-          <div class="learning-stat">
-            <div class="stat-icon">📚</div>
-            <div class="stat-content">
-              <div class="stat-number">500+</div>
-              <div class="stat-label">Hours Learning</div>
+      </div>
+
+      <div class="learning-stats">
+        <div class="learning-stat">
+          <div class="stat-icon">📅</div>
+          <div class="stat-content">
+            <div class="stat-number">1,460</div>
+            <div class="stat-label">Days Learning</div>
+          </div>
+        </div>
+        <div class="learning-stat">
+          <div class="stat-icon">💡</div>
+          <div class="stat-content">
+            <div class="stat-number">1,319+</div>
+            <div class="stat-label">Courses Completed</div>
+          </div>
+        </div>
+        <div class="learning-stat">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-content">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Skill IQ Tests</div>
+          </div>
+        </div>
+        <div class="learning-stat">
+          <div class="stat-icon">🚀</div>
+          <div class="stat-content">
+            <div class="stat-number">Daily</div>
+            <div class="stat-label">Learning Habit</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="learning-outcomes">
+        <h4 class="outcomes-title">Learning Outcomes & Benefits</h4>
+        <div class="outcomes-grid">
+          <div class="outcome-item">
+            <div class="outcome-icon">💼</div>
+            <div class="outcome-content">
+              <h5>Career Advancement</h5>
+              <p>
+                Continuous learning directly contributed to professional growth
+                and new opportunities
+              </p>
             </div>
           </div>
-          <div class="learning-stat">
-            <div class="stat-icon">🎓</div>
-            <div class="stat-content">
-              <div class="stat-number">25+</div>
-              <div class="stat-label">Certifications</div>
+          <div class="outcome-item">
+            <div class="outcome-icon">🧠</div>
+            <div class="outcome-content">
+              <h5>Enhanced Brain Function</h5>
+              <p>
+                Daily learning improved cognitive abilities and problem-solving
+                skills
+              </p>
             </div>
           </div>
-          <div class="learning-stat">
-            <div class="stat-icon">💡</div>
-            <div class="stat-content">
-              <div class="stat-number">50+</div>
-              <div class="stat-label">Courses</div>
+          <div class="outcome-item">
+            <div class="outcome-icon">💡</div>
+            <div class="outcome-content">
+              <h5>Innovation Mindset</h5>
+              <p>
+                Exploring diverse technologies fostered creative thinking and
+                innovative solutions
+              </p>
             </div>
           </div>
-          <div class="learning-stat">
-            <div class="stat-icon">🌟</div>
-            <div class="stat-content">
-              <div class="stat-number">Always</div>
-              <div class="stat-label">Learning</div>
+          <div class="outcome-item">
+            <div class="outcome-icon">😊</div>
+            <div class="outcome-content">
+              <h5>Personal Fulfillment</h5>
+              <p>
+                Found joy and satisfaction in mastering new technologies and
+                concepts
+              </p>
             </div>
           </div>
         </div>
@@ -184,22 +180,23 @@
 <script setup lang="ts">
 import CertificationsSection from '@/components/CertificationsSection.vue';
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
-import type { Certification } from '@/types';
+import type { Certification, Education } from '@/types';
 import { computed, onMounted, ref } from 'vue';
 
 const allCertifications = ref<Certification[]>([]);
+const formalEducation = ref<Education[]>([]);
 const isLoading = ref(true);
 const error = ref<string | null>(null);
 
-const awsCertifications = computed(() => 
+const awsCertifications = computed(() =>
   allCertifications.value.filter(cert => cert.vendor === 'AWS')
 );
 
-const otherCertifications = computed(() => 
+const otherCertifications = computed(() =>
   allCertifications.value.filter(cert => cert.vendor !== 'AWS')
 );
 
-const loadCertifications = async () => {
+const loadData = async () => {
   try {
     isLoading.value = true;
     error.value = null;
@@ -211,206 +208,18 @@ const loadCertifications = async () => {
 
     const config = await response.json();
     allCertifications.value = config.certifications || [];
+    formalEducation.value = config.education || [];
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to load certifications';
-    console.error('Error loading certifications:', err);
+    error.value = err instanceof Error ? err.message : 'Failed to load data';
+    console.error('Error loading data:', err);
   } finally {
     isLoading.value = false;
   }
 };
 
 onMounted(() => {
-  loadCertifications();
+  loadData();
 });
-
-const formalEducation = ref([
-  {
-    id: 'bachelors',
-    degree: 'Bachelor of Science in Computer Science',
-    institution: 'State University',
-    year: '2016',
-    icon: '🎓',
-    description:
-      'Comprehensive study of computer science fundamentals, software engineering, and system design.',
-    highlights: [
-      'Graduated Magna Cum Laude',
-      'President of Computer Science Club',
-      'Capstone project: Cloud-based inventory management system',
-      'Relevant coursework: Data Structures, Algorithms, Database Systems, Web Development',
-    ],
-  },
-  {
-    id: 'associates',
-    degree: 'Associate of Science in Information Technology',
-    institution: 'Community College',
-    year: '2014',
-    icon: '💻',
-    description:
-      'Foundation in information technology concepts and practical application.',
-    highlights: [
-      "Dean's List for 4 consecutive semesters",
-      'IT Help Desk volunteer',
-      'Networking and System Administration focus',
-    ],
-  },
-]);
-
-const certificationCategories = ref([
-  {
-    name: 'Cloud Computing',
-    certifications: [
-      {
-        name: 'AWS Solutions Architect Professional',
-        issuer: 'Amazon Web Services',
-        date: '2023',
-        badge: '☁️',
-      },
-      {
-        name: 'AWS DevOps Engineer Professional',
-        issuer: 'Amazon Web Services',
-        date: '2023',
-        badge: '⚙️',
-      },
-      {
-        name: 'AWS Security Specialty',
-        issuer: 'Amazon Web Services',
-        date: '2023',
-        badge: '🔒',
-      },
-      {
-        name: 'Microsoft Azure Fundamentals',
-        issuer: 'Microsoft',
-        date: '2022',
-        badge: '💙',
-      },
-    ],
-  },
-  {
-    name: 'Development & Programming',
-    certifications: [
-      {
-        name: 'JavaScript Algorithms and Data Structures',
-        issuer: 'freeCodeCamp',
-        date: '2020',
-        badge: '🔤',
-      },
-      {
-        name: 'Vue.js 3 Certification',
-        issuer: 'Vue School',
-        date: '2021',
-        badge: '🟢',
-      },
-      {
-        name: 'Node.js Application Development',
-        issuer: 'OpenJS Foundation',
-        date: '2021',
-        badge: '🟢',
-      },
-    ],
-  },
-  {
-    name: 'Project Management',
-    certifications: [
-      {
-        name: 'Agile Project Management',
-        issuer: 'Scrum Alliance',
-        date: '2022',
-        badge: '🔄',
-      },
-      {
-        name: 'Google Project Management',
-        issuer: 'Google',
-        date: '2022',
-        badge: '📊',
-      },
-    ],
-  },
-]);
-
-const learningPlatforms = ref([
-  {
-    name: 'AWS Training',
-    description: 'Official AWS training courses and labs',
-    icon: '☁️',
-    courses: '30+',
-    hours: '200+',
-  },
-  {
-    name: 'Pluralsight',
-    description: 'Technology skills platform for developers',
-    icon: '📚',
-    courses: '25+',
-    hours: '150+',
-  },
-  {
-    name: 'freeCodeCamp',
-    description: 'Free coding bootcamp and certification',
-    icon: '🔥',
-    courses: '10+',
-    hours: '300+',
-  },
-  {
-    name: 'YouTube/Udemy',
-    description: 'Various technical courses and tutorials',
-    icon: '📹',
-    courses: '50+',
-    hours: '100+',
-  },
-]);
-
-const learningMilestones = ref([
-  {
-    year: '2024',
-    title: 'Advanced Cloud Architecture',
-    description:
-      'Deepening expertise in multi-cloud architectures and advanced AWS services.',
-    achievements: [
-      'AWS Community Builder',
-      'Technical Blog Launch',
-      'Conference Speaking',
-    ],
-  },
-  {
-    year: '2023',
-    title: 'Professional Certifications',
-    description:
-      'Achieved professional-level AWS certifications and specialty credentials.',
-    achievements: [
-      'AWS Pro Certifications',
-      'Security Specialty',
-      'DevOps Expertise',
-    ],
-  },
-  {
-    year: '2022',
-    title: 'Leadership Development',
-    description:
-      'Focused on developing leadership skills and project management capabilities.',
-    achievements: [
-      'Team Lead Role',
-      'Project Management Cert',
-      'Mentorship Program',
-    ],
-  },
-  {
-    year: '2021',
-    title: 'Modern Web Development',
-    description:
-      'Mastered modern JavaScript frameworks and full-stack development.',
-    achievements: ['Vue.js Expert', 'Node.js Proficiency', 'API Design'],
-  },
-  {
-    year: '2020',
-    title: 'Cloud Fundamentals',
-    description:
-      'Started cloud computing journey with AWS fundamentals and first certifications.',
-    achievements: [
-      'First AWS Cert',
-      'Cloud Practitioner',
-      'Solutions Architect',
-    ],
-  },
-]);
 </script>
 
 <style scoped>
@@ -432,9 +241,6 @@ const learningMilestones = ref([
 }
 
 .formal-education,
-.certifications-learning,
-.online-learning,
-.learning-journey,
 .skills-development {
   margin-bottom: 4rem;
 }
@@ -448,14 +254,15 @@ const learningMilestones = ref([
 }
 
 .education-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
 }
 
 .education-card {
   @apply planet-card;
   display: flex;
+  flex-direction: column;
   gap: 1.5rem;
   transition: all 0.3s ease;
 }
@@ -463,6 +270,12 @@ const learningMilestones = ref([
 .education-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(147, 51, 234, 0.2);
+}
+
+.education-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
 }
 
 .education-icon {
@@ -477,8 +290,9 @@ const learningMilestones = ref([
   flex-shrink: 0;
 }
 
-.education-content {
+.education-info {
   flex: 1;
+  min-width: 0;
 }
 
 .education-degree {
@@ -499,7 +313,14 @@ const learningMilestones = ref([
 .education-year {
   color: #ccc;
   font-size: 0.9rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.education-location {
+  color: #9333ea;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0;
 }
 
 .education-description {
@@ -508,10 +329,18 @@ const learningMilestones = ref([
   margin-bottom: 1rem;
 }
 
+.education-highlights {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(147, 51, 234, 0.2);
+}
+
 .education-highlights h5 {
   color: white;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
 }
 
 .education-highlights ul {
@@ -522,10 +351,11 @@ const learningMilestones = ref([
 
 .education-highlights li {
   color: #ccc;
-  font-size: 0.9rem;
-  margin-bottom: 0.25rem;
-  padding-left: 1rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
   position: relative;
+  line-height: 1.5;
 }
 
 .education-highlights li::before {
@@ -534,119 +364,7 @@ const learningMilestones = ref([
   left: 0;
   color: #9333ea;
   font-weight: bold;
-}
-
-.cert-categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-}
-
-.cert-category {
-  @apply planet-card;
-}
-
-.cert-category-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffd700;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.cert-items {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.cert-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-}
-
-.cert-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
-}
-
-.cert-badge {
-  font-size: 1.5rem;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #9333ea, #7c3aed);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.cert-details {
-  flex: 1;
-}
-
-.cert-name {
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 0.25rem;
-}
-
-.cert-issuer {
-  font-size: 0.9rem;
-  color: #9333ea;
-  margin-bottom: 0.25rem;
-}
-
-.cert-date {
-  font-size: 0.8rem;
-  color: #ccc;
-}
-
-.learning-platforms {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.platform-card {
-  @apply planet-card;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.platform-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.2);
-}
-
-.platform-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.platform-name {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffd700;
-  margin-bottom: 0.5rem;
-}
-
-.platform-description {
-  color: #ccc;
-  margin-bottom: 1.5rem;
-  line-height: 1.4;
-}
-
-.platform-stats {
-  display: flex;
-  justify-content: space-around;
+  font-size: 1.1rem;
 }
 
 .stat-item {
@@ -664,68 +382,6 @@ const learningMilestones = ref([
   font-size: 0.8rem;
   color: #ccc;
   margin-top: 0.25rem;
-}
-
-.journey-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.milestone-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 2rem;
-  padding: 1.5rem;
-  background: rgba(11, 20, 38, 0.8);
-  border-radius: 1rem;
-  border-left: 4px solid #9333ea;
-  transition: all 0.3s ease;
-}
-
-.milestone-item:hover {
-  transform: translateX(5px);
-  box-shadow: 0 5px 20px rgba(147, 51, 234, 0.2);
-}
-
-.milestone-year {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #ffd700;
-  font-family: 'Orbitron', monospace;
-  min-width: 80px;
-}
-
-.milestone-content {
-  flex: 1;
-}
-
-.milestone-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 0.5rem;
-}
-
-.milestone-description {
-  color: #ccc;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-}
-
-.milestone-achievements {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.achievement-tag {
-  background: rgba(147, 51, 234, 0.2);
-  color: #a855f7;
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-  font-size: 0.8rem;
-  border: 1px solid rgba(147, 51, 234, 0.3);
 }
 
 .skills-chart {
@@ -789,31 +445,160 @@ const learningMilestones = ref([
   color: #ccc;
 }
 
+/* Learning Philosophy Styles */
+.learning-philosophy {
+  margin-bottom: 3rem;
+}
+
+.philosophy-content {
+  @apply planet-card;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.philosophy-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.2);
+}
+
+.philosophy-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffd700;
+  margin-bottom: 1rem;
+  font-family: 'Orbitron', monospace;
+}
+
+.philosophy-description {
+  color: #ccc;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.philosophy-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.profile-link,
+.blog-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #9333ea, #7c3aed);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.profile-link:hover,
+.blog-link:hover {
+  background: linear-gradient(135deg, #7c3aed, #6b46c1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(147, 51, 234, 0.3);
+  border-color: #ffd700;
+}
+
+.profile-link:focus,
+.blog-link:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+/* Learning Outcomes Styles */
+.learning-outcomes {
+  margin-top: 3rem;
+}
+
+.outcomes-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffd700;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-family: 'Orbitron', monospace;
+}
+
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.outcome-item {
+  @apply planet-card;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.outcome-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.2);
+}
+
+.outcome-icon {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #9333ea, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.outcome-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.outcome-content h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  font-family: 'Orbitron', monospace;
+}
+
+.outcome-content p {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
 @media (max-width: 768px) {
-  .education-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .education-card {
+  .education-header {
     flex-direction: column;
+    align-items: center;
     text-align: center;
-  }
-
-  .cert-categories {
-    grid-template-columns: 1fr;
-  }
-
-  .learning-platforms {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .milestone-item {
-    flex-direction: column;
     gap: 1rem;
   }
 
-  .milestone-year {
-    min-width: auto;
+  .education-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+  }
+
+  .education-info {
+    text-align: center;
+  }
+
+  .education-highlights {
+    text-align: left;
   }
 
   .learning-stats {
@@ -823,6 +608,84 @@ const learningMilestones = ref([
   .learning-stat {
     flex-direction: column;
     text-align: center;
+  }
+
+  .philosophy-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .profile-link,
+  .blog-link {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  .outcomes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .education-header {
+    gap: 0.75rem;
+  }
+
+  .education-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .education-degree {
+    font-size: 1.1rem;
+  }
+
+  .education-institution {
+    font-size: 1rem;
+  }
+
+  .education-highlights li {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .learning-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .philosophy-title {
+    font-size: 1.3rem;
+  }
+
+  .philosophy-description {
+    font-size: 1rem;
+  }
+
+  .profile-link,
+  .blog-link {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .outcomes-title {
+    font-size: 1.3rem;
+  }
+
+  .outcome-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .outcome-content h5 {
+    font-size: 1rem;
+  }
+
+  .outcome-content p {
+    font-size: 0.9rem;
   }
 }
 </style>

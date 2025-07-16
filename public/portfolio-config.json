@@ -522,15 +522,37 @@
   },
   "education": [
     {
-      "id": "bachelor",
+      "id": "fsu-bachelor",
       "institution": "Full Sail University",
       "degree": "Bachelor of Science Degree, Game Design and Development",
       "startDate": "2013",
       "endDate": "2016",
       "location": "Winter Park, Florida (Remote)",
+      "icon": "🎓",
       "highlights": [
-        "Core Courses: Creative Presentation, Psychology of Play, Technology in Entertainment and Media Industries, English Composition, Discrete Mathematics, Design Tools, Fundamentals of Physical Science, Statistics, Building Functional Groups, Professional Writing, Historical Archetypes and Mythology, Systems Thinking",
-        "Game Design Courses: Project and Portfolio I-VII: Interactive Design/Game Design, Game Design I-II, Level Design, World Building, Game Mechanics, Prototyping, Game Design Preproduction, Game Systems Integration, Game Balancing, Programming Foundations I-II, Game Development"
+        "Developed strong systems thinking and analytical skills through discrete mathematics, statistics, and complex system design courses",
+        "Gained extensive experience in iterative design methodologies, prototyping, and user experience optimization through game design projects",
+        "Built collaborative leadership abilities through team-based portfolio projects and cross-functional group coordination",
+        "Mastered technical problem-solving and programming fundamentals essential for software architecture and development",
+        "Learned to balance multiple constraints (technical, creative, and business) while delivering functional solutions under tight deadlines",
+        "Cultivated effective communication skills through professional writing, creative presentation, and stakeholder management coursework"
+      ]
+    },
+    {
+      "id": "edx-continuing-education",
+      "institution": "edX - Various Universities",
+      "degree": "Professional Development Courses",
+      "startDate": "2016",
+      "endDate": "2016",
+      "location": "Remote",
+      "icon": "💻",
+      "highlights": [
+        "Completed Harvard University's Introduction to Computer Science, strengthening algorithmic thinking and computational problem-solving",
+        "Mastered modern web development technologies through Microsoft's HTML, CSS, and JavaScript courses",
+        "Gained proficiency in C++ and R programming languages for systems development and data analysis applications",
+        "Developed statistical analysis and data science skills through University of Texas at Austin's comprehensive data analysis program",
+        "Enhanced project management capabilities with University of Adelaide's structured approach to planning and execution",
+        "Demonstrated commitment to continuous learning and self-directed professional development"
       ]
     }
   ],
