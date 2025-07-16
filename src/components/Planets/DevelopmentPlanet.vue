@@ -96,10 +96,13 @@
       </div>
     </section>
   </div>
+  
+  <ReturnToSolarSystem />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 
 const techStack = ref([
   {

@@ -193,12 +193,15 @@
       </div>
     </section>
   </div>
+  
+  <ReturnToSolarSystem />
 </template>
 
 <script setup lang="ts">
 import type { Project } from '@/types';
 import { nextTick, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 
 interface Config {
   projects: Project[];

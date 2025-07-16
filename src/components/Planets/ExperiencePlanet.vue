@@ -140,11 +140,14 @@
       </div>
     </section>
   </div>
+  
+  <ReturnToSolarSystem />
 </template>
 
 <script setup lang="ts">
 import type { Experience } from '@/types';
 import { ref } from 'vue';
+import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 
 const experiences = ref<Experience[]>([
   {

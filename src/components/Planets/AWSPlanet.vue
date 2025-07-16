@@ -161,12 +161,15 @@
       </div>
     </section>
   </div>
+  
+  <ReturnToSolarSystem />
 </template>
 
 <script setup lang="ts">
 import type { Certification, Project } from '@/types';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 
 const router = useRouter();
 const certifications = ref<Certification[]>([]);
