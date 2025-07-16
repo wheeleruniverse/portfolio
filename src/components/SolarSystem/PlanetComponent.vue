@@ -16,7 +16,7 @@
       width: `${planet.orbitRadius * 2}px`,
       height: `${planet.orbitRadius * 2}px`,
       animationDuration: `${planet.orbitSpeed}s`,
-      transform: `translate(-50%, -50%) rotate(${planet.startAngle}deg)`,
+      transform: `translate(-50%, -50%)`,
     }"
   >
     <div
@@ -30,6 +30,8 @@
         width: `${planetSize}px`,
         height: `${planetSize}px`,
         zIndex: planetZIndex,
+        left: `${planetInitialPosition.x + planet.orbitRadius}px`,
+        top: `${planetInitialPosition.y + planet.orbitRadius}px`,
       }"
       @click="handleClick"
       @mouseenter="handleMouseEnter"
@@ -72,6 +74,18 @@ const emit = defineEmits<{
 
 const showTooltip = ref(false);
 const planetRef = ref<HTMLElement>();
+
+// Calculate the initial position based on startAngle
+const planetInitialPosition = computed(() => {
+  const angle = (props.planet.startAngle * Math.PI) / 180; // Convert to radians
+  const radius = props.planet.orbitRadius;
+  
+  // Calculate position on the orbit circle
+  const x = Math.cos(angle) * radius;
+  const y = Math.sin(angle) * radius;
+  
+  return { x, y };
+});
 
 // Calculate planet size based on text length and minimum size
 const planetSize = computed(() => {
@@ -166,8 +180,6 @@ const handleMouseLeave = () => {
 
 .planet {
   position: absolute;
-  top: 50%;
-  left: 100%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   cursor: pointer;

@@ -100,6 +100,16 @@ const handleTooltip = (
   tooltipData.value = data;
 };
 
+const randomizePlanetStartAngles = (planets: Planet[]) => {
+  return planets.map(planet => {
+    const randomAngle = Math.random() * 360;
+    return {
+      ...planet,
+      startAngle: randomAngle
+    };
+  });
+};
+
 const loadPlanetsData = async () => {
   try {
     isLoading.value = true;
@@ -111,7 +121,10 @@ const loadPlanetsData = async () => {
     }
 
     const config = await response.json();
-    planets.value = config.planets || [];
+    const planetsData = config.planets || [];
+    
+    // Randomize starting angles for each page load
+    planets.value = randomizePlanetStartAngles(planetsData);
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to load planets';
     console.error('Error loading planets:', err);
