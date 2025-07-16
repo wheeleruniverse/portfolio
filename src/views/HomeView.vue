@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import SolarSystem from '@/components/SolarSystem/SolarSystem.vue';
 import { computed } from 'vue';
-import portfolioData from '/public/portfolio-config.json';
+import portfolioData from '../../public/portfolio-config.json';
 
 const isActiveCertification = (certification: any) => {
   if (!certification.expiryDate) {
