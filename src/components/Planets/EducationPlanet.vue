@@ -160,14 +160,68 @@
         </div>
       </div>
     </section>
+
+    <CertificationsSection
+      title="AWS Certifications"
+      description="My AWS certifications demonstrating comprehensive cloud expertise"
+      :certifications="awsCertifications"
+      :isLoading="isLoading"
+      :error="error"
+    />
+
+    <CertificationsSection
+      title="Other Certifications"
+      description="Additional certifications in various technologies and methodologies"
+      :certifications="otherCertifications"
+      :isLoading="isLoading"
+      :error="error"
+    />
   </div>
 
   <ReturnToSolarSystem />
 </template>
 
 <script setup lang="ts">
+import CertificationsSection from '@/components/CertificationsSection.vue';
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
-import { ref } from 'vue';
+import type { Certification } from '@/types';
+import { computed, onMounted, ref } from 'vue';
+
+const allCertifications = ref<Certification[]>([]);
+const isLoading = ref(true);
+const error = ref<string | null>(null);
+
+const awsCertifications = computed(() => 
+  allCertifications.value.filter(cert => cert.vendor === 'AWS')
+);
+
+const otherCertifications = computed(() => 
+  allCertifications.value.filter(cert => cert.vendor !== 'AWS')
+);
+
+const loadCertifications = async () => {
+  try {
+    isLoading.value = true;
+    error.value = null;
+
+    const response = await fetch('/portfolio-config.json');
+    if (!response.ok) {
+      throw new Error(`Failed to load config: ${response.statusText}`);
+    }
+
+    const config = await response.json();
+    allCertifications.value = config.certifications || [];
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Failed to load certifications';
+    console.error('Error loading certifications:', err);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(() => {
+  loadCertifications();
+});
 
 const formalEducation = ref([
   {

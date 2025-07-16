@@ -119,7 +119,7 @@
   "certifications": [
     {
       "id": "8DJLFE6CN2441GCQ",
-      "name": "AWS Certified DevOps Engineer - Professional",
+      "name": "DevOps Engineer",
       "vendor": "AWS",
       "level": "Professional",
       "issuer": "Amazon Web Services",
@@ -129,7 +129,7 @@
     },
     {
       "id": "F9T6LYBL2BF4QC50",
-      "name": "AWS Certified Solutions Architect - Professional",
+      "name": "Solutions Architect",
       "vendor": "AWS",
       "level": "Professional",
       "issuer": "Amazon Web Services",
@@ -139,7 +139,7 @@
     },
     {
       "id": "28BC3BDJ3F4E16G4",
-      "name": "AWS Certified Advanced Networking - Specialty",
+      "name": "Advanced Networking",
       "vendor": "AWS",
       "level": "Specialty",
       "issuer": "Amazon Web Services",
@@ -149,7 +149,7 @@
     },
     {
       "id": "L622V9QJEJ41135K",
-      "name": "AWS Certified Data Analytics - Specialty",
+      "name": "Data Analytics",
       "vendor": "AWS",
       "level": "Specialty",
       "issuer": "Amazon Web Services",
@@ -159,7 +159,7 @@
     },
     {
       "id": "9GLXQ97C32QQ1699",
-      "name": "AWS Certified Database - Specialty",
+      "name": "Database",
       "vendor": "AWS",
       "level": "Specialty",
       "issuer": "Amazon Web Services",
@@ -169,7 +169,7 @@
     },
     {
       "id": "EH1KSN0BEFEQ15K6",
-      "name": "AWS Certified Machine Learning - Specialty",
+      "name": "Machine Learning",
       "vendor": "AWS",
       "level": "Specialty",
       "issuer": "Amazon Web Services",
@@ -179,7 +179,7 @@
     },
     {
       "id": "BE4LVD0DHNEQ10WL",
-      "name": "AWS Certified SAP on AWS - Specialty",
+      "name": "SAP on AWS",
       "vendor": "AWS",
       "level": "Specialty",
       "issuer": "Amazon Web Services",
@@ -189,7 +189,7 @@
     },
     {
       "id": "KX5PP7EKG2V11WSR",
-      "name": "AWS Certified Security - Specialty",
+      "name": "Security",
       "vendor": "AWS",
       "level": "Specialty",
       "issuer": "Amazon Web Services",
@@ -199,7 +199,7 @@
     },
     {
       "id": "3ee3a9bae9334a4f9adfac05c7ec9350",
-      "name": "AWS Certified Data Engineer - Associate",
+      "name": "Data Engineer",
       "vendor": "AWS",
       "level": "Associate",
       "issuer": "Amazon Web Services",
@@ -209,7 +209,7 @@
     },
     {
       "id": "KNVXP1W2LFF4QFKS",
-      "name": "AWS Certified Developer - Associate",
+      "name": "Developer",
       "vendor": "AWS",
       "level": "Associate",
       "issuer": "Amazon Web Services",
@@ -219,7 +219,7 @@
     },
     {
       "id": "74ce817083ae4f978e622830d3e31883",
-      "name": "AWS Certified Machine Learning Engineer - Associate",
+      "name": "Machine Learning Engineer",
       "vendor": "AWS",
       "level": "Associate",
       "issuer": "Amazon Web Services",
@@ -229,7 +229,7 @@
     },
     {
       "id": "6JGG02H2CJREQFC8",
-      "name": "AWS Certified Solutions Architect - Associate",
+      "name": "Solutions Architect",
       "vendor": "AWS",
       "level": "Associate",
       "issuer": "Amazon Web Services",
@@ -239,7 +239,7 @@
     },
     {
       "id": "K591NJZ222R1QFWL",
-      "name": "AWS Certified SysOps Administrator - Associate",
+      "name": "SysOps Administrator",
       "vendor": "AWS",
       "level": "Associate",
       "issuer": "Amazon Web Services",
@@ -249,7 +249,7 @@
     },
     {
       "id": "98c94e009ee947b3a5a6025aa832009c",
-      "name": "AWS Certified AI Practitioner",
+      "name": "AI Practitioner",
       "vendor": "AWS",
       "level": "Foundational",
       "issuer": "Amazon Web Services",
@@ -259,7 +259,7 @@
     },
     {
       "id": "R9P1ZDJC2BEE1LS4",
-      "name": "AWS Certified Cloud Practitioner",
+      "name": "Cloud Practitioner",
       "vendor": "AWS",
       "level": "Foundational",
       "issuer": "Amazon Web Services",
@@ -298,7 +298,7 @@
     },
     {
       "id": "096580f5-1ccf-4f39-8d71-371687a4dc35",
-      "name": "AWS Certified Alexa Skill Builder",
+      "name": "Alexa Skill Builder",
       "vendor": "AWS",
       "level": "Specialty",
       "issuer": "Amazon Web Services",

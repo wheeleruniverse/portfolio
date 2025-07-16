@@ -24,50 +24,13 @@
       </div>
     </section>
 
-    <section class="certifications-section">
-      <h3 class="subsection-title">AWS Certifications</h3>
-
-      <!-- Loading state -->
-      <div v-if="isLoading" class="loading-message">
-        Loading certifications...
-      </div>
-
-      <!-- Error state -->
-      <div v-if="error" class="error-message">
-        Error loading certifications: {{ error }}
-      </div>
-
-      <!-- Certifications grid -->
-      <div v-if="!isLoading && !error" class="certifications-grid">
-        <div
-          v-for="cert in certifications"
-          :key="cert.id"
-          class="certification-card"
-        >
-          <div class="cert-badge">
-            <div class="cert-icon">🏆</div>
-          </div>
-          <div class="cert-content">
-            <h4 class="cert-name">{{ cert.name }}</h4>
-            <p class="cert-issuer">{{ cert.issuer }}</p>
-            <p class="cert-level">{{ cert.level }}</p>
-            <p class="cert-date">Issued: {{ cert.issueDate }}</p>
-            <p class="cert-expiry" v-if="cert.expiryDate">
-              Expires: {{ cert.expiryDate }}
-            </p>
-            <a
-              v-if="cert.credlyUrl"
-              :href="cert.credlyUrl"
-              class="cert-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Credential
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <CertificationsSection
+      title="AWS Certifications"
+      description="All my current AWS certifications, demonstrating deep expertise across the entire AWS ecosystem"
+      :certifications="certifications"
+      :isLoading="isLoading"
+      :error="error"
+    />
 
     <section class="services-section">
       <h3 class="subsection-title">AWS Projects & Services</h3>
@@ -166,6 +129,7 @@
 </template>
 
 <script setup lang="ts">
+import CertificationsSection from '@/components/CertificationsSection.vue';
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 import type { Certification, Project } from '@/types';
 import { onMounted, ref } from 'vue';
@@ -340,7 +304,6 @@ const cloudJourney = ref([
   margin-top: 0.5rem;
 }
 
-.certifications-section,
 .services-section,
 .cloud-journey {
   margin-bottom: 4rem;
@@ -369,85 +332,6 @@ const cloudJourney = ref([
   color: #ff6b6b;
 }
 
-.certifications-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-.certification-card {
-  @apply planet-card;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.3s ease;
-}
-
-.certification-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-}
-
-.cert-badge {
-  flex-shrink: 0;
-}
-
-.cert-icon {
-  font-size: 2rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ffd700, #ffa500);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cert-content {
-  flex: 1;
-}
-
-.cert-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 0.5rem;
-}
-
-.cert-issuer {
-  font-size: 0.9rem;
-  color: #ccc;
-  margin-bottom: 0.25rem;
-}
-
-.cert-level {
-  color: #ffd700;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.cert-date,
-.cert-expiry {
-  font-size: 0.8rem;
-  color: #999;
-  margin-bottom: 0.25rem;
-}
-
-.cert-expiry {
-  margin-bottom: 0.5rem;
-}
-
-.cert-link {
-  color: #ffd700;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.cert-link:hover {
-  text-decoration: underline;
-}
 
 .services-grid {
   display: grid;
@@ -653,14 +537,6 @@ const cloudJourney = ref([
     gap: 1rem;
   }
 
-  .certifications-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .certification-card {
-    flex-direction: column;
-    text-align: center;
-  }
 
   .services-grid {
     grid-template-columns: 1fr;
