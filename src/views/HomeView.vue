@@ -15,8 +15,8 @@
           class="stats-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto"
         >
           <div class="stat-card">
-            <div class="stat-number">15+</div>
-            <div class="stat-label">AWS Certifications</div>
+            <div class="stat-number">{{ totalCertifications }}</div>
+            <div class="stat-label">Active Certifications</div>
           </div>
           <div class="stat-card">
             <div class="stat-number">8+</div>
@@ -40,6 +40,23 @@
 
 <script setup lang="ts">
 import SolarSystem from '@/components/SolarSystem/SolarSystem.vue';
+import { computed } from 'vue';
+import portfolioData from '/public/portfolio-config.json';
+
+const isActiveCertification = (certification: any) => {
+  if (!certification.expiryDate) {
+    return true; // No expiry date means it doesn't expire
+  }
+
+  const today = new Date();
+  const expiryDate = new Date(certification.expiryDate);
+
+  return expiryDate >= today;
+};
+
+const totalCertifications = computed(() => {
+  return portfolioData.certifications.filter(isActiveCertification).length;
+});
 </script>
 
 <style scoped>

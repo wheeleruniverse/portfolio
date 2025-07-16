@@ -254,43 +254,43 @@ const cloudJourney = ref([
     year: '2016',
     title: 'Pivoting to Web Development & First Exposure to AWS',
     description:
-        'After graduating with a degree in game design development, I enrolled in a web development boot camp where I was first introduced to AWS.',
+      'After graduating with a degree in game design development, I enrolled in a web development boot camp where I was first introduced to AWS.',
   },
   {
     year: '2017',
     title: 'Beginning AWS Certification Journey at Verizon',
     description:
-        'Hired as a Java developer at Verizon, I began to leverage company initiatives and resources to pursue AWS certifications, starting my dedicated study.',
+      'Hired as a Java developer at Verizon, I began to leverage company initiatives and resources to pursue AWS certifications, starting my dedicated study.',
   },
   {
     year: '2018',
     title: 'First AWS Certifications & Leading Migration Efforts',
     description:
-        'I earned my first AWS certification and then quickly followed with three more AWS certs in the same year. By the end of 2018, I was working with my manager to lead an AWS migration for Verizon, moving services from on-premise to AWS.',
+      'I earned my first AWS certification and then quickly followed with three more AWS certs in the same year. By the end of 2018, I was working with my manager to lead an AWS migration for Verizon, moving services from on-premise to AWS.',
   },
   {
     year: '2020',
     title: 'Becoming a Cloud Architect',
     description:
-        'My expertise and certifications led to my promotion to Cloud Architect at Verizon, signifying my deep understanding and practical application of cloud technologies.',
+      'My expertise and certifications led to my promotion to Cloud Architect at Verizon, signifying my deep understanding and practical application of cloud technologies.',
   },
   {
     year: '2021',
     title: 'Joining Bravo LT & Becoming an AWS Community Builder',
     description:
-        'I transitioned to Bravo LT, my current company, and in the same year, I became an AWS Community Builder, actively contributing to the AWS community.',
+      'I transitioned to Bravo LT, my current company, and in the same year, I became an AWS Community Builder, actively contributing to the AWS community.',
   },
   {
     year: '2022',
     title: 'Achieving All AWS Certifications',
     description:
-        'I accomplished the remarkable feat of acquiring all 12 or 13 AWS certifications, demonstrating unparalleled dedication and comprehensive knowledge across the AWS ecosystem.',
+      'I accomplished the remarkable feat of acquiring all 12 or 13 AWS certifications, demonstrating unparalleled dedication and comprehensive knowledge across the AWS ecosystem.',
   },
   {
     year: '2023',
     title: 'Expanding to Multi-Cloud & Continued Learning',
     description:
-        'Recognizing the industry trend towards multi-cloud, I expanded my expertise by earning Azure Fundamentals, GCP Cloud Digital Leader, and Kubernetes Fundamentals certifications. I continue to focus on Google Cloud to better support clients like Gordon Food Service.',
+      'Recognizing the industry trend towards multi-cloud, I expanded my expertise by earning Azure Fundamentals, GCP Cloud Digital Leader, and Kubernetes Fundamentals certifications. I continue to focus on Google Cloud to better support clients like Gordon Food Service.',
   },
 ]);
 </script>
