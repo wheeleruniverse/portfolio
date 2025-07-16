@@ -105,7 +105,7 @@ const randomizePlanetStartAngles = (planets: Planet[]) => {
     const randomAngle = Math.random() * 360;
     return {
       ...planet,
-      startAngle: randomAngle
+      startAngle: randomAngle,
     };
   });
 };
@@ -122,7 +122,7 @@ const loadPlanetsData = async () => {
 
     const config = await response.json();
     const planetsData = config.planets || [];
-    
+
     // Randomize starting angles for each page load
     planets.value = randomizePlanetStartAngles(planetsData);
   } catch (err) {

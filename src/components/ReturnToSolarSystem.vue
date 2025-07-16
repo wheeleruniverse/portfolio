@@ -1,9 +1,9 @@
 <template>
   <div class="return-to-solar-system">
-    <button 
-      @click="returnToSolarSystem" 
+    <button
+      @click="returnToSolarSystem"
       class="return-button"
-      :class="{ 'visible': isVisible }"
+      :class="{ visible: isVisible }"
       title="Return to Solar System"
     >
       <span class="return-icon">🚀</span>
@@ -26,7 +26,7 @@ const returnToSolarSystem = () => {
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
   const windowHeight = window.innerHeight;
-  
+
   // Show button when user scrolls down more than half a screen
   isVisible.value = scrollPosition > windowHeight * 0.5;
 };
@@ -89,7 +89,8 @@ onUnmounted(() => {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -102,11 +103,11 @@ onUnmounted(() => {
     bottom: 1.5rem;
     right: 1.5rem;
   }
-  
+
   .return-button {
     padding: 0.6rem 1rem;
   }
-  
+
   .return-text {
     font-size: 0.8rem;
   }

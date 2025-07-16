@@ -138,14 +138,14 @@
       </div>
     </section>
   </div>
-  
+
   <ReturnToSolarSystem />
 </template>
 
 <script setup lang="ts">
+import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 import type { BlogPost } from '@/types';
 import { ref } from 'vue';
-import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 
 const contributions = ref([
   {

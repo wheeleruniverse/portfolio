@@ -161,13 +161,13 @@
       </div>
     </section>
   </div>
-  
+
   <ReturnToSolarSystem />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
+import { ref } from 'vue';
 
 const formalEducation = ref([
   {

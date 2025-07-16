@@ -79,11 +79,11 @@ const planetRef = ref<HTMLElement>();
 const planetInitialPosition = computed(() => {
   const angle = (props.planet.startAngle * Math.PI) / 180; // Convert to radians
   const radius = props.planet.orbitRadius;
-  
+
   // Calculate position on the orbit circle
   const x = Math.cos(angle) * radius;
   const y = Math.sin(angle) * radius;
-  
+
   return { x, y };
 });
 
