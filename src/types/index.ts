@@ -15,7 +15,7 @@ export interface Certification {
   id: string;
   name: string;
   vendor: string;
-  level: string;
+  level: 'Professional' | 'Specialty' | 'Associate' | 'Foundational';
   issuer: string;
   issueDate: string;
   expiryDate?: string;

@@ -3,11 +3,16 @@
     <div class="nav-content">
       <button
         v-if="currentRoute !== 'home'"
-        @click="goHome"
+        @click="handleGoHome"
         class="nav-button nav-home"
+        :class="{ navigating: isNavigating }"
+        :disabled="isNavigating"
         aria-label="Return to solar system"
       >
-        🌌
+        <span v-if="!isNavigating">🌌</span>
+        <span v-else class="loading-content">
+          <span class="spinner"></span>
+        </span>
       </button>
 
       <div class="nav-divider" v-if="currentRoute !== 'home'"></div>
@@ -50,11 +55,12 @@ import {
   getSocialLinks,
   usePortfolioConfig,
 } from '@/composables/usePortfolioConfig';
-import { computed } from 'vue';
+import { computed, ref, onUnmounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
+const isNavigating = ref(false);
 
 const currentRoute = computed(() => route.name);
 usePortfolioConfig();
@@ -62,14 +68,38 @@ usePortfolioConfig();
 const socialLinks = computed(() => getSocialLinks());
 const brandAssets = computed(() => getBrandAssets());
 
-const goHome = () => {
+const handleGoHome = async () => {
+  isNavigating.value = true;
+  
+  // Add page fade-out effect
+  document.body.classList.add('page-transitioning');
+  
+  // Wait for transition to complete
+  await new Promise(resolve => setTimeout(resolve, 600));
+  
+  // Navigate to home
   router.push('/');
+};
+
+const goHome = () => {
+  handleGoHome();
 };
 
 const downloadResume = () => {
   // This would link to your actual resume file
   window.open(brandAssets.value?.resume || '/resume.pdf', '_blank');
 };
+
+// Watch for route changes to reset navigation state
+watch(route, () => {
+  isNavigating.value = false;
+  document.body.classList.remove('page-transitioning');
+}, { immediate: true });
+
+onUnmounted(() => {
+  // Clean up any transition class that might be left
+  document.body.classList.remove('page-transitioning');
+});
 </script>
 
 <style scoped>
@@ -109,10 +139,40 @@ const downloadResume = () => {
   text-decoration: none;
 }
 
-.nav-button:hover,
+.nav-button:hover:not(:disabled),
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
+}
+
+.nav-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.nav-button.navigating {
+  background: rgba(255, 215, 0, 0.3);
+  transform: translateY(0);
+}
+
+.loading-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .nav-icon-svg {

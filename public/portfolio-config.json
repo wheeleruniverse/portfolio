@@ -279,7 +279,7 @@
     },
     {
       "id": "16b6b09c-1707-429b-ad24-ff9c9de55c54",
-      "name": "Google Cloud Digital Leader",
+      "name": "Cloud Digital Leader",
       "vendor": "GCP",
       "level": "Foundational",
       "issuer": "Google Cloud",
@@ -289,7 +289,7 @@
     },
     {
       "id": "H478-5093",
-      "name": "Microsoft Azure Fundamentals",
+      "name": "Azure Fundamentals",
       "vendor": "Microsoft",
       "level": "Foundational",
       "issuer": "Microsoft",
@@ -318,7 +318,7 @@
     },
     {
       "id": "oca-jse7",
-      "name": "Oracle Certified Associate, Java SE 7 Programmer",
+      "name": "Certified Associate, Java SE 7 Programmer",
       "vendor": "Oracle",
       "level": "Associate",
       "issuer": "Oracle",

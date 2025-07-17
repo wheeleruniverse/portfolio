@@ -1,26 +1,48 @@
 <template>
   <div class="return-to-solar-system">
     <button
-      @click="returnToSolarSystem"
+      @click="handleReturnToSolarSystem"
       class="return-button"
-      :class="{ visible: isVisible }"
+      :class="{ visible: isVisible, navigating: isNavigating }"
+      :disabled="isNavigating"
       title="Return to Solar System"
     >
-      <span class="return-icon">🚀</span>
-      <span class="return-text">Solar System</span>
+      <span v-if="!isNavigating" class="return-content">
+        <span class="return-icon">🚀</span>
+        <span class="return-text">Solar System</span>
+      </span>
+      <span v-else class="loading-content">
+        <span class="spinner"></span>
+        <span class="loading-text">Returning...</span>
+      </span>
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
+const route = useRoute();
 const isVisible = ref(false);
+const isNavigating = ref(false);
+
+const handleReturnToSolarSystem = async () => {
+  isNavigating.value = true;
+  
+  // Add page fade-out effect
+  document.body.classList.add('page-transitioning');
+  
+  // Wait for transition to complete
+  await new Promise(resolve => setTimeout(resolve, 600));
+  
+  // Navigate to home
+  router.push('/');
+};
 
 const returnToSolarSystem = () => {
-  router.push('/');
+  handleReturnToSolarSystem();
 };
 
 const handleScroll = () => {
@@ -31,6 +53,12 @@ const handleScroll = () => {
   isVisible.value = scrollPosition > windowHeight * 0.5;
 };
 
+// Watch for route changes to reset navigation state
+watch(route, () => {
+  isNavigating.value = false;
+  document.body.classList.remove('page-transitioning');
+}, { immediate: true });
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
   handleScroll(); // Check initial position
@@ -38,6 +66,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
+  // Clean up any transition class that might be left
+  document.body.classList.remove('page-transitioning');
 });
 </script>
 
@@ -72,10 +102,46 @@ onUnmounted(() => {
   opacity: 1;
 }
 
-.return-button:hover {
+.return-button:hover:not(:disabled) {
   background: rgba(255, 215, 0, 1);
   transform: translateY(-2px);
   box-shadow: 0 6px 25px rgba(255, 215, 0, 0.4);
+}
+
+.return-button:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.return-button.navigating {
+  background: rgba(255, 215, 0, 0.7);
+  transform: translateY(0);
+}
+
+.return-content,
+.loading-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid #1a1a1a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .return-icon {

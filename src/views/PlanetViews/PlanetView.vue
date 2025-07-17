@@ -12,8 +12,12 @@
           <div class="planet-info">
             <h1 class="planet-title">{{ planetData?.title }}</h1>
             <p class="planet-description">{{ planetData?.description }}</p>
-            <button @click="$router.push('/')" class="btn-return">
-              ← Return to Solar System
+            <button @click="handleReturnToSolarSystem" class="btn-return" :class="{ navigating: isNavigating }" :disabled="isNavigating">
+              <span v-if="!isNavigating">← Return to Solar System</span>
+              <span v-else class="loading-content">
+                <span class="spinner"></span>
+                Returning...
+              </span>
             </button>
           </div>
         </div>
@@ -26,8 +30,12 @@
         <div v-else class="planet-not-found">
           <h2>Planet Not Found</h2>
           <p>The planet you're looking for doesn't exist in this universe.</p>
-          <button @click="$router.push('/')" class="btn-primary">
-            Return to Solar System
+          <button @click="handleReturnToSolarSystem" class="btn-primary" :disabled="isNavigating">
+            <span v-if="!isNavigating">Return to Solar System</span>
+            <span v-else class="loading-content">
+              <span class="spinner"></span>
+              Returning...
+            </span>
           </button>
         </div>
       </div>
@@ -41,8 +49,8 @@ import {
   usePortfolioConfig,
 } from '@/composables/usePortfolioConfig';
 import type { Planet } from '@/types';
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, ref, onUnmounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 // Planet components
 import AWSPlanet from '@/components/Planets/AWSPlanet.vue';
@@ -58,7 +66,22 @@ interface Props {
 
 const props = defineProps<Props>();
 const route = useRoute();
+const router = useRouter();
+const isNavigating = ref(false);
 usePortfolioConfig();
+
+const handleReturnToSolarSystem = async () => {
+  isNavigating.value = true;
+  
+  // Add page fade-out effect
+  document.body.classList.add('page-transitioning');
+  
+  // Wait for transition to complete
+  await new Promise(resolve => setTimeout(resolve, 600));
+  
+  // Navigate to home
+  router.push('/');
+};
 
 const planetId = computed(() => props.id || (route.params.id as string));
 
@@ -84,6 +107,17 @@ const planetData = computed(() => planetsData.value[planetId.value]);
 const planetComponent = computed(
   () => planetComponents[planetId.value as keyof typeof planetComponents]
 );
+
+// Watch for route changes to reset navigation state
+watch(route, () => {
+  isNavigating.value = false;
+  document.body.classList.remove('page-transitioning');
+}, { immediate: true });
+
+onUnmounted(() => {
+  // Clean up any transition class that might be left
+  document.body.classList.remove('page-transitioning');
+});
 </script>
 
 <style scoped>
@@ -150,11 +184,44 @@ const planetComponent = computed(
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.btn-return:hover {
+.btn-return:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
+}
+
+.btn-return:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-return.navigating {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(0);
+}
+
+.loading-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .planet-content {

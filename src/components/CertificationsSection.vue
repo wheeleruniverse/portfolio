@@ -78,19 +78,41 @@ const isExpired = (cert: Certification): boolean => {
   return expiryDate < today;
 };
 
-// Sort certifications: active first, then expired
+// Sort certifications with complex multi-level sorting
 const certifications = computed(() => {
+  // Define level hierarchy
+  const levelOrder = ['Professional', 'Specialty', 'Associate', 'Foundational'];
+  
+  const getLevelPriority = (level: string): number => {
+    const index = levelOrder.indexOf(level);
+    return index === -1 ? 999 : index; // Unknown levels go to end
+  };
+
   return [...props.certifications].sort((a, b) => {
     const aExpired = isExpired(a);
     const bExpired = isExpired(b);
 
-    // If one is expired and one is not, active comes first
+    // 1. First sort: Active vs Expired (active first)
     if (aExpired !== bExpired) {
       return aExpired ? 1 : -1;
     }
 
-    // If both are same status, sort by issue date (newest first)
-    return new Date(b.issueDate).getTime() - new Date(a.issueDate).getTime();
+    // 2. Second sort: Level priority (Professional > Specialty > Associate > Foundational)
+    const aLevelPriority = getLevelPriority(a.level);
+    const bLevelPriority = getLevelPriority(b.level);
+    
+    if (aLevelPriority !== bLevelPriority) {
+      return aLevelPriority - bLevelPriority;
+    }
+
+    // 3. Third sort: Vendor alphabetically
+    const vendorCompare = a.vendor.localeCompare(b.vendor);
+    if (vendorCompare !== 0) {
+      return vendorCompare;
+    }
+
+    // 4. Fourth sort: Name alphabetically
+    return a.name.localeCompare(b.name);
   });
 });
 </script>
