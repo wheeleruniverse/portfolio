@@ -1,9 +1,9 @@
 <template>
   <section
     class="solar-system-container"
-    :class="{ 'system-frozen': isSystemFrozen }"
+    :class="{ 'system-frozen': isSystemFrozen, 'navigating': isNavigating }"
   >
-    <div class="solar-system" ref="solarSystemRef">
+    <div class="solar-system" ref="solarSystemRef" :class="{ 'navigating': isNavigating }">
       <!-- Central Brand Logo -->
       <div class="sun">
         <img
@@ -79,7 +79,15 @@ const planets = ref<Planet[]>([]);
 const isLoading = ref(true);
 const error = ref<string | null>(null);
 
-const navigateToPlanet = (planetId: string) => {
+const isNavigating = ref(false);
+
+const navigateToPlanet = async (planetId: string) => {
+  isNavigating.value = true;
+  
+  // Small delay to allow transition to show
+  await new Promise(resolve => setTimeout(resolve, 300));
+  
+  // Navigate to planet
   router.push(`/planet/${planetId}`);
 };
 
@@ -147,6 +155,20 @@ onMounted(() => {
   justify-content: center;
   transition: all 0.5s ease;
   position: relative;
+}
+
+.solar-system-container.navigating {
+  filter: blur(3px);
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
+.solar-system {
+  transition: all 0.5s ease;
+}
+
+.solar-system.navigating {
+  pointer-events: none;
 }
 
 .system-frozen {

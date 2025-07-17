@@ -1,6 +1,6 @@
 <template>
-  <div class="modal-overlay" @click="handleOverlayClick">
-    <div class="modal-content" @click.stop>
+  <div class="modal-overlay" @click="handleOverlayClick" :class="{ 'navigating': isNavigating }">
+    <div class="modal-content" @click.stop :class="{ 'navigating': isNavigating }">
       <button
         class="modal-close"
         @click="$emit('close')"
@@ -21,8 +21,16 @@
 
       <div class="modal-body">
         <div class="action-buttons">
-          <button class="btn-primary" @click="$emit('navigate', planet.id)">
-            Explore {{ planet.name }}
+          <button 
+            class="btn-primary" 
+            @click="handleNavigate"
+            :disabled="isNavigating"
+          >
+            <span v-if="!isNavigating">Explore {{ planet.name }}</span>
+            <span v-else class="loading-spinner">
+              <span class="spinner"></span>
+              Launching...
+            </span>
           </button>
           <button class="btn-secondary" @click="$emit('close')">
             Stay in Orbit
@@ -35,16 +43,29 @@
 
 <script setup lang="ts">
 import type { Planet } from '@/types';
+import { ref } from 'vue';
 
 interface Props {
   planet: Planet;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 const emit = defineEmits<{
   close: [];
   navigate: [planetId: string];
 }>();
+
+const isNavigating = ref(false);
+
+const handleNavigate = async () => {
+  isNavigating.value = true;
+  
+  // Add a small delay to show the loading state
+  await new Promise(resolve => setTimeout(resolve, 800));
+  
+  // Emit the navigate event
+  emit('navigate', props.planet.id);
+};
 
 const handleOverlayClick = (event: MouseEvent) => {
   if (event.target === event.currentTarget) {
@@ -66,6 +87,12 @@ const handleOverlayClick = (event: MouseEvent) => {
   justify-content: center;
   z-index: 1000;
   backdrop-filter: blur(5px);
+  transition: all 0.5s ease;
+}
+
+.modal-overlay.navigating {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
 }
 
 .modal-content {
@@ -77,6 +104,15 @@ const handleOverlayClick = (event: MouseEvent) => {
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
+  transition: all 0.5s ease;
+  transform: scale(1);
+  opacity: 1;
+}
+
+.modal-content.navigating {
+  transform: scale(0.95);
+  opacity: 0.8;
+  filter: blur(2px);
 }
 
 .modal-close {
@@ -153,9 +189,35 @@ const handleOverlayClick = (event: MouseEvent) => {
   box-shadow: 0 4px 15px rgba(75, 31, 142, 0.3);
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(75, 31, 142, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .btn-secondary {
