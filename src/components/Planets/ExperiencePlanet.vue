@@ -149,12 +149,23 @@ import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 import type { Experience } from '@/types';
 import { onMounted, ref } from 'vue';
 
+interface SkillCategory {
+  category: string;
+  skills: {
+    name: string;
+    years: number;
+    percentage: number;
+  }[];
+}
+
 interface Config {
   experience: Experience[];
+  skillCategories: SkillCategory[];
 }
 
 const config = ref<Config | null>(null);
 const experiences = ref<Experience[]>([]);
+const skillCategories = ref<SkillCategory[]>([]);
 
 const loadConfig = async () => {
   try {
@@ -162,10 +173,12 @@ const loadConfig = async () => {
     const data = await response.json();
     config.value = data;
     experiences.value = data.experience || [];
+    skillCategories.value = data.skillCategories || [];
   } catch (error) {
     console.error('Error loading portfolio config:', error);
-    // Fallback to empty array if config fails to load
+    // Fallback to empty arrays if config fails to load
     experiences.value = [];
+    skillCategories.value = [];
   }
 };
 
@@ -185,44 +198,6 @@ const getExperienceYears = () => {
 onMounted(() => {
   loadConfig();
 });
-
-const skillCategories = ref([
-  {
-    category: 'Cloud Platforms',
-    skills: [
-      { name: 'AWS', years: 6, percentage: 95 },
-      { name: 'Azure', years: 3, percentage: 75 },
-      { name: 'Google Cloud', years: 2, percentage: 60 },
-    ],
-  },
-  {
-    category: 'Programming Languages',
-    skills: [
-      { name: 'JavaScript/TypeScript', years: 8, percentage: 95 },
-      { name: 'Python', years: 5, percentage: 85 },
-      { name: 'Java', years: 4, percentage: 75 },
-      { name: 'PHP', years: 6, percentage: 80 },
-    ],
-  },
-  {
-    category: 'DevOps & Tools',
-    skills: [
-      { name: 'Docker', years: 5, percentage: 90 },
-      { name: 'Kubernetes', years: 3, percentage: 75 },
-      { name: 'Terraform', years: 4, percentage: 85 },
-      { name: 'CI/CD', years: 6, percentage: 90 },
-    ],
-  },
-  {
-    category: 'Databases',
-    skills: [
-      { name: 'PostgreSQL', years: 6, percentage: 90 },
-      { name: 'MySQL', years: 7, percentage: 85 },
-      { name: 'MongoDB', years: 4, percentage: 75 },
-      { name: 'DynamoDB', years: 5, percentage: 85 },
-    ],
-  },
-]);
 </script>
 
 <style scoped>
