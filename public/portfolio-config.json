@@ -433,8 +433,9 @@
       "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
       "technologies": ["Blazor", "C#", "Next.js", "Vercel"],
       "githubUrl": "https://github.com/wheeleruniverse/cgc-resume-from-json",
+      "liveUrl": "https://cgc-resume-from-json.vercel.app/",
       "featured": false,
-      "category": "data"
+      "category": "web"
     },
     {
       "id": "cgc-aws-app-performance",

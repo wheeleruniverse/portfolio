@@ -42,35 +42,35 @@
       </div>
     </section>
 
-    <section class="code-stats-section">
+    <section v-if="!githubError" class="code-stats-section">
       <h3 class="subsection-title">Code Statistics</h3>
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-icon">📊</div>
           <div class="stat-content">
-            <div class="stat-number">50+</div>
-            <div class="stat-label">Projects Completed</div>
+            <div class="stat-number">{{ githubStats.publicRepos || '...' }}</div>
+            <div class="stat-label">Public Repositories</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-content">
+            <div class="stat-number">{{ githubStats.followers || '...' }}</div>
+            <div class="stat-label">Followers</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-content">
+            <div class="stat-number">{{ githubStats.totalStars || '...' }}</div>
+            <div class="stat-label">Total Stars</div>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-icon">🔧</div>
           <div class="stat-content">
-            <div class="stat-number">10+</div>
-            <div class="stat-label">Languages</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">⚡</div>
-          <div class="stat-content">
-            <div class="stat-number">5+</div>
-            <div class="stat-label">Years Experience</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">🚀</div>
-          <div class="stat-content">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Remote Ready</div>
+            <div class="stat-number">{{ githubStats.languages || '...' }}</div>
+            <div class="stat-label">Languages Used</div>
           </div>
         </div>
       </div>
@@ -102,7 +102,64 @@
 
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+
+const githubStats = ref({
+  publicRepos: null,
+  followers: null,
+  totalStars: null,
+  languages: null
+});
+
+const githubError = ref(false);
+
+const fetchGitHubStats = async () => {
+  try {
+    const username = 'wheeleruniverse';
+    
+    // Fetch user profile
+    const userResponse = await fetch(`https://api.github.com/users/${username}`);
+    if (!userResponse.ok) throw new Error('Failed to fetch user data');
+    const userData = await userResponse.json();
+    
+    // Fetch repositories
+    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+    if (!reposResponse.ok) throw new Error('Failed to fetch repositories');
+    const reposData = await reposResponse.json();
+    
+    // Calculate total stars and languages
+    const totalStars = reposData.reduce((sum: number, repo: any) => sum + repo.stargazers_count, 0);
+    const languagesSet = new Set();
+    
+    // Fetch languages for each repository
+    for (const repo of reposData) {
+      try {
+        const langResponse = await fetch(`https://api.github.com/repos/${username}/${repo.name}/languages`);
+        if (langResponse.ok) {
+          const langData = await langResponse.json();
+          Object.keys(langData).forEach(lang => languagesSet.add(lang));
+        }
+      } catch (error) {
+        console.warn(`Failed to fetch languages for ${repo.name}:`, error);
+      }
+    }
+    
+    githubStats.value = {
+      publicRepos: userData.public_repos,
+      followers: userData.followers,
+      totalStars,
+      languages: languagesSet.size
+    };
+    
+  } catch (error) {
+    console.error('Error fetching GitHub stats:', error);
+    githubError.value = true;
+  }
+};
+
+onMounted(() => {
+  fetchGitHubStats();
+});
 
 const techStack = ref([
   {
