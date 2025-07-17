@@ -20,8 +20,12 @@
           class="project-card featured"
           :class="{ highlighted: highlightedProject === project.id }"
         >
-          <div class="project-image" v-if="project.image">
-            <img :src="project.image" :alt="project.name" />
+          <div class="project-image" v-if="getProjectImage(project)">
+            <img
+              :src="getProjectImage(project)"
+              :alt="project.name"
+              @error="handleImageError(project)"
+            />
           </div>
           <div class="project-placeholder" v-else>
             <div class="placeholder-icon">🚀</div>
@@ -121,40 +125,6 @@
       </div>
     </section>
 
-    <section class="github-stats">
-      <h3 class="subsection-title">GitHub Activity</h3>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">📊</div>
-          <div class="stat-content">
-            <div class="stat-number">50+</div>
-            <div class="stat-label">Public Repositories</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">⭐</div>
-          <div class="stat-content">
-            <div class="stat-number">200+</div>
-            <div class="stat-label">Stars Earned</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">🔀</div>
-          <div class="stat-content">
-            <div class="stat-number">100+</div>
-            <div class="stat-label">Contributions</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">🌟</div>
-          <div class="stat-content">
-            <div class="stat-number">15+</div>
-            <div class="stat-label">Languages</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="project-highlights">
       <h3 class="subsection-title">Project Highlights</h3>
       <div class="highlights-grid">
@@ -162,13 +132,13 @@
           <div class="highlight-icon">🏆</div>
           <h4 class="highlight-title">Wheeler Recommends</h4>
           <p class="highlight-description">
-            Personal recommendation engine for books, movies, and resources with
-            AI-powered suggestions.
+            Machine learning recommendation engine for movies based on public
+            IMDB data.
           </p>
         </div>
         <div class="highlight-card">
           <div class="highlight-icon">☁️</div>
-          <h4 class="highlight-title">Cloud Architecture Templates</h4>
+          <h4 class="highlight-title">Cloud Templates</h4>
           <p class="highlight-description">
             Reusable AWS CloudFormation and CDK templates for common
             architectural patterns.
@@ -211,6 +181,7 @@ const route = useRoute();
 const config = ref<Config | null>(null);
 const featuredProjects = ref<Project[]>([]);
 const highlightedProject = ref<string | null>(null);
+const projectImageCache = ref<Map<string, string>>(new Map());
 
 const loadConfig = async () => {
   try {
@@ -242,6 +213,42 @@ const scrollToProject = (projectId: string) => {
     setTimeout(() => {
       highlightedProject.value = null;
     }, 3000);
+  }
+};
+
+const getProjectImage = (project: Project): string | undefined => {
+  // Check cache first
+  if (projectImageCache.value.has(project.id)) {
+    return projectImageCache.value.get(project.id) || undefined;
+  }
+
+  // If project already has an image, use it
+  if (project.image) {
+    projectImageCache.value.set(project.id, project.image);
+    return project.image;
+  }
+
+  // For highlighted projects, try to load from public/projects directory
+  if (project.featured) {
+    const projectImagePath = `/projects/${project.id}.png`;
+    // We'll cache this path and handle errors in the @error handler
+    projectImageCache.value.set(project.id, projectImagePath);
+    return projectImagePath;
+  }
+
+  return undefined;
+};
+
+const handleImageError = (project: Project) => {
+  console.warn(
+    `Image not found for project ${project.id}, falling back to placeholder`
+  );
+  // Remove from cache so it falls back to placeholder
+  projectImageCache.value.delete(project.id);
+
+  // If the project had an original image, try to fall back to it
+  if (project.image) {
+    projectImageCache.value.set(project.id, project.image);
   }
 };
 

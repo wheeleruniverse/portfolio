@@ -327,34 +327,90 @@
   ],
   "experience": [
     {
-      "id": "current-role",
-      "company": "Your Current Company",
-      "position": "Cloud Solutions Architect",
-      "startDate": "2023",
+      "id": "bravo-lt-senior-developer",
+      "company": "Bravo LT",
+      "position": "Senior Software Developer",
+      "startDate": "April 2021",
       "endDate": "Present",
+      "duration": "4+ years",
       "location": "Remote",
-      "description": "Lead cloud architecture initiatives and design scalable solutions using AWS services.",
+      "client": "Gordon Food Service (GFS)",
+      "manager": "Bill Osborn",
+      "project": "Gordon Ordering Platform",
+      "description": "Full-stack development and infrastructure management for enterprise food service operations serving thousands of users daily.",
       "achievements": [
-        "Designed and implemented cloud infrastructure serving 100k+ users",
-        "Reduced infrastructure costs by 30% through optimization strategies",
-        "Led migration of legacy applications to cloud-native architecture"
+        "Architected and maintained scalable GCP infrastructure using Terraform for enterprise food service operations",
+        "Implemented comprehensive CI/CD pipelines using GitLab CI, Jenkins, and Spinnaker for automated deployment",
+        "Integrated monitoring and observability solutions including Elasticsearch, Kibana, and performance monitoring",
+        "Managed containerized workloads on GCP Kubernetes Engine (GKE) and GCP App Engine for high availability",
+        "Optimized cloud infrastructure costs while maintaining 99.9%+ uptime for mission-critical systems",
+        "Developed modern frontend applications using Angular 18+, NgRx state management, and TypeScript",
+        "Built robust backend services using Java 21, Spring Boot, with Docker containerization",
+        "Integrated multiple data storage solutions including GCP Cloud Datastore, Redis caching, and Nginx load balancing"
       ],
-      "technologies": ["AWS", "Terraform", "Kubernetes", "Python 3.x", "TypeScript"]
+      "technologies": ["Angular 18+", "NgRx", "TypeScript", "Java 21", "Spring Boot", "Docker", "GCP", "Terraform", "GitLab CI", "Jenkins", "Spinnaker", "Kubernetes", "GCP App Engine", "GCP Cloud Datastore", "Redis", "Nginx", "Elasticsearch", "Kibana"]
     },
     {
-      "id": "previous-role",
-      "company": "Previous Company",
-      "position": "Senior Developer",
-      "startDate": "2021",
-      "endDate": "2023",
-      "location": "City, State",
-      "description": "Developed full-stack applications and contributed to cloud migration efforts.",
+      "id": "verizon-cloud-architect",
+      "company": "Verizon",
+      "position": "Cloud Architect",
+      "startDate": "April 2020",
+      "endDate": "April 2021",
+      "duration": "1 year",
+      "location": "Remote",
+      "manager": "Benjamin Pomales",
+      "role": "MTS-III (Member Technical Staff)",
+      "project": "Network Planning Platform (NPP)",
+      "description": "Designed and implemented secure AWS environments for mission-critical telecommunications applications.",
       "achievements": [
-        "Built responsive web applications using modern frameworks",
-        "Collaborated with cross-functional teams to deliver projects on time",
-        "Mentored junior developers and conducted code reviews"
+        "Designed, implemented, and secured AWS environments for multiple mission-critical telecommunications applications",
+        "Developed Jenkins automation pipelines for code analysis and artifact deployment to production servers",
+        "Achieved 30%+ cost optimization on AWS infrastructure through rightsizing and resource management",
+        "Mentored development teams on cloud best practices across multiple programming languages",
+        "Created Infrastructure as Code using Ansible playbooks and CloudFormation templates"
       ],
-      "technologies": ["React", "Node.js", "AWS", "PostgreSQL", "Docker"]
+      "technologies": ["AWS", "Jenkins", "Ansible", "CloudFormation", "Infrastructure as Code", "Cost Optimization", "Security"]
+    },
+    {
+      "id": "verizon-full-stack-engineer",
+      "company": "Verizon",
+      "position": "Full Stack Engineer",
+      "startDate": "November 2019",
+      "endDate": "March 2020",
+      "duration": "5 months",
+      "location": "Remote",
+      "manager": "Benjamin Pomales",
+      "role": "MTS-III",
+      "project": "Network Planning Platform (NPP)",
+      "description": "Designed and implemented scalable technical solutions for telecommunications applications including 5G coverage mapping.",
+      "achievements": [
+        "Designed and implemented RESTful APIs and database schemas using Java and Python",
+        "Translated complex business requirements into scalable technical solutions",
+        "Developed geospatial data processing applications for Verizon's 5G Coverage Map",
+        "Collaborated with product teams to ensure technical solutions aligned with business objectives"
+      ],
+      "technologies": ["Java", "Python", "RESTful APIs", "Database Design", "Geospatial Data Processing", "5G Technology"]
+    },
+    {
+      "id": "verizon-java-engineer",
+      "company": "Verizon",
+      "position": "Java Software Engineer",
+      "startDate": "August 2017",
+      "endDate": "November 2019",
+      "duration": "2 years 3 months",
+      "location": "Remote",
+      "manager": "Thomas Wise",
+      "role": "MTS-II",
+      "project": "Service Qualification 5G (SQDB)",
+      "description": "Technical lead for backend Java systems supporting Verizon's 5G Home product customer qualification.",
+      "achievements": [
+        "Served as technical lead and gatekeeper for multiple backend Java repositories",
+        "Coordinated API integrations across multiple development teams for unified product delivery",
+        "Architected backend systems for Verizon's 5G Home product customer qualification",
+        "Optimized existing Java applications for improved performance and maintainability",
+        "Provided technical guidance and code review for development team members"
+      ],
+      "technologies": ["Java", "Backend Systems", "API Integration", "5G Technology", "Performance Optimization", "Code Review", "Technical Leadership"]
     }
   ],
   "projects": [
@@ -424,7 +480,7 @@
         "Serverless Framework"
       ],
       "githubUrl": "https://github.com/wheeleruniverse/wheelerrecommends-scraper",
-      "featured": true,
+      "featured": false,
       "category": "data"
     },
     {
@@ -500,7 +556,7 @@
         "Seaborn"
       ],
       "githubUrl": "https://github.com/wheeleruniverse/cgc-aws-ml-recommendation-engine",
-      "featured": true,
+      "featured": false,
       "category": "cloud"
     },
     {

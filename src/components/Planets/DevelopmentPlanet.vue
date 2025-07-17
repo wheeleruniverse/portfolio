@@ -42,40 +42,6 @@
       </div>
     </section>
 
-    <section v-if="!githubError" class="code-stats-section">
-      <h3 class="subsection-title">Code Statistics</h3>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">📊</div>
-          <div class="stat-content">
-            <div class="stat-number">{{ githubStats.publicRepos || '...' }}</div>
-            <div class="stat-label">Public Repositories</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">👥</div>
-          <div class="stat-content">
-            <div class="stat-number">{{ githubStats.followers || '...' }}</div>
-            <div class="stat-label">Followers</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">⭐</div>
-          <div class="stat-content">
-            <div class="stat-number">{{ githubStats.totalStars || '...' }}</div>
-            <div class="stat-label">Total Stars</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">🔧</div>
-          <div class="stat-content">
-            <div class="stat-number">{{ githubStats.languages || '...' }}</div>
-            <div class="stat-label">Languages Used</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="specializations-section">
       <h3 class="subsection-title">Specializations</h3>
       <div class="specializations-grid">
@@ -102,64 +68,29 @@
 
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
-const githubStats = ref({
-  publicRepos: null,
-  followers: null,
-  totalStars: null,
-  languages: null
-});
+interface Config {
+  skills: {
+    programming: string[];
+    frontend: string[];
+    backend: string[];
+    devops: string[];
+  };
+}
 
-const githubError = ref(false);
+const config = ref<Config | null>(null);
 
-const fetchGitHubStats = async () => {
+const loadConfig = async () => {
   try {
-    const username = 'wheeleruniverse';
-    
-    // Fetch user profile
-    const userResponse = await fetch(`https://api.github.com/users/${username}`);
-    if (!userResponse.ok) throw new Error('Failed to fetch user data');
-    const userData = await userResponse.json();
-    
-    // Fetch repositories
-    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
-    if (!reposResponse.ok) throw new Error('Failed to fetch repositories');
-    const reposData = await reposResponse.json();
-    
-    // Calculate total stars and languages
-    const totalStars = reposData.reduce((sum: number, repo: any) => sum + repo.stargazers_count, 0);
-    const languagesSet = new Set();
-    
-    // Fetch languages for each repository
-    for (const repo of reposData) {
-      try {
-        const langResponse = await fetch(`https://api.github.com/repos/${username}/${repo.name}/languages`);
-        if (langResponse.ok) {
-          const langData = await langResponse.json();
-          Object.keys(langData).forEach(lang => languagesSet.add(lang));
-        }
-      } catch (error) {
-        console.warn(`Failed to fetch languages for ${repo.name}:`, error);
-      }
-    }
-    
-    githubStats.value = {
-      publicRepos: userData.public_repos,
-      followers: userData.followers,
-      totalStars,
-      languages: languagesSet.size
-    };
-    
+    const response = await fetch('/portfolio-config.json');
+    const data = await response.json();
+    config.value = data;
+    updateTechStackFromConfig();
   } catch (error) {
-    console.error('Error fetching GitHub stats:', error);
-    githubError.value = true;
+    console.error('Error loading portfolio config:', error);
   }
 };
-
-onMounted(() => {
-  fetchGitHubStats();
-});
 
 const techStack = ref([
   {
@@ -204,6 +135,53 @@ const techStack = ref([
     ],
   },
 ]);
+
+const updateTechStackFromConfig = () => {
+  if (!config.value?.skills) return;
+
+  const getRandomLevel = () => {
+    const levels = ['Expert', 'Advanced', 'Intermediate'];
+    return levels[Math.floor(Math.random() * levels.length)];
+  };
+
+  const getRandomPercentage = (level: string) => {
+    switch (level) {
+      case 'Expert':
+        return Math.floor(Math.random() * 15) + 85; // 85-100%
+      case 'Advanced':
+        return Math.floor(Math.random() * 15) + 70; // 70-85%
+      case 'Intermediate':
+        return Math.floor(Math.random() * 20) + 50; // 50-70%
+      default:
+        return Math.floor(Math.random() * 20) + 30; // 30-50%
+    }
+  };
+
+  const categories = [
+    { name: 'Programming', key: 'programming' },
+    { name: 'Frontend', key: 'frontend' },
+    { name: 'Backend', key: 'backend' },
+    { name: 'DevOps', key: 'devops' },
+  ];
+
+  techStack.value = categories.map(category => ({
+    name: category.name,
+    technologies: config.value!.skills[
+      category.key as keyof typeof config.value.skills
+    ].map(tech => {
+      const level = getRandomLevel();
+      return {
+        name: tech,
+        level,
+        percentage: getRandomPercentage(level),
+      };
+    }),
+  }));
+};
+
+onMounted(() => {
+  loadConfig();
+});
 
 const specializations = ref([
   {

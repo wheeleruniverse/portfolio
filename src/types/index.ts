@@ -41,6 +41,12 @@ export interface Experience {
   position: string;
   startDate: string;
   endDate?: string;
+  duration?: string;
+  location?: string;
+  client?: string;
+  manager?: string;
+  role?: string;
+  project?: string;
   description: string;
   achievements: string[];
   technologies: string[];

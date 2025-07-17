@@ -4,8 +4,8 @@
       <div class="hero-content">
         <h2 class="section-title">Professional Experience</h2>
         <p class="hero-description">
-          8+ years of professional experience building scalable solutions and
-          leading technical initiatives.
+          {{ getExperienceYears() }}+ years of professional experience building
+          scalable solutions and leading technical initiatives.
         </p>
       </div>
     </section>
@@ -40,12 +40,41 @@
                   <span class="experience-badge" v-if="!experience.endDate"
                     >Current</span
                   >
+                  <span
+                    class="experience-duration-badge"
+                    v-if="experience.duration"
+                  >
+                    {{ experience.duration }}
+                  </span>
+                </div>
+                <div
+                  class="experience-meta"
+                  v-if="
+                    experience.client ||
+                    experience.project ||
+                    experience.manager
+                  "
+                >
+                  <div v-if="experience.client" class="experience-client">
+                    <strong>Client:</strong> {{ experience.client }}
+                  </div>
+                  <div v-if="experience.project" class="experience-project">
+                    <strong>Project:</strong> {{ experience.project }}
+                  </div>
+                  <div v-if="experience.manager" class="experience-manager">
+                    <strong>Manager:</strong> {{ experience.manager }}
+                  </div>
                 </div>
               </div>
               <div class="experience-description">
                 <p>{{ experience.description }}</p>
               </div>
-              <div class="experience-achievements">
+              <div
+                class="experience-achievements"
+                v-if="
+                  experience.achievements && experience.achievements.length > 0
+                "
+              >
                 <h5 class="achievements-title">Key Achievements</h5>
                 <ul class="achievements-list">
                   <li
@@ -57,7 +86,12 @@
                   </li>
                 </ul>
               </div>
-              <div class="experience-technologies">
+              <div
+                class="experience-technologies"
+                v-if="
+                  experience.technologies && experience.technologies.length > 0
+                "
+              >
                 <h5 class="tech-title">Technologies Used</h5>
                 <div class="tech-tags">
                   <span
@@ -105,40 +139,6 @@
         </div>
       </div>
     </section>
-
-    <section class="career-stats">
-      <h3 class="subsection-title">Career Highlights</h3>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">👥</div>
-          <div class="stat-content">
-            <div class="stat-number">50+</div>
-            <div class="stat-label">Team Members Led</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">🚀</div>
-          <div class="stat-content">
-            <div class="stat-number">100+</div>
-            <div class="stat-label">Projects Delivered</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">💰</div>
-          <div class="stat-content">
-            <div class="stat-number">$2M+</div>
-            <div class="stat-label">Cost Savings Achieved</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">⚡</div>
-          <div class="stat-content">
-            <div class="stat-number">99.9%</div>
-            <div class="stat-label">System Uptime</div>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 
   <ReturnToSolarSystem />
@@ -147,100 +147,44 @@
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 import type { Experience } from '@/types';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
-const experiences = ref<Experience[]>([
-  {
-    id: 'senior-cloud-architect',
-    company: 'Tech Solutions Inc.',
-    position: 'Senior Cloud Architect',
-    startDate: '2022-01',
-    endDate: undefined,
-    description:
-      'Leading cloud architecture initiatives and driving digital transformation for enterprise clients.',
-    achievements: [
-      'Architected and implemented multi-cloud solutions serving 1M+ users',
-      'Reduced infrastructure costs by 40% through cloud optimization',
-      'Led team of 8 engineers in successful cloud migration projects',
-      'Established DevOps practices reducing deployment time by 60%',
-    ],
-    technologies: [
-      'AWS',
-      'Azure',
-      'Kubernetes',
-      'Terraform',
-      'Docker',
-      'Python',
-      'Node.js',
-      'React',
-    ],
-  },
-  {
-    id: 'cloud-engineer',
-    company: 'Innovation Labs',
-    position: 'Cloud Engineer',
-    startDate: '2020-03',
-    endDate: '2021-12',
-    description:
-      'Designed and implemented cloud infrastructure solutions for high-growth startups.',
-    achievements: [
-      'Built serverless applications handling 100K+ requests per day',
-      'Implemented CI/CD pipelines reducing deployment failures by 75%',
-      'Mentored 5 junior developers in cloud technologies',
-      'Achieved 99.9% uptime for critical production systems',
-    ],
-    technologies: [
-      'AWS',
-      'Lambda',
-      'API Gateway',
-      'DynamoDB',
-      'CloudFormation',
-      'Java',
-      'JavaScript',
-    ],
-  },
-  {
-    id: 'full-stack-developer',
-    company: 'Digital Agency Pro',
-    position: 'Full Stack Developer',
-    startDate: '2018-06',
-    endDate: '2020-02',
-    description:
-      'Developed web applications and APIs for diverse client base across multiple industries.',
-    achievements: [
-      'Delivered 20+ client projects on time and under budget',
-      'Improved application performance by 50% through optimization',
-      'Implemented responsive designs serving desktop and mobile users',
-      'Collaborated with UX/UI teams to deliver exceptional user experiences',
-    ],
-    technologies: [
-      'Vue.js',
-      'Node.js',
-      'PostgreSQL',
-      'MongoDB',
-      'Express.js',
-      'HTML',
-      'CSS',
-      'JavaScript',
-    ],
-  },
-  {
-    id: 'junior-developer',
-    company: 'StartupTech',
-    position: 'Junior Developer',
-    startDate: '2016-09',
-    endDate: '2018-05',
-    description:
-      'Started career building web applications and learning software development best practices.',
-    achievements: [
-      'Contributed to 10+ feature releases for main product',
-      'Maintained 95% code coverage through comprehensive testing',
-      'Participated in agile development processes',
-      'Completed AWS certification while working full-time',
-    ],
-    technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS', 'Git', 'Linux'],
-  },
-]);
+interface Config {
+  experience: Experience[];
+}
+
+const config = ref<Config | null>(null);
+const experiences = ref<Experience[]>([]);
+
+const loadConfig = async () => {
+  try {
+    const response = await fetch('/portfolio-config.json');
+    const data = await response.json();
+    config.value = data;
+    experiences.value = data.experience || [];
+  } catch (error) {
+    console.error('Error loading portfolio config:', error);
+    // Fallback to empty array if config fails to load
+    experiences.value = [];
+  }
+};
+
+const getExperienceYears = () => {
+  if (!experiences.value || experiences.value.length === 0) return 8;
+
+  // Calculate years based on oldest start date
+  const startDates = experiences.value.map(exp => {
+    return parseInt(exp.startDate.split(' ')[1] || exp.startDate.split('-')[0]);
+  });
+
+  const earliestYear = Math.min(...startDates);
+  const currentYear = new Date().getFullYear();
+  return currentYear - earliestYear;
+};
+
+onMounted(() => {
+  loadConfig();
+});
 
 const skillCategories = ref([
   {
@@ -412,6 +356,38 @@ const skillCategories = ref([
   font-weight: 600;
 }
 
+.experience-duration-badge {
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.experience-meta {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  border-left: 3px solid #ffd700;
+}
+
+.experience-meta > div {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.experience-meta > div:last-child {
+  margin-bottom: 0;
+}
+
+.experience-meta strong {
+  color: #ffd700;
+}
+
 .experience-description {
   margin-bottom: 1.5rem;
 }
@@ -545,54 +521,6 @@ const skillCategories = ref([
   transition: width 0.3s ease;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
-
-.stat-card {
-  @apply planet-card;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-}
-
-.stat-icon {
-  font-size: 2rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ffd700, #ffa500);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.stat-content {
-  flex: 1;
-}
-
-.stat-number {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #ffd700;
-  font-family: 'Orbitron', monospace;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #ccc;
-  margin-top: 0.25rem;
-}
-
 @media (max-width: 768px) {
   .timeline {
     padding-left: 1rem;
@@ -613,15 +541,6 @@ const skillCategories = ref([
 
   .skills-grid {
     grid-template-columns: 1fr;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .stat-card {
-    flex-direction: column;
-    text-align: center;
   }
 }
 </style>
