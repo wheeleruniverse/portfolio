@@ -149,12 +149,12 @@ onMounted(() => {
 <style scoped>
 .solar-system-container {
   min-height: 100vh;
-  padding: 2rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.5s ease;
   position: relative;
+  overflow: visible;
 }
 
 .solar-system-container.navigating {
