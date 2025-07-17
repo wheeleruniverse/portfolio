@@ -647,15 +647,6 @@
     ],
     "speakingEvents": [
       {
-        "id": "redmonk-conversation",
-        "title": "A RedMonk Conversation with Developer Certification Enthusiast Justin Wheeler",
-        "venue": "Remote",
-        "description": "Discussed trends in cloud-native development and the evolving role of developers in the cloud era.",
-        "date": "2024-03-21",
-        "type": "Interview",
-        "url": "https://blog.wheeleruniverse.com/redmonk-conversation"
-      },
-      {
         "id": "wmaug-optimizing-your-aws-bill",
         "title": "Optimizing Your AWS Bill: Strategies for Reducing Costs and Maximizing ROI",
         "venue": "West Michigan AWS User Group (GRCC)",
@@ -663,6 +654,15 @@
         "date": "2024-05-29",
         "type": "Talk",
         "url": "https://blog.wheeleruniverse.com/wmaug-optimizing-your-aws-bill"
+      },
+      {
+        "id": "redmonk-conversation",
+        "title": "A RedMonk Conversation with Developer Certification Enthusiast Justin Wheeler",
+        "venue": "Remote",
+        "description": "Discussed trends in cloud-native development and the evolving role of developers in the cloud era.",
+        "date": "2024-03-21",
+        "type": "Interview",
+        "url": "https://blog.wheeleruniverse.com/redmonk-conversation"
       },
       {
         "id": "bcc-aws-serverless-remix",
@@ -690,7 +690,8 @@
         "role": "Steering Committee Member",
         "description": "Contributed to the strategic direction and oversight of educational programs, fostering community growth and development.",
         "icon": "🤝",
-        "activities": ["Strategic Planning", "Program Development", "Community Engagement"]
+        "activities": ["Strategic Planning", "Program Development", "Fundraising"],
+        "url": "https://thepiacademy.org/"
       },
       {
         "id": "aws-community-builders",
@@ -698,7 +699,8 @@
         "role": "Community Builder",
         "description": "Selected member of the AWS Community Builders program, focusing on Serverless and DevOps.",
         "icon": "☁️",
-        "activities": ["Content Creation", "Mentoring", "Speaking", "Feedback"]
+        "activities": ["Content Creation", "Mentoring", "Speaking", "Feedback"],
+        "url": "https://builder.aws.com/community/@wheeleruniverse"
       },
       {
         "id": "aws-user-group",
@@ -706,7 +708,8 @@
         "role": "Speaker & Organizer",
         "description": "Helping organize and speak at local technology meetups and conferences.",
         "icon": "🎪",
-        "activities": ["Speaking", "Organizing", "Networking", "Workshops"]
+        "activities": ["Speaking", "Organizing", "Networking", "Workshops"],
+        "url": "https://www.meetup.com/west-michigan-aws-users-group/"
       },
       {
         "id": "dev-to",
@@ -714,7 +717,8 @@
         "role": "Technical Writer",
         "description": "Regular contributor writing about cloud technologies and development practices.",
         "icon": "✍️",
-        "activities": ["Technical Articles", "Tutorials", "Community Engagement"]
+        "activities": ["Technical Articles", "Tutorials", "Community Engagement"],
+        "url": "https://dev.to/wheeleruniverse"
       },
       {
         "id": "beer-city-code",
@@ -722,7 +726,8 @@
         "role": "Volunteer",
         "description": "Ensured smooth operation of conference sessions, providing support to speakers and attendees for a positive event experience over several years.",
         "icon": "🎤",
-        "activities": ["Event Logistics", "Attendee Support", "Speaker Assistance", "On-site Coordination"]
+        "activities": ["Event Logistics", "Attendee Support", "Speaker Assistance"],
+        "url": "https://beercitycode.com/"
       },
       {
         "id": "gvsu-speed-interviewing",
@@ -730,7 +735,8 @@
         "role": "Computer Science Speed Interviewer",
         "description": "Provided constructive feedback and industry insights to computer science students during mock interviews, aiding their professional development.",
         "icon": "💬",
-        "activities": ["Mentorship", "Interview Coaching", "Student Development", "Career Guidance"]
+        "activities": ["Interview Coaching", "Student Development", "Career Guidance"],
+        "url": "https://www.gvsu.edu/"
       },
       {
         "id": "virtual-coffee",
@@ -738,15 +744,8 @@
         "role": "Ex-Member",
         "description": "Participating in an inclusive community of developers supporting each other's growth.",
         "icon": "☕",
-        "activities": ["Mentoring", "Networking", "Lightning Talks", "Code Reviews"]
-      },
-      {
-        "id": "ronald-mcdonald-house",
-        "organization": "Ronald McDonald House",
-        "role": "Volunteer",
-        "description": "Prepared and served meals to families in need, contributing to a supportive and comforting environment for guests.",
-        "icon": "🍽️",
-        "activities": ["Meal Preparation", "Food Service", "Kitchen Management", "Family Support"]
+        "activities": ["Mentoring", "Networking", "Lightning Talks", "Code Reviews"],
+        "url": "https://virtualcoffee.io/"
       }
     ]
   },

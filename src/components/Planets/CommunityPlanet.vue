@@ -12,7 +12,25 @@
 
     <section class="community-builder-section">
       <div class="builder-highlight">
-        <div class="builder-badge">
+        <a
+          v-if="awsCommunityBuildersUrl"
+          :href="awsCommunityBuildersUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="builder-badge-link"
+        >
+          <div class="builder-badge">
+            <div class="badge-icon">🌟</div>
+            <div class="badge-content">
+              <h3 class="badge-title">AWS Community Builder</h3>
+              <p class="badge-description">
+                Recognized by AWS for contributions to the cloud community
+                through content creation, mentorship, and knowledge sharing.
+              </p>
+            </div>
+          </div>
+        </a>
+        <div v-else class="builder-badge">
           <div class="badge-icon">🌟</div>
           <div class="badge-content">
             <h3 class="badge-title">AWS Community Builder</h3>
@@ -53,38 +71,71 @@
     <section class="blog-section" v-if="blogPosts.length > 0">
       <h3 class="subsection-title">Recent Blog Posts</h3>
       <div class="blog-grid">
-        <div v-for="post in blogPosts" :key="post.id" class="blog-card">
-          <div class="blog-content">
-            <h4 class="blog-title">{{ post.title }}</h4>
-            <p class="blog-excerpt">{{ post.excerpt }}</p>
-            <div class="blog-meta">
-              <span class="blog-date">{{ post.publishedAt }}</span>
+        <a
+          v-for="post in blogPosts"
+          :key="post.id"
+          :href="post.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="blog-card-link"
+        >
+          <div class="blog-card">
+            <div class="blog-content">
+              <h4 class="blog-title">{{ post.title }}</h4>
+              <p class="blog-excerpt">{{ post.excerpt }}</p>
               <div class="blog-tags" v-if="post.tags && post.tags.length > 0">
                 <span v-for="tag in post.tags" :key="tag" class="blog-tag">
                   {{ tag }}
                 </span>
               </div>
             </div>
+            <div class="blog-footer">
+              <div class="blog-meta">
+                <div class="blog-meta-left">
+                  <span class="blog-date">{{ post.publishedAt }}</span>
+                </div>
+                <div class="blog-meta-right">
+                  <span class="blog-link"> Read More → </span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="blog-actions">
-            <a
-              :href="post.url"
-              class="blog-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Read More →
-            </a>
-          </div>
-        </div>
+        </a>
       </div>
     </section>
 
     <section class="speaking-section" v-if="speakingEvents.length > 0">
       <h3 class="subsection-title">Speaking & Interviews</h3>
       <div class="speaking-grid">
+        <a
+          v-for="event in speakingEventsWithUrl"
+          :key="event.id"
+          :href="event.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="speaking-card-link"
+        >
+          <div class="speaking-card">
+            <div class="speaking-content">
+              <h4 class="speaking-title">{{ event.title }}</h4>
+              <p class="speaking-venue">{{ event.venue }}</p>
+              <p class="speaking-description">{{ event.description }}</p>
+            </div>
+            <div class="speaking-footer">
+              <div class="speaking-meta">
+                <div class="speaking-meta-left">
+                  <span class="speaking-date">{{ event.date }}</span>
+                  <span class="speaking-type">{{ event.type }}</span>
+                </div>
+                <div class="speaking-meta-right">
+                  <span class="speaking-link"> Watch Now → </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
         <div
-          v-for="event in speakingEvents"
+          v-for="event in speakingEventsWithoutUrl"
           :key="event.id"
           class="speaking-card"
         >
@@ -92,20 +143,17 @@
             <h4 class="speaking-title">{{ event.title }}</h4>
             <p class="speaking-venue">{{ event.venue }}</p>
             <p class="speaking-description">{{ event.description }}</p>
-            <div class="speaking-meta">
-              <span class="speaking-date">{{ event.date }}</span>
-              <span class="speaking-type">{{ event.type }}</span>
-            </div>
           </div>
-          <div class="speaking-actions" v-if="event.url">
-            <a
-              :href="event.url"
-              class="speaking-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View →
-            </a>
+          <div class="speaking-footer">
+            <div class="speaking-meta">
+              <div class="speaking-meta-left">
+                <span class="speaking-date">{{ event.date }}</span>
+                <span class="speaking-type">{{ event.type }}</span>
+              </div>
+              <div class="speaking-meta-right">
+                <!-- No link for events without URL -->
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -114,8 +162,45 @@
     <section class="involvement-section" v-if="communityInvolvement.length > 0">
       <h3 class="subsection-title">Community Involvement</h3>
       <div class="involvement-grid">
+        <a
+          v-for="involvement in communityInvolvementWithUrl"
+          :key="involvement.id"
+          :href="involvement.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="involvement-card-link"
+        >
+          <div class="involvement-card">
+            <div class="involvement-icon">{{ involvement.icon }}</div>
+            <div class="involvement-content">
+              <h4 class="involvement-title">{{ involvement.organization }}</h4>
+              <p class="involvement-role">{{ involvement.role }}</p>
+              <p class="involvement-description">
+                {{ involvement.description }}
+              </p>
+            </div>
+            <div class="involvement-footer">
+              <div class="involvement-meta">
+                <div class="involvement-meta-left">
+                  <div class="involvement-activities">
+                    <span
+                      v-for="activity in involvement.activities"
+                      :key="activity"
+                      class="activity-tag"
+                    >
+                      {{ activity }}
+                    </span>
+                  </div>
+                </div>
+                <div class="involvement-meta-right">
+                  <span class="involvement-link"> View → </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
         <div
-          v-for="involvement in communityInvolvement"
+          v-for="involvement in communityInvolvementWithoutUrl"
           :key="involvement.id"
           class="involvement-card"
         >
@@ -124,14 +209,23 @@
             <h4 class="involvement-title">{{ involvement.organization }}</h4>
             <p class="involvement-role">{{ involvement.role }}</p>
             <p class="involvement-description">{{ involvement.description }}</p>
-            <div class="involvement-activities">
-              <span
-                v-for="activity in involvement.activities"
-                :key="activity"
-                class="activity-tag"
-              >
-                {{ activity }}
-              </span>
+          </div>
+          <div class="involvement-footer">
+            <div class="involvement-meta">
+              <div class="involvement-meta-left">
+                <div class="involvement-activities">
+                  <span
+                    v-for="activity in involvement.activities"
+                    :key="activity"
+                    class="activity-tag"
+                  >
+                    {{ activity }}
+                  </span>
+                </div>
+              </div>
+              <div class="involvement-meta-right">
+                <!-- No link for involvement without URL -->
+              </div>
             </div>
           </div>
         </div>
@@ -145,14 +239,14 @@
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 import type { BlogPost } from '@/types';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const contributions = ref([
   {
     title: 'Technical Blog Posts',
     description: 'Sharing insights on AWS, development, and cloud architecture',
     icon: '📝',
-    count: '25+',
+    count: '30+',
     metric: 'Articles',
   },
   {
@@ -160,15 +254,8 @@ const contributions = ref([
     description:
       'Helping developers transition to cloud and advance their careers',
     icon: '🤝',
-    count: '50+',
+    count: '10+',
     metric: 'Mentees',
-  },
-  {
-    title: 'Open Source',
-    description: 'Contributing to projects and maintaining developer tools',
-    icon: '💻',
-    count: '15+',
-    metric: 'Projects',
   },
   {
     title: 'Speaking Events',
@@ -182,6 +269,21 @@ const contributions = ref([
 const blogPosts = ref<BlogPost[]>([]);
 const speakingEvents = ref<any[]>([]);
 const communityInvolvement = ref<any[]>([]);
+const awsCommunityBuildersUrl = ref<string>('');
+
+// Computed properties to separate items with and without URLs
+const speakingEventsWithUrl = computed(() =>
+  speakingEvents.value.filter(event => event.url)
+);
+const speakingEventsWithoutUrl = computed(() =>
+  speakingEvents.value.filter(event => !event.url)
+);
+const communityInvolvementWithUrl = computed(() =>
+  communityInvolvement.value.filter(item => item.url)
+);
+const communityInvolvementWithoutUrl = computed(() =>
+  communityInvolvement.value.filter(item => !item.url)
+);
 
 onMounted(async () => {
   try {
@@ -209,6 +311,14 @@ onMounted(async () => {
       // Load community involvement
       if (config.community.communityInvolvement) {
         communityInvolvement.value = config.community.communityInvolvement;
+
+        // Extract AWS Community Builders URL for the badge
+        const awsBuilderEntry = config.community.communityInvolvement.find(
+          (item: any) => item.id === 'aws-community-builders'
+        );
+        if (awsBuilderEntry && awsBuilderEntry.url) {
+          awsCommunityBuildersUrl.value = awsBuilderEntry.url;
+        }
       }
     }
   } catch (error) {
@@ -243,6 +353,17 @@ onMounted(async () => {
 .builder-highlight {
   display: flex;
   justify-content: center;
+}
+
+.builder-badge-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.builder-badge-link:hover {
+  transform: translateY(-2px);
 }
 
 .builder-badge {
@@ -381,6 +502,12 @@ onMounted(async () => {
   gap: 1.5rem;
 }
 
+.blog-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .blog-card {
   @apply planet-card;
   display: flex;
@@ -395,7 +522,6 @@ onMounted(async () => {
 
 .blog-content {
   flex: 1;
-  margin-bottom: 1rem;
 }
 
 .blog-title {
@@ -413,11 +539,23 @@ onMounted(async () => {
   margin-bottom: 1rem;
 }
 
+.blog-footer {
+  margin-top: auto;
+}
+
 .blog-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+}
+
+.blog-meta-left {
+  display: flex;
+  align-items: center;
+}
+
+.blog-meta-right {
+  display: flex;
 }
 
 .blog-date {
@@ -439,10 +577,6 @@ onMounted(async () => {
   border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
-.blog-actions {
-  margin-top: auto;
-}
-
 .blog-link {
   color: #22c55e;
   text-decoration: none;
@@ -456,14 +590,21 @@ onMounted(async () => {
 
 .speaking-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 1.5rem;
+}
+
+.speaking-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .speaking-card {
   @apply planet-card;
   display: flex;
   flex-direction: column;
+  min-height: 370px;
   transition: all 0.3s ease;
 }
 
@@ -474,7 +615,6 @@ onMounted(async () => {
 
 .speaking-content {
   flex: 1;
-  margin-bottom: 1rem;
 }
 
 .speaking-title {
@@ -497,10 +637,24 @@ onMounted(async () => {
   margin-bottom: 1rem;
 }
 
+.speaking-footer {
+  margin-top: auto;
+}
+
 .speaking-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.speaking-meta-left {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.speaking-meta-right {
+  display: flex;
 }
 
 .speaking-date {
@@ -530,12 +684,20 @@ onMounted(async () => {
 
 .involvement-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 1.5rem;
+}
+
+.involvement-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .involvement-card {
   @apply planet-card;
+  display: flex;
+  flex-direction: column;
   transition: all 0.3s ease;
 }
 
@@ -573,11 +735,30 @@ onMounted(async () => {
   text-align: center;
 }
 
+.involvement-footer {
+  margin-top: auto;
+}
+
+.involvement-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.involvement-meta-left {
+  display: flex;
+  flex: 1;
+}
+
+.involvement-meta-right {
+  display: flex;
+  align-items: center;
+}
+
 .involvement-activities {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  justify-content: center;
 }
 
 .activity-tag {
@@ -587,6 +768,17 @@ onMounted(async () => {
   border-radius: 1rem;
   font-size: 0.8rem;
   border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.involvement-link {
+  color: #22c55e;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.involvement-link:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
@@ -612,7 +804,8 @@ onMounted(async () => {
   }
 
   .blog-grid,
-  .speaking-grid {
+  .speaking-grid,
+  .involvement-grid {
     grid-template-columns: 1fr;
   }
 
@@ -622,10 +815,42 @@ onMounted(async () => {
     align-items: flex-start;
   }
 
+  .blog-meta-left {
+    align-self: flex-start;
+  }
+
+  .blog-meta-right {
+    align-self: flex-start;
+  }
+
   .speaking-meta {
     flex-direction: column;
     gap: 0.5rem;
     align-items: flex-start;
+  }
+
+  .speaking-meta-left {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .speaking-meta-right {
+    align-self: flex-start;
+  }
+
+  .involvement-meta {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .involvement-meta-left {
+    align-self: center;
+  }
+
+  .involvement-meta-right {
+    align-self: center;
   }
 }
 </style>
