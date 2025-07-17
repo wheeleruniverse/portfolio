@@ -315,6 +315,14 @@
       "issueDate": "2020-09-24",
       "expiryDate": "2021-09-23",
       "credlyUrl": "https://www.credly.com/badges/f86116d6-df91-4cc6-b11c-7d2711d34b21/public_url"
+    },
+    {
+      "id": "oca-jse7",
+      "name": "Oracle Certified Associate, Java SE 7 Programmer",
+      "vendor": "Oracle",
+      "level": "Associate",
+      "issuer": "Oracle",
+      "issueDate": "2016-10-19"
     }
   ],
   "experience": [
