@@ -621,22 +621,135 @@
       ]
     }
   ],
-  "community": [
-    {
-      "id": "blog-post-1",
-      "title": "Getting Started with AWS Lambda",
-      "url": "https://wheeleruniverse.netlify.app/posts/aws-lambda-guide",
-      "date": "2024",
-      "description": "A comprehensive guide to building serverless applications"
-    },
-    {
-      "id": "blog-post-2",
-      "title": "Modern Frontend Development with Vue.js",
-      "url": "https://wheeleruniverse.netlify.app/posts/vue-modern-dev",
-      "date": "2024",
-      "description": "Best practices for building reactive web applications"
-    }
-  ],
+  "community": {
+    "blogPosts": [
+      {
+        "id": "claude-code-blog-aggregator",
+        "title": "From Dusty Requirements to Live Website: How Claude Code Built My Blog Aggregator in a Single Day",
+        "url": "https://blog.wheeleruniverse.com/claude-code-blog-aggregator",
+        "date": "2025-07-08",
+        "description": "I transformed my lengthy requirements document into a live, production-ready blog aggregation website in a single day, all thanks to Claude Code and some careful prompt engineering."
+      },
+      {
+        "id": "aws-cert-renewals-back-to-back",
+        "title": "How I Crushed My AWS Certification Renewals Back-to-Back (and Why It Was a Bad Idea)",
+        "url": "https://blog.wheeleruniverse.com/aws-cert-renewals-back-to-back",
+        "date": "2024-05-09",
+        "description": "I successfully renewed all 12 of my AWS certifications in just 22 days to align their dates, but I strongly advise against this intense approach due to the significant toll it took on my mental and physical well-being."
+      },
+      {
+        "id": "new-year-new-cloud-cost-savings-opportunities",
+        "title": "New Year, New Cost Savings Opportunities in Cloud Services",
+        "url": "https://blog.wheeleruniverse.com/new-year-new-cloud-cost-savings-opportunities",
+        "date": "2024-02-06",
+        "description": "In the ever-evolving cloud landscape, I've realized that true cost savings come not just from right-sizing, but from strategically selecting the \"right product\" or purpose-built cloud services to optimize expenses amidst continuous innovation."
+      }
+    ],
+    "speakingEvents": [
+      {
+        "id": "redmonk-conversation",
+        "title": "A RedMonk Conversation with Developer Certification Enthusiast Justin Wheeler",
+        "venue": "Remote",
+        "description": "Discussed trends in cloud-native development and the evolving role of developers in the cloud era.",
+        "date": "2024-03-21",
+        "type": "Interview",
+        "url": "https://blog.wheeleruniverse.com/redmonk-conversation"
+      },
+      {
+        "id": "wmaug-optimizing-your-aws-bill",
+        "title": "Optimizing Your AWS Bill: Strategies for Reducing Costs and Maximizing ROI",
+        "venue": "West Michigan AWS User Group (GRCC)",
+        "description": "In this presentation, we will delve into the world of AWS cost savings and explore the various methods for reducing your AWS bill. From tagging strategies to leveraging reserved instances, we will discuss practical strategies for optimizing your AWS infrastructure and minimizing unnecessary expenses. We will also cover best practices and tooling for monitoring and managing your AWS usage and tips for identifying and eliminating unnecessary costs.",
+        "date": "2024-05-29",
+        "type": "Talk",
+        "url": "https://blog.wheeleruniverse.com/wmaug-optimizing-your-aws-bill"
+      },
+      {
+        "id": "bcc-aws-serverless-remix",
+        "title": "AWS Serverless Remix: Unconventional Techniques for the Bold Developer",
+        "venue": "Beer City Code",
+        "description": "Ever pushed the boundaries of a serverless service to its limit? Maybe you were squeezed by budget constraints, fueled by sheer stubborn determination, or just curious about what the heck it could do. Whatever your reason, this talk dives into the unorthodox approaches that emerged from these explorations. Basic knowledge of AWS, traditional serverless architecture, and any programming language is suggested. Key takeaways are an improved mindset when thinking of serverless applications and new found knowledge for technologies that are less commonly used.",
+        "date": "2023-08-03",
+        "type": "Talk",
+        "url": null
+      },
+      {
+        "id": "ps-link-panel",
+        "title": "False External Perception of the Tech Industry",
+        "venue": "Pluralsight /link",
+        "description": "As part of this panel, we discussed how the tech industry's \"smartness\" perception is a myth, emphasizing that diverse backgrounds and self-taught paths are valuable, and that successful entry and growth often hinge on candid storytelling, building relationships, and publicly sharing our learning journeys, despite facing inevitable challenges.",
+        "date": "2023-04-18",
+        "type": "Panel",
+        "url": "https://blog.wheeleruniverse.com/false-external-perception-of-the-tech-industry"
+      }
+    ],
+    "communityInvolvement": [
+      {
+        "id": "pi-academy",
+        "organization": "The Pi Academy",
+        "role": "Steering Committee Member",
+        "description": "Contributed to the strategic direction and oversight of educational programs, fostering community growth and development.",
+        "icon": "🤝",
+        "activities": ["Strategic Planning", "Program Development", "Community Engagement"]
+      },
+      {
+        "id": "aws-community-builders",
+        "organization": "AWS Community Builders",
+        "role": "Community Builder",
+        "description": "Selected member of the AWS Community Builders program, focusing on Serverless and DevOps.",
+        "icon": "☁️",
+        "activities": ["Content Creation", "Mentoring", "Speaking", "Feedback"]
+      },
+      {
+        "id": "aws-user-group",
+        "organization": "West Michigan AWS User Group",
+        "role": "Speaker & Organizer",
+        "description": "Helping organize and speak at local technology meetups and conferences.",
+        "icon": "🎪",
+        "activities": ["Speaking", "Organizing", "Networking", "Workshops"]
+      },
+      {
+        "id": "dev-to",
+        "organization": "Dev.to",
+        "role": "Technical Writer",
+        "description": "Regular contributor writing about cloud technologies and development practices.",
+        "icon": "✍️",
+        "activities": ["Technical Articles", "Tutorials", "Community Engagement"]
+      },
+      {
+        "id": "beer-city-code",
+        "organization": "Beer City Code",
+        "role": "Volunteer",
+        "description": "Ensured smooth operation of conference sessions, providing support to speakers and attendees for a positive event experience over several years.",
+        "icon": "🎤",
+        "activities": ["Event Logistics", "Attendee Support", "Speaker Assistance", "On-site Coordination"]
+      },
+      {
+        "id": "gvsu-speed-interviewing",
+        "organization": "Grand Valley State University (GVSU)",
+        "role": "Computer Science Speed Interviewer",
+        "description": "Provided constructive feedback and industry insights to computer science students during mock interviews, aiding their professional development.",
+        "icon": "💬",
+        "activities": ["Mentorship", "Interview Coaching", "Student Development", "Career Guidance"]
+      },
+      {
+        "id": "virtual-coffee",
+        "organization": "Virtual Coffee",
+        "role": "Ex-Member",
+        "description": "Participating in an inclusive community of developers supporting each other's growth.",
+        "icon": "☕",
+        "activities": ["Mentoring", "Networking", "Lightning Talks", "Code Reviews"]
+      },
+      {
+        "id": "ronald-mcdonald-house",
+        "organization": "Ronald McDonald House",
+        "role": "Volunteer",
+        "description": "Prepared and served meals to families in need, contributing to a supportive and comforting environment for guests.",
+        "icon": "🍽️",
+        "activities": ["Meal Preparation", "Food Service", "Kitchen Management", "Family Support"]
+      }
+    ]
+  },
   "skillCategories": [
     {
       "category": "Cloud Platforms",

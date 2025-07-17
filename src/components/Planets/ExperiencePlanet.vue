@@ -219,8 +219,7 @@ onMounted(() => {
 }
 
 .experience-timeline,
-.skills-summary,
-.career-stats {
+.skills-summary {
   margin-bottom: 4rem;
 }
 

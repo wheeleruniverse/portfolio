@@ -50,7 +50,7 @@
       </div>
     </section>
 
-    <section class="blog-section">
+    <section class="blog-section" v-if="blogPosts.length > 0">
       <h3 class="subsection-title">Recent Blog Posts</h3>
       <div class="blog-grid">
         <div v-for="post in blogPosts" :key="post.id" class="blog-card">
@@ -59,7 +59,7 @@
             <p class="blog-excerpt">{{ post.excerpt }}</p>
             <div class="blog-meta">
               <span class="blog-date">{{ post.publishedAt }}</span>
-              <div class="blog-tags">
+              <div class="blog-tags" v-if="post.tags && post.tags.length > 0">
                 <span v-for="tag in post.tags" :key="tag" class="blog-tag">
                   {{ tag }}
                 </span>
@@ -80,12 +80,12 @@
       </div>
     </section>
 
-    <section class="speaking-section">
+    <section class="speaking-section" v-if="speakingEvents.length > 0">
       <h3 class="subsection-title">Speaking & Interviews</h3>
       <div class="speaking-grid">
         <div
           v-for="event in speakingEvents"
-          :key="event.title"
+          :key="event.id"
           class="speaking-card"
         >
           <div class="speaking-content">
@@ -111,12 +111,12 @@
       </div>
     </section>
 
-    <section class="involvement-section">
+    <section class="involvement-section" v-if="communityInvolvement.length > 0">
       <h3 class="subsection-title">Community Involvement</h3>
       <div class="involvement-grid">
         <div
           v-for="involvement in communityInvolvement"
-          :key="involvement.organization"
+          :key="involvement.id"
           class="involvement-card"
         >
           <div class="involvement-icon">{{ involvement.icon }}</div>
@@ -145,7 +145,7 @@
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
 import type { BlogPost } from '@/types';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const contributions = ref([
   {
@@ -179,100 +179,43 @@ const contributions = ref([
   },
 ]);
 
-const blogPosts = ref<BlogPost[]>([
-  {
-    id: '1',
-    title: 'Building Serverless Applications with AWS Lambda',
-    excerpt:
-      'A comprehensive guide to creating scalable serverless applications using AWS Lambda, API Gateway, and DynamoDB.',
-    publishedAt: '2024-01-15',
-    url: 'https://wheeleruniverse.netlify.app/blog/serverless-lambda-guide',
-    tags: ['AWS', 'Lambda', 'Serverless', 'API Gateway'],
-  },
-  {
-    id: '2',
-    title: 'Cloud Security Best Practices',
-    excerpt:
-      'Essential security practices for cloud deployments, including IAM policies, encryption, and monitoring.',
-    publishedAt: '2024-01-08',
-    url: 'https://wheeleruniverse.netlify.app/blog/cloud-security-practices',
-    tags: ['Security', 'AWS', 'IAM', 'Best Practices'],
-  },
-  {
-    id: '3',
-    title: 'Infrastructure as Code with AWS CDK',
-    excerpt:
-      'Learn how to manage cloud infrastructure using AWS CDK and TypeScript for better maintainability.',
-    publishedAt: '2023-12-20',
-    url: 'https://wheeleruniverse.netlify.app/blog/aws-cdk-infrastructure',
-    tags: ['AWS CDK', 'Infrastructure', 'TypeScript', 'DevOps'],
-  },
-]);
+const blogPosts = ref<BlogPost[]>([]);
+const speakingEvents = ref<any[]>([]);
+const communityInvolvement = ref<any[]>([]);
 
-const speakingEvents = ref([
-  {
-    title: 'The Future of Cloud Development',
-    venue: 'Red Monk Developer Interview',
-    description:
-      'Discussed trends in cloud-native development and the evolving role of developers in the cloud era.',
-    date: '2024-02-15',
-    type: 'Interview',
-    url: 'https://redmonk.com/interviews/wheeler-cloud-development',
-  },
-  {
-    title: 'AWS Community Builder Panel',
-    venue: 'AWS re:Invent 2023',
-    description:
-      'Panel discussion on community building and knowledge sharing in the AWS ecosystem.',
-    date: '2023-11-30',
-    type: 'Panel',
-    url: null,
-  },
-  {
-    title: 'Serverless Architecture Patterns',
-    venue: 'Local AWS User Group',
-    description:
-      'Presented common serverless patterns and best practices for building scalable applications.',
-    date: '2023-09-15',
-    type: 'Talk',
-    url: null,
-  },
-]);
+onMounted(async () => {
+  try {
+    const response = await fetch('/portfolio-config.json');
+    const config = await response.json();
 
-const communityInvolvement = ref([
-  {
-    organization: 'AWS Community Builders',
-    role: 'Community Builder',
-    description:
-      'Selected member of the AWS Community Builders program, focusing on Serverless and DevOps.',
-    icon: '☁️',
-    activities: ['Content Creation', 'Mentoring', 'Speaking', 'Feedback'],
-  },
-  {
-    organization: 'Virtual Coffee',
-    role: 'Active Member',
-    description:
-      "Participating in an inclusive community of developers supporting each other's growth.",
-    icon: '☕',
-    activities: ['Mentoring', 'Networking', 'Lightning Talks', 'Code Reviews'],
-  },
-  {
-    organization: 'Dev.to',
-    role: 'Technical Writer',
-    description:
-      'Regular contributor writing about cloud technologies and development practices.',
-    icon: '✍️',
-    activities: ['Technical Articles', 'Tutorials', 'Community Engagement'],
-  },
-  {
-    organization: 'Local Tech Meetups',
-    role: 'Speaker & Organizer',
-    description:
-      'Helping organize and speak at local technology meetups and conferences.',
-    icon: '🎪',
-    activities: ['Speaking', 'Organizing', 'Networking', 'Workshops'],
-  },
-]);
+    if (config.community) {
+      // Transform blog posts data to match BlogPost interface
+      if (config.community.blogPosts) {
+        blogPosts.value = config.community.blogPosts.map((post: any) => ({
+          id: post.id,
+          title: post.title,
+          excerpt: post.description,
+          publishedAt: post.date,
+          url: post.url,
+          tags: [], // No tags in config, so empty array
+        }));
+      }
+
+      // Load speaking events
+      if (config.community.speakingEvents) {
+        speakingEvents.value = config.community.speakingEvents;
+      }
+
+      // Load community involvement
+      if (config.community.communityInvolvement) {
+        communityInvolvement.value = config.community.communityInvolvement;
+      }
+    }
+  } catch (error) {
+    console.error('Error loading community data from config:', error);
+    // Keep arrays empty if config fails - sections will be hidden
+  }
+});
 </script>
 
 <style scoped>
