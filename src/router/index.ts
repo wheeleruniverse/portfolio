@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/planet/:id',
       name: 'planet',
-      component: () => import('@/views/PlanetViews/PlanetView.vue'),
+      component: () => import('@/views/PlanetView.vue'),
       props: true,
     },
   ],

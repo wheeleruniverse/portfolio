@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
+import ReturnToSolarSystem from '@/components/Navigation/ReturnToSolarSystem.vue';
 import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
 import { onMounted, ref } from 'vue';
 

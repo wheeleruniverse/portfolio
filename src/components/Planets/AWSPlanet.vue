@@ -129,8 +129,8 @@
 </template>
 
 <script setup lang="ts">
-import CertificationsSection from '@/components/CertificationsSection.vue';
-import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
+import CertificationsSection from '@/components/common/CertificationsSection.vue';
+import ReturnToSolarSystem from '@/components/Navigation/ReturnToSolarSystem.vue';
 import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
 import type { Project } from '@/types';
 import { computed, ref, watch } from 'vue';
