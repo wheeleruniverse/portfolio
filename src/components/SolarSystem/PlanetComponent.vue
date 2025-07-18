@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 import type { Planet } from '@/types';
-import { computed, ref, onMounted, onUnmounted, withDefaults } from 'vue';
+import { computed, onMounted, onUnmounted, ref, withDefaults } from 'vue';
 
 interface Props {
   planet: Planet;
@@ -65,7 +65,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  systemFrozen: false
+  systemFrozen: false,
 });
 const emit = defineEmits<{
   click: [planetId: string];
@@ -95,12 +95,12 @@ onUnmounted(() => {
 // Responsive orbit radius based on screen size
 const responsiveOrbitRadius = computed(() => {
   const baseRadius = props.planet.orbitRadius;
-  
+
   // Mobile (< 768px): Scale down to 35% of original
   if (windowWidth.value < 768) {
     return Math.round(baseRadius * 0.35);
   }
-  // Tablet (768px - 1024px): Scale down to 60% of original  
+  // Tablet (768px - 1024px): Scale down to 60% of original
   else if (windowWidth.value < 1024) {
     return Math.round(baseRadius * 0.6);
   }
@@ -143,11 +143,12 @@ const planetSize = computed(() => {
     textPadding += (textLength - 4) * 8; // 8px per character over 4
   }
 
-  const calculatedSize = Math.max(baseSize, textPadding + 50) * mobileSizeAdjustment;
+  const calculatedSize =
+    Math.max(baseSize, textPadding + 50) * mobileSizeAdjustment;
 
   // Ensure minimum readable size for long names with mobile considerations
   const minMobileSize = windowWidth.value < 768 ? 70 : 90; // Ensure touch-friendly size
-  
+
   if (textLength >= 10) {
     return Math.max(calculatedSize, windowWidth.value < 768 ? 100 : 140);
   } else if (textLength >= 8) {

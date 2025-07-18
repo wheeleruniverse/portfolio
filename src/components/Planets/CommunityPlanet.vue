@@ -238,6 +238,7 @@
 
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
+import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
 import type { BlogPost } from '@/types';
 import { computed, onMounted, ref } from 'vue';
 
@@ -285,45 +286,45 @@ const communityInvolvementWithoutUrl = computed(() =>
   communityInvolvement.value.filter(item => !item.url)
 );
 
+const { config } = usePortfolioConfig();
+
 onMounted(async () => {
-  try {
-    const response = await fetch('/portfolio-config.json');
-    const config = await response.json();
+  if (config.value?.community) {
+    const communityConfig = config.value.community;
 
-    if (config.community) {
-      // Transform blog posts data to match BlogPost interface
-      if (config.community.blogPosts) {
-        blogPosts.value = config.community.blogPosts.map((post: any) => ({
-          id: post.id,
-          title: post.title,
-          excerpt: post.description,
-          publishedAt: post.date,
-          url: post.url,
-          tags: [], // No tags in config, so empty array
-        }));
-      }
+    // Transform blog posts data to match BlogPost interface
+    if ((communityConfig as any).blogPosts) {
+      blogPosts.value = (communityConfig as any).blogPosts.map((post: any) => ({
+        id: post.id,
+        title: post.title,
+        excerpt: post.description,
+        publishedAt: post.date,
+        url: post.url,
+        tags: [], // No tags in config, so empty array
+      }));
+    }
 
-      // Load speaking events
-      if (config.community.speakingEvents) {
-        speakingEvents.value = config.community.speakingEvents;
-      }
+    // Load speaking events
+    if ((communityConfig as any).speakingEvents) {
+      speakingEvents.value = (communityConfig as any).speakingEvents;
+    }
 
-      // Load community involvement
-      if (config.community.communityInvolvement) {
-        communityInvolvement.value = config.community.communityInvolvement;
+    // Load community involvement
+    if ((communityConfig as any).communityInvolvement) {
+      communityInvolvement.value = (
+        communityConfig as any
+      ).communityInvolvement;
 
-        // Extract AWS Community Builders URL for the badge
-        const awsBuilderEntry = config.community.communityInvolvement.find(
-          (item: any) => item.id === 'aws-community-builders'
-        );
-        if (awsBuilderEntry && awsBuilderEntry.url) {
-          awsCommunityBuildersUrl.value = awsBuilderEntry.url;
-        }
+      // Extract AWS Community Builders URL for the badge
+      const awsBuilderEntry = (
+        communityConfig as any
+      ).communityInvolvement.find(
+        (item: any) => item.id === 'aws-community-builders'
+      );
+      if (awsBuilderEntry && awsBuilderEntry.url) {
+        awsCommunityBuildersUrl.value = awsBuilderEntry.url;
       }
     }
-  } catch (error) {
-    console.error('Error loading community data from config:', error);
-    // Keep arrays empty if config fails - sections will be hidden
   }
 });
 </script>

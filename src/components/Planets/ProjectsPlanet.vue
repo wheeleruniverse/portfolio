@@ -169,39 +169,29 @@
 
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
+import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
 import type { Project } from '@/types';
 import { nextTick, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-interface Config {
-  projects: Project[];
-}
-
 const route = useRoute();
-const config = ref<Config | null>(null);
+const { config } = usePortfolioConfig();
 const featuredProjects = ref<Project[]>([]);
 const highlightedProject = ref<string | null>(null);
 const projectImageCache = ref<Map<string, string>>(new Map());
 
 const loadConfig = async () => {
-  try {
-    const response = await fetch('/portfolio-config.json');
-    const data = await response.json();
-    config.value = data;
+  // Filter featured projects
+  featuredProjects.value =
+    config.value?.projects?.filter((project: Project) => project.featured) ||
+    [];
 
-    // Filter featured projects
-    featuredProjects.value =
-      data.projects?.filter((project: Project) => project.featured) || [];
-
-    // Check if we need to highlight a specific project
-    const projectId = route.query.project as string;
-    if (projectId) {
-      highlightedProject.value = projectId;
-      await nextTick();
-      scrollToProject(projectId);
-    }
-  } catch (error) {
-    console.error('Error loading portfolio config:', error);
+  // Check if we need to highlight a specific project
+  const projectId = route.query.project as string;
+  if (projectId) {
+    highlightedProject.value = projectId;
+    await nextTick();
+    scrollToProject(projectId);
   }
 };
 

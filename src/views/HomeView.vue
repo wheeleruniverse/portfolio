@@ -40,10 +40,11 @@
 
 <script setup lang="ts">
 import SolarSystem from '@/components/SolarSystem/SolarSystem.vue';
+import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
 import { computed, ref } from 'vue';
-import portfolioData from '../../public/portfolio-config.json';
 
 const isSystemFrozen = ref(false);
+const { config } = usePortfolioConfig();
 
 const handleSystemFrozen = (frozen: boolean) => {
   isSystemFrozen.value = frozen;
@@ -61,7 +62,7 @@ const isActiveCertification = (certification: any) => {
 };
 
 const totalCertifications = computed(() => {
-  return portfolioData.certifications.filter(isActiveCertification).length;
+  return config.value?.certifications.filter(isActiveCertification).length || 0;
 });
 </script>
 

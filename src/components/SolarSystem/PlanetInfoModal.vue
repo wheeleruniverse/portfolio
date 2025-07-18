@@ -1,6 +1,14 @@
 <template>
-  <div class="modal-overlay" @click="handleOverlayClick" :class="{ 'navigating': isNavigating }">
-    <div class="modal-content" @click.stop :class="{ 'navigating': isNavigating }">
+  <div
+    class="modal-overlay"
+    @click="handleOverlayClick"
+    :class="{ navigating: isNavigating }"
+  >
+    <div
+      class="modal-content"
+      @click.stop
+      :class="{ navigating: isNavigating }"
+    >
       <button
         class="modal-close"
         @click="$emit('close')"
@@ -21,8 +29,8 @@
 
       <div class="modal-body">
         <div class="action-buttons">
-          <button 
-            class="btn-primary" 
+          <button
+            class="btn-primary"
             @click="handleNavigate"
             :disabled="isNavigating"
           >
@@ -59,10 +67,10 @@ const isNavigating = ref(false);
 
 const handleNavigate = async () => {
   isNavigating.value = true;
-  
+
   // Add a small delay to show the loading state
   await new Promise(resolve => setTimeout(resolve, 800));
-  
+
   // Emit the navigate event
   emit('navigate', props.planet.id);
 };
@@ -216,8 +224,12 @@ const handleOverlayClick = (event: MouseEvent) => {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .btn-secondary {

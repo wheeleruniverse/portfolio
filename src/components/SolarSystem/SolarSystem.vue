@@ -1,11 +1,12 @@
 <template>
-  <section
-    class="solar-system-container"
-    :class="{ 'navigating': isNavigating }"
-  >
-    <div class="solar-system" ref="solarSystemRef" :class="{ 'navigating': isNavigating }">
+  <section class="solar-system-container" :class="{ navigating: isNavigating }">
+    <div
+      class="solar-system"
+      ref="solarSystemRef"
+      :class="{ navigating: isNavigating }"
+    >
       <!-- Central Brand Logo -->
-      <div 
+      <div
         class="sun"
         :class="{ 'sun-frozen': isSunHovered }"
         @mouseenter="handleSunHover(true)"
@@ -65,8 +66,9 @@
 </template>
 
 <script setup lang="ts">
+import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
 import type { Planet } from '@/types';
-import { onMounted, ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import PlanetComponent from './PlanetComponent.vue';
 import PlanetInfoModal from './PlanetInfoModal.vue';
@@ -86,18 +88,17 @@ const tooltipData = ref<{
   y: number;
 } | null>(null);
 
+const { config, isLoading, error } = usePortfolioConfig();
 const planets = ref<Planet[]>([]);
-const isLoading = ref(true);
-const error = ref<string | null>(null);
 
 const isNavigating = ref(false);
 
 const navigateToPlanet = async (planetId: string) => {
   isNavigating.value = true;
-  
+
   // Small delay to allow transition to show
   await new Promise(resolve => setTimeout(resolve, 300));
-  
+
   // Navigate to planet
   router.push(`/planet/${planetId}`);
 };
@@ -137,32 +138,23 @@ const randomizePlanetStartAngles = (planets: Planet[]) => {
   });
 };
 
-const loadPlanetsData = async () => {
-  try {
-    isLoading.value = true;
-    error.value = null;
-
-    const response = await fetch('/portfolio-config.json');
-    if (!response.ok) {
-      throw new Error(`Failed to load config: ${response.statusText}`);
-    }
-
-    const config = await response.json();
-    const planetsData = config.planets || [];
-
+const loadPlanetsData = () => {
+  if (config.value?.planets) {
     // Randomize starting angles for each page load
-    planets.value = randomizePlanetStartAngles(planetsData);
-  } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to load planets';
-    console.error('Error loading planets:', err);
-  } finally {
-    isLoading.value = false;
+    planets.value = randomizePlanetStartAngles(config.value.planets);
   }
 };
 
-onMounted(() => {
-  loadPlanetsData();
-});
+// Watch for config changes and load planets data
+watch(
+  config,
+  newConfig => {
+    if (newConfig) {
+      loadPlanetsData();
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped>
@@ -217,7 +209,6 @@ onMounted(() => {
       drop-shadow(0 0 140px rgba(255, 140, 0, 0.8));
   }
 }
-
 
 .floating-tooltip {
   position: fixed;

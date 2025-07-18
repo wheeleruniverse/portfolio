@@ -146,6 +146,7 @@
 
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
+import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
 import type { Experience } from '@/types';
 import { onMounted, ref } from 'vue';
 
@@ -158,28 +159,13 @@ interface SkillCategory {
   }[];
 }
 
-interface Config {
-  experience: Experience[];
-  skillCategories: SkillCategory[];
-}
-
-const config = ref<Config | null>(null);
+const { config } = usePortfolioConfig();
 const experiences = ref<Experience[]>([]);
 const skillCategories = ref<SkillCategory[]>([]);
 
 const loadConfig = async () => {
-  try {
-    const response = await fetch('/portfolio-config.json');
-    const data = await response.json();
-    config.value = data;
-    experiences.value = data.experience || [];
-    skillCategories.value = data.skillCategories || [];
-  } catch (error) {
-    console.error('Error loading portfolio config:', error);
-    // Fallback to empty arrays if config fails to load
-    experiences.value = [];
-    skillCategories.value = [];
-  }
+  experiences.value = config.value?.experience || [];
+  skillCategories.value = (config.value as any)?.skillCategories || [];
 };
 
 const getExperienceYears = () => {

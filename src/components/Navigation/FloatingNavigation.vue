@@ -55,7 +55,7 @@ import {
   getSocialLinks,
   usePortfolioConfig,
 } from '@/composables/usePortfolioConfig';
-import { computed, ref, onUnmounted, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
@@ -70,19 +70,15 @@ const brandAssets = computed(() => getBrandAssets());
 
 const handleGoHome = async () => {
   isNavigating.value = true;
-  
+
   // Add page fade-out effect
   document.body.classList.add('page-transitioning');
-  
+
   // Wait for transition to complete
   await new Promise(resolve => setTimeout(resolve, 600));
-  
+
   // Navigate to home
   router.push('/');
-};
-
-const goHome = () => {
-  handleGoHome();
 };
 
 const downloadResume = () => {
@@ -91,10 +87,14 @@ const downloadResume = () => {
 };
 
 // Watch for route changes to reset navigation state
-watch(route, () => {
-  isNavigating.value = false;
-  document.body.classList.remove('page-transitioning');
-}, { immediate: true });
+watch(
+  route,
+  () => {
+    isNavigating.value = false;
+    document.body.classList.remove('page-transitioning');
+  },
+  { immediate: true }
+);
 
 onUnmounted(() => {
   // Clean up any transition class that might be left
@@ -171,8 +171,12 @@ onUnmounted(() => {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .nav-icon-svg {

@@ -82,7 +82,7 @@ const isExpired = (cert: Certification): boolean => {
 const certifications = computed(() => {
   // Define level hierarchy
   const levelOrder = ['Professional', 'Specialty', 'Associate', 'Foundational'];
-  
+
   const getLevelPriority = (level: string): number => {
     const index = levelOrder.indexOf(level);
     return index === -1 ? 999 : index; // Unknown levels go to end
@@ -100,7 +100,7 @@ const certifications = computed(() => {
     // 2. Second sort: Level priority (Professional > Specialty > Associate > Foundational)
     const aLevelPriority = getLevelPriority(a.level);
     const bLevelPriority = getLevelPriority(b.level);
-    
+
     if (aLevelPriority !== bLevelPriority) {
       return aLevelPriority - bLevelPriority;
     }

@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
@@ -30,19 +30,15 @@ const isNavigating = ref(false);
 
 const handleReturnToSolarSystem = async () => {
   isNavigating.value = true;
-  
+
   // Add page fade-out effect
   document.body.classList.add('page-transitioning');
-  
+
   // Wait for transition to complete
   await new Promise(resolve => setTimeout(resolve, 600));
-  
+
   // Navigate to home
   router.push('/');
-};
-
-const returnToSolarSystem = () => {
-  handleReturnToSolarSystem();
 };
 
 const handleScroll = () => {
@@ -54,10 +50,14 @@ const handleScroll = () => {
 };
 
 // Watch for route changes to reset navigation state
-watch(route, () => {
-  isNavigating.value = false;
-  document.body.classList.remove('page-transitioning');
-}, { immediate: true });
+watch(
+  route,
+  () => {
+    isNavigating.value = false;
+    document.body.classList.remove('page-transitioning');
+  },
+  { immediate: true }
+);
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
@@ -135,8 +135,12 @@ onUnmounted(() => {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-text {

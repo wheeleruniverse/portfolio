@@ -68,28 +68,13 @@
 
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
+import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
 import { onMounted, ref } from 'vue';
 
-interface Config {
-  skills: {
-    programming: string[];
-    frontend: string[];
-    backend: string[];
-    devops: string[];
-  };
-}
-
-const config = ref<Config | null>(null);
+const { config } = usePortfolioConfig();
 
 const loadConfig = async () => {
-  try {
-    const response = await fetch('/portfolio-config.json');
-    const data = await response.json();
-    config.value = data;
-    updateTechStackFromConfig();
-  } catch (error) {
-    console.error('Error loading portfolio config:', error);
-  }
+  updateTechStackFromConfig();
 };
 
 const techStack = ref([

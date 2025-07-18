@@ -180,46 +180,47 @@
 <script setup lang="ts">
 import CertificationsSection from '@/components/CertificationsSection.vue';
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
-import type { Certification, Education } from '@/types';
-import { computed, onMounted, ref } from 'vue';
+import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
+import { computed } from 'vue';
 
-const allCertifications = ref<Certification[]>([]);
-const formalEducation = ref<Education[]>([]);
-const isLoading = ref(true);
-const error = ref<string | null>(null);
+const { config, isLoading, error } = usePortfolioConfig();
+
+const allCertifications = computed(() => config.value?.certifications || []);
+const formalEducation = computed(() => config.value?.education || []);
 
 const awsCertifications = computed(() =>
-  allCertifications.value.filter(cert => cert.vendor === 'AWS')
+  allCertifications.value
+    .filter(
+      cert => cert.vendor === 'AWS' || cert.issuer === 'Amazon Web Services'
+    )
+    .map(cert => ({
+      ...cert,
+      vendor: cert.vendor || 'AWS',
+      level: (cert.level || 'Professional') as
+        | 'Professional'
+        | 'Specialty'
+        | 'Associate'
+        | 'Foundational',
+      issueDate: cert.issueDate || cert.date,
+    }))
 );
 
 const otherCertifications = computed(() =>
-  allCertifications.value.filter(cert => cert.vendor !== 'AWS')
+  allCertifications.value
+    .filter(
+      cert => cert.vendor !== 'AWS' && cert.issuer !== 'Amazon Web Services'
+    )
+    .map(cert => ({
+      ...cert,
+      vendor: cert.vendor || 'Other',
+      level: (cert.level || 'Professional') as
+        | 'Professional'
+        | 'Specialty'
+        | 'Associate'
+        | 'Foundational',
+      issueDate: cert.issueDate || cert.date,
+    }))
 );
-
-const loadData = async () => {
-  try {
-    isLoading.value = true;
-    error.value = null;
-
-    const response = await fetch('/portfolio-config.json');
-    if (!response.ok) {
-      throw new Error(`Failed to load config: ${response.statusText}`);
-    }
-
-    const config = await response.json();
-    allCertifications.value = config.certifications || [];
-    formalEducation.value = config.education || [];
-  } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to load data';
-    console.error('Error loading data:', err);
-  } finally {
-    isLoading.value = false;
-  }
-};
-
-onMounted(() => {
-  loadData();
-});
 </script>
 
 <style scoped>

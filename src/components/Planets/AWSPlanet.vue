@@ -131,49 +131,44 @@
 <script setup lang="ts">
 import CertificationsSection from '@/components/CertificationsSection.vue';
 import ReturnToSolarSystem from '@/components/ReturnToSolarSystem.vue';
-import type { Certification, Project } from '@/types';
-import { onMounted, ref } from 'vue';
+import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
+import type { Project } from '@/types';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const certifications = ref<Certification[]>([]);
-const awsProjects = ref<Project[]>([]);
+const { config, isLoading, error } = usePortfolioConfig();
 const serviceUsageStats = ref<Array<{ service: string; count: number }>>([]);
-const isLoading = ref(true);
-const error = ref<string | null>(null);
 
-const loadData = async () => {
-  try {
-    isLoading.value = true;
-    error.value = null;
+const certifications = computed(() => {
+  if (!config.value?.certifications) return [];
+  return config.value.certifications
+    .filter(
+      (cert: any) =>
+        cert.vendor === 'AWS' || cert.issuer === 'Amazon Web Services'
+    )
+    .map((cert: any) => ({
+      ...cert,
+      vendor: cert.vendor || 'AWS',
+      level: (cert.level || 'Professional') as
+        | 'Professional'
+        | 'Specialty'
+        | 'Associate'
+        | 'Foundational',
+      issueDate: cert.issueDate || cert.date,
+    }));
+});
 
-    const response = await fetch('/portfolio-config.json');
-    if (!response.ok) {
-      throw new Error(`Failed to load config: ${response.statusText}`);
-    }
-
-    const config = await response.json();
-    // Filter for AWS certifications only
-    certifications.value = (config.certifications || []).filter(
-      (cert: any) => cert.vendor === 'AWS'
+const awsProjects = computed(() => {
+  if (!config.value?.projects) return [];
+  return config.value.projects.filter((project: Project) => {
+    return project.technologies.some(
+      (tech: string) => tech.startsWith('AWS') || tech.startsWith('Amazon')
     );
+  });
+});
 
-    // Filter projects that have AWS/Amazon technologies
-    awsProjects.value = (config.projects || []).filter((project: Project) => {
-      return project.technologies.some(
-        (tech: string) => tech.startsWith('AWS') || tech.startsWith('Amazon')
-      );
-    });
-
-    // Calculate service usage statistics
-    calculateServiceUsage();
-  } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to load data';
-    console.error('Error loading data:', err);
-  } finally {
-    isLoading.value = false;
-  }
-};
+// Remove the old loadData function as it's no longer needed
 
 const calculateServiceUsage = () => {
   const serviceCount: Record<string, number> = {};
@@ -212,9 +207,16 @@ const navigateToProject = (projectId: string) => {
   });
 };
 
-onMounted(() => {
-  loadData();
-});
+// Watch for config changes and recalculate stats
+watch(
+  config,
+  newConfig => {
+    if (newConfig) {
+      calculateServiceUsage();
+    }
+  },
+  { immediate: true }
+);
 
 const cloudJourney = ref([
   {

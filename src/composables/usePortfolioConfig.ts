@@ -27,6 +27,10 @@ interface PortfolioConfig {
     date: string;
     credlyUrl: string;
     description: string;
+    vendor?: string;
+    level?: string;
+    issueDate?: string;
+    expiryDate?: string;
   }>;
   experience: Array<{
     id: string;
@@ -64,6 +68,7 @@ interface PortfolioConfig {
     endDate: string;
     location: string;
     highlights: string[];
+    icon?: string;
   }>;
   community: Array<{
     id: string;
@@ -119,7 +124,7 @@ export const usePortfolioConfig = () => {
   }
 
   return {
-    config: readonly(config),
+    config,
     isLoading: readonly(isLoading),
     error: readonly(error),
     loadConfig,
@@ -130,3 +135,10 @@ export const usePortfolioConfig = () => {
 export const getSocialLinks = () => config.value?.social || [];
 export const getPlanets = () => config.value?.planets || [];
 export const getBrandAssets = () => config.value?.brand;
+export const getCertifications = () => config.value?.certifications || [];
+export const getExperience = () => config.value?.experience || [];
+export const getProjects = () => config.value?.projects || [];
+export const getSkills = () => config.value?.skills;
+export const getEducation = () => config.value?.education || [];
+export const getCommunity = () => config.value?.community || [];
+export const getPersonalInfo = () => config.value?.personal;

@@ -12,7 +12,12 @@
           <div class="planet-info">
             <h1 class="planet-title">{{ planetData?.title }}</h1>
             <p class="planet-description">{{ planetData?.description }}</p>
-            <button @click="handleReturnToSolarSystem" class="btn-return" :class="{ navigating: isNavigating }" :disabled="isNavigating">
+            <button
+              @click="handleReturnToSolarSystem"
+              class="btn-return"
+              :class="{ navigating: isNavigating }"
+              :disabled="isNavigating"
+            >
               <span v-if="!isNavigating">← Return to Solar System</span>
               <span v-else class="loading-content">
                 <span class="spinner"></span>
@@ -30,7 +35,11 @@
         <div v-else class="planet-not-found">
           <h2>Planet Not Found</h2>
           <p>The planet you're looking for doesn't exist in this universe.</p>
-          <button @click="handleReturnToSolarSystem" class="btn-primary" :disabled="isNavigating">
+          <button
+            @click="handleReturnToSolarSystem"
+            class="btn-primary"
+            :disabled="isNavigating"
+          >
             <span v-if="!isNavigating">Return to Solar System</span>
             <span v-else class="loading-content">
               <span class="spinner"></span>
@@ -49,7 +58,7 @@ import {
   usePortfolioConfig,
 } from '@/composables/usePortfolioConfig';
 import type { Planet } from '@/types';
-import { computed, ref, onUnmounted, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 // Planet components
@@ -72,13 +81,13 @@ usePortfolioConfig();
 
 const handleReturnToSolarSystem = async () => {
   isNavigating.value = true;
-  
+
   // Add page fade-out effect
   document.body.classList.add('page-transitioning');
-  
+
   // Wait for transition to complete
   await new Promise(resolve => setTimeout(resolve, 600));
-  
+
   // Navigate to home
   router.push('/');
 };
@@ -109,10 +118,14 @@ const planetComponent = computed(
 );
 
 // Watch for route changes to reset navigation state
-watch(route, () => {
-  isNavigating.value = false;
-  document.body.classList.remove('page-transitioning');
-}, { immediate: true });
+watch(
+  route,
+  () => {
+    isNavigating.value = false;
+    document.body.classList.remove('page-transitioning');
+  },
+  { immediate: true }
+);
 
 onUnmounted(() => {
   // Clean up any transition class that might be left
@@ -220,8 +233,12 @@ onUnmounted(() => {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .planet-content {
