@@ -62,7 +62,7 @@
       "description": "Discover my programming languages and development expertise",
       "color": "from-blue-500 to-purple-600",
       "size": 90,
-      "orbitRadius": 230,
+      "orbitRadius": 250,
       "orbitSpeed": 30,
       "startAngle": 60,
       "icon": "💻"
@@ -74,7 +74,7 @@
       "description": "Learn about my community involvement and contributions",
       "color": "from-green-500 to-emerald-600",
       "size": 80,
-      "orbitRadius": 290,
+      "orbitRadius": 330,
       "orbitSpeed": 35,
       "startAngle": 120,
       "icon": "🤝"
@@ -86,7 +86,7 @@
       "description": "View my work history and professional achievements",
       "color": "from-yellow-500 to-orange-500",
       "size": 85,
-      "orbitRadius": 350,
+      "orbitRadius": 410,
       "orbitSpeed": 25,
       "startAngle": 180,
       "icon": "🏢"
@@ -98,7 +98,7 @@
       "description": "Explore my educational background and continuous learning",
       "color": "from-purple-500 to-pink-600",
       "size": 70,
-      "orbitRadius": 410,
+      "orbitRadius": 490,
       "orbitSpeed": 45,
       "startAngle": 240,
       "icon": "🎓"
@@ -110,7 +110,7 @@
       "description": "Browse my projects and development portfolio",
       "color": "from-teal-500 to-cyan-600",
       "size": 75,
-      "orbitRadius": 470,
+      "orbitRadius": 570,
       "orbitSpeed": 38,
       "startAngle": 300,
       "icon": "🚀"

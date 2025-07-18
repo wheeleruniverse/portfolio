@@ -1,5 +1,5 @@
 <template>
-  <div class="home-view">
+  <div class="home-view" :class="{ 'system-frozen': isSystemFrozen }">
     <section class="hero-section relative">
       <div class="container mx-auto px-4 py-20 text-center">
         <h1
@@ -34,14 +34,20 @@
       </div>
     </section>
 
-    <SolarSystem />
+    <SolarSystem @system-frozen="handleSystemFrozen" />
   </div>
 </template>
 
 <script setup lang="ts">
 import SolarSystem from '@/components/SolarSystem/SolarSystem.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import portfolioData from '../../public/portfolio-config.json';
+
+const isSystemFrozen = ref(false);
+
+const handleSystemFrozen = (frozen: boolean) => {
+  isSystemFrozen.value = frozen;
+};
 
 const isActiveCertification = (certification: any) => {
   if (!certification.expiryDate) {
@@ -61,7 +67,7 @@ const totalCertifications = computed(() => {
 
 <style scoped>
 .hero-section {
-  min-height: 50vh;
+  min-height: 65vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,5 +89,46 @@ const totalCertifications = computed(() => {
 
 .stat-label {
   @apply text-sm text-gray-300 mt-1;
+}
+
+.system-frozen {
+  background: radial-gradient(
+    circle at center,
+    rgba(135, 206, 250, 0.05) 0%,
+    rgba(0, 191, 255, 0.03) 30%,
+    rgba(30, 144, 255, 0.02) 60%,
+    rgba(25, 25, 112, 0.01) 100%
+  );
+}
+
+.system-frozen::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 0%,
+    rgba(135, 206, 250, 0.03) 20%,
+    rgba(0, 191, 255, 0.02) 40%,
+    transparent 70%
+  );
+  animation: freeze-atmosphere 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes freeze-atmosphere {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
 }
 </style>

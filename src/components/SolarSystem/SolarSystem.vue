@@ -1,7 +1,7 @@
 <template>
   <section
     class="solar-system-container"
-    :class="{ 'system-frozen': isSystemFrozen, 'navigating': isNavigating }"
+    :class="{ 'navigating': isNavigating }"
   >
     <div class="solar-system" ref="solarSystemRef" :class="{ 'navigating': isNavigating }">
       <!-- Central Brand Logo -->
@@ -68,6 +68,10 @@ const router = useRouter();
 const solarSystemRef = ref<HTMLElement>();
 const selectedPlanet = ref<Planet | null>(null);
 const isSystemFrozen = ref(false);
+
+const emit = defineEmits<{
+  'system-frozen': [frozen: boolean];
+}>();
 const tooltipData = ref<{
   show: boolean;
   planet: Planet;
@@ -100,6 +104,7 @@ const handlePlanetClick = (planetId: string) => {
 
 const handlePlanetHover = (isHovered: boolean) => {
   isSystemFrozen.value = isHovered;
+  emit('system-frozen', isHovered);
 };
 
 const handleTooltip = (
@@ -171,46 +176,6 @@ onMounted(() => {
   pointer-events: none;
 }
 
-.system-frozen {
-  background: radial-gradient(
-    circle at center,
-    rgba(135, 206, 250, 0.05) 0%,
-    rgba(0, 191, 255, 0.03) 30%,
-    rgba(30, 144, 255, 0.02) 60%,
-    rgba(25, 25, 112, 0.01) 100%
-  );
-}
-
-.system-frozen::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle at 50% 50%,
-    transparent 0%,
-    rgba(135, 206, 250, 0.03) 20%,
-    rgba(0, 191, 255, 0.02) 40%,
-    transparent 70%
-  );
-  animation: freeze-atmosphere 3s ease-in-out infinite;
-  pointer-events: none;
-  z-index: -1;
-}
-
-@keyframes freeze-atmosphere {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.02);
-  }
-}
 
 .floating-tooltip {
   position: fixed;
