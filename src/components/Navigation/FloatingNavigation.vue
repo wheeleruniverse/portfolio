@@ -185,12 +185,49 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Fix for mobile Safari SVG rendering */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .nav-icon-svg svg {
   width: 100%;
   height: 100%;
   fill: currentColor;
+  /* Ensure SVG renders properly on mobile Safari */
+  display: block;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  /* Force hardware acceleration */
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  /* Explicit dimensions for mobile Safari */
+  max-width: 1.2rem;
+  max-height: 1.2rem;
+  /* Mobile Safari specific fixes */
+  -webkit-appearance: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  /* Ensure proper rendering context */
+  shape-rendering: auto;
+  -webkit-shape-rendering: auto;
+}
+
+/* Additional mobile Safari SVG fixes */
+.nav-icon-svg svg path {
+  fill: inherit;
+  -webkit-transition: fill 0.3s ease;
+  transition: fill 0.3s ease;
+}
+
+/* Ensure SVG icons work on all iOS versions */
+@supports (-webkit-appearance: none) {
+  .nav-icon-svg svg {
+    -webkit-mask: none;
+    mask: none;
+  }
 }
 
 .nav-icon-emoji {
