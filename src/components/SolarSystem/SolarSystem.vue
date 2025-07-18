@@ -5,7 +5,12 @@
   >
     <div class="solar-system" ref="solarSystemRef" :class="{ 'navigating': isNavigating }">
       <!-- Central Brand Logo -->
-      <div class="sun">
+      <div 
+        class="sun"
+        :class="{ 'sun-frozen': isSunHovered }"
+        @mouseenter="handleSunHover(true)"
+        @mouseleave="handleSunHover(false)"
+      >
         <img
           src="/wheeleruniverse-logo.jpg"
           alt="Wheeler Universe"
@@ -26,6 +31,7 @@
         v-for="planet in planets"
         :key="planet.id"
         :planet="planet"
+        :system-frozen="isSunHovered"
         @click="handlePlanetClick"
         @hover="handlePlanetHover"
         @tooltip="handleTooltip"
@@ -68,6 +74,7 @@ const router = useRouter();
 const solarSystemRef = ref<HTMLElement>();
 const selectedPlanet = ref<Planet | null>(null);
 const isSystemFrozen = ref(false);
+const isSunHovered = ref(false);
 
 const emit = defineEmits<{
   'system-frozen': [frozen: boolean];
@@ -103,6 +110,13 @@ const handlePlanetClick = (planetId: string) => {
 };
 
 const handlePlanetHover = (isHovered: boolean) => {
+  // For individual planet hover, we don't freeze the entire system
+  // We only emit to HomeView for the background effect
+  emit('system-frozen', isHovered);
+};
+
+const handleSunHover = (isHovered: boolean) => {
+  isSunHovered.value = isHovered;
   isSystemFrozen.value = isHovered;
   emit('system-frozen', isHovered);
 };
@@ -174,6 +188,34 @@ onMounted(() => {
 
 .solar-system.navigating {
   pointer-events: none;
+}
+
+.sun-frozen {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.sun-frozen .brand-logo {
+  filter: drop-shadow(0 0 30px rgba(135, 206, 250, 0.8))
+    drop-shadow(0 0 50px rgba(0, 191, 255, 0.6))
+    drop-shadow(0 0 80px rgba(30, 144, 255, 0.4))
+    drop-shadow(0 0 100px rgba(255, 140, 0, 0.6));
+  animation: freeze-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes freeze-glow {
+  from {
+    filter: drop-shadow(0 0 30px rgba(135, 206, 250, 0.8))
+      drop-shadow(0 0 50px rgba(0, 191, 255, 0.6))
+      drop-shadow(0 0 80px rgba(30, 144, 255, 0.4))
+      drop-shadow(0 0 100px rgba(255, 140, 0, 0.6));
+  }
+  to {
+    filter: drop-shadow(0 0 40px rgba(135, 206, 250, 1))
+      drop-shadow(0 0 70px rgba(0, 191, 255, 0.8))
+      drop-shadow(0 0 120px rgba(30, 144, 255, 0.6))
+      drop-shadow(0 0 140px rgba(255, 140, 0, 0.8));
+  }
 }
 
 

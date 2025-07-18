@@ -11,7 +11,7 @@
   <!-- Planet on Orbit -->
   <div
     class="planet-container"
-    :class="{ frozen: showTooltip }"
+    :class="{ frozen: showTooltip || systemFrozen }"
     :style="{
       width: `${responsiveOrbitRadius * 2}px`,
       height: `${responsiveOrbitRadius * 2}px`,
@@ -24,7 +24,7 @@
       class="planet"
       :class="[
         `bg-gradient-to-br ${planet.color}`,
-        { 'planet-frozen': showTooltip },
+        { 'planet-frozen': showTooltip || systemFrozen },
       ]"
       :style="{
         width: `${planetSize}px`,
@@ -57,13 +57,16 @@
 
 <script setup lang="ts">
 import type { Planet } from '@/types';
-import { computed, ref, onMounted, onUnmounted } from 'vue';
+import { computed, ref, onMounted, onUnmounted, withDefaults } from 'vue';
 
 interface Props {
   planet: Planet;
+  systemFrozen?: boolean;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  systemFrozen: false
+});
 const emit = defineEmits<{
   click: [planetId: string];
   hover: [isHovered: boolean];
