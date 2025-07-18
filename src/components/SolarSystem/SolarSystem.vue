@@ -253,7 +253,7 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .solar-system-container {
-    padding: 1rem;
+    min-height: 80vh; /* Reduced height for mobile to accommodate smaller orbits */
   }
 
   .tooltip-content {
@@ -267,6 +267,12 @@ onMounted(() => {
 
   .tooltip-content p {
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .solar-system-container {
+    min-height: 70vh; /* Even more compact on small mobile */
   }
 }
 </style>

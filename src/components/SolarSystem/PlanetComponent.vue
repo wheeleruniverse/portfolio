@@ -3,8 +3,8 @@
   <div
     class="orbit-ring"
     :style="{
-      width: `${planet.orbitRadius * 2}px`,
-      height: `${planet.orbitRadius * 2}px`,
+      width: `${responsiveOrbitRadius * 2}px`,
+      height: `${responsiveOrbitRadius * 2}px`,
     }"
   ></div>
 
@@ -13,8 +13,8 @@
     class="planet-container"
     :class="{ frozen: showTooltip }"
     :style="{
-      width: `${planet.orbitRadius * 2}px`,
-      height: `${planet.orbitRadius * 2}px`,
+      width: `${responsiveOrbitRadius * 2}px`,
+      height: `${responsiveOrbitRadius * 2}px`,
       animationDuration: `${planet.orbitSpeed}s`,
       transform: `translate(-50%, -50%)`,
     }"
@@ -30,8 +30,8 @@
         width: `${planetSize}px`,
         height: `${planetSize}px`,
         zIndex: planetZIndex,
-        left: `${planetInitialPosition.x + planet.orbitRadius}px`,
-        top: `${planetInitialPosition.y + planet.orbitRadius}px`,
+        left: `${planetInitialPosition.x + responsiveOrbitRadius}px`,
+        top: `${planetInitialPosition.y + responsiveOrbitRadius}px`,
       }"
       @click="handleClick"
       @mouseenter="handleMouseEnter"
@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 import type { Planet } from '@/types';
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 
 interface Props {
   planet: Planet;
@@ -74,11 +74,41 @@ const emit = defineEmits<{
 
 const showTooltip = ref(false);
 const planetRef = ref<HTMLElement>();
+const windowWidth = ref(window.innerWidth);
+
+// Update window width on resize
+const updateWindowWidth = () => {
+  windowWidth.value = window.innerWidth;
+};
+
+onMounted(() => {
+  window.addEventListener('resize', updateWindowWidth);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateWindowWidth);
+});
+
+// Responsive orbit radius based on screen size
+const responsiveOrbitRadius = computed(() => {
+  const baseRadius = props.planet.orbitRadius;
+  
+  // Mobile (< 768px): Scale down to 35% of original
+  if (windowWidth.value < 768) {
+    return Math.round(baseRadius * 0.35);
+  }
+  // Tablet (768px - 1024px): Scale down to 60% of original  
+  else if (windowWidth.value < 1024) {
+    return Math.round(baseRadius * 0.6);
+  }
+  // Desktop: Use original size
+  return baseRadius;
+});
 
 // Calculate the initial position based on startAngle
 const planetInitialPosition = computed(() => {
   const angle = (props.planet.startAngle * Math.PI) / 180; // Convert to radians
-  const radius = props.planet.orbitRadius;
+  const radius = responsiveOrbitRadius.value;
 
   // Calculate position on the orbit circle
   const x = Math.cos(angle) * radius;
@@ -92,6 +122,16 @@ const planetSize = computed(() => {
   const textLength = props.planet.name.length;
   const baseSize = Math.max(props.planet.size, 90); // Minimum 90px
 
+  // Mobile-specific sizing adjustments
+  let mobileSizeAdjustment = 1;
+  if (windowWidth.value < 768) {
+    // On mobile, ensure planets are at least 70px for touch interaction
+    mobileSizeAdjustment = 0.9; // Slightly smaller but still touchable
+  } else if (windowWidth.value < 1024) {
+    // On tablet, moderate scaling
+    mobileSizeAdjustment = 0.95;
+  }
+
   // Responsive text sizing: more padding for longer text
   let textPadding = 50; // Base padding
   if (textLength > 6) {
@@ -100,23 +140,25 @@ const planetSize = computed(() => {
     textPadding += (textLength - 4) * 8; // 8px per character over 4
   }
 
-  const calculatedSize = Math.max(baseSize, textPadding + 50);
+  const calculatedSize = Math.max(baseSize, textPadding + 50) * mobileSizeAdjustment;
 
-  // Ensure minimum readable size for long names
+  // Ensure minimum readable size for long names with mobile considerations
+  const minMobileSize = windowWidth.value < 768 ? 70 : 90; // Ensure touch-friendly size
+  
   if (textLength >= 10) {
-    return Math.max(calculatedSize, 140); // Minimum 140px for very long names
+    return Math.max(calculatedSize, windowWidth.value < 768 ? 100 : 140);
   } else if (textLength >= 8) {
-    return Math.max(calculatedSize, 120); // Minimum 120px for long names
+    return Math.max(calculatedSize, windowWidth.value < 768 ? 85 : 120);
   }
 
-  return calculatedSize;
+  return Math.max(calculatedSize, minMobileSize);
 });
 
 // Calculate z-index based on orbit radius (inner planets on top for clickability)
 const planetZIndex = computed(() => {
   // Reverse z-index: smaller orbit radius = higher z-index
-  // Max orbit is 470, so we use 50 - (radius/10) to reverse the order
-  return Math.floor(50 - props.planet.orbitRadius / 10);
+  // Use responsive radius for consistent layering
+  return Math.floor(50 - responsiveOrbitRadius.value / 10);
 });
 
 const handleClick = (event: Event) => {
