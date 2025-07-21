@@ -19,8 +19,6 @@
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
-    "@vueuse/core": "^10.9.0",
-    "gsap": "^3.12.2",
     "vue": "^3.4.0",
     "vue-router": "^4.2.5"
   },
