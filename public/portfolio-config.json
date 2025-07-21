@@ -494,6 +494,25 @@
       "category": "web"
     },
     {
+      "id": "cgc-gcp-resume",
+      "name": "Serverless Resume on GCP (Multi-Repo)",
+      "description": "A complete serverless resume application on GCP, featuring a Vue.js frontend, a Flask API backend, and Terraform for IaC. Created for the A Cloud Guru Community Challenge.",
+      "technologies": [
+        "Google Cloud Platform",
+        "Cloud Run",
+        "Cloud Firestore",
+        "Terraform",
+        "Google Cloud Build",
+        "Vue.js",
+        "Flask",
+        "Python",
+        "Docker"
+      ],
+      "githubUrl": "https://github.com/wheeleruniverse/cgc-gcp-resume",
+      "featured": false,
+      "category": "cloud"
+    },
+    {
       "id": "cgc-aws-app-performance",
       "name": "AWS App Performance w/ ElastiCache",
       "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
