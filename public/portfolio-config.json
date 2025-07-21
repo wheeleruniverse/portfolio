@@ -515,6 +515,41 @@
       "category": "data"
     },
     {
+      "id": "cgc-azure-resume",
+      "name": "The Azure Resume Challenge",
+      "description": "A serverless resume website built on Azure. The frontend is a static site hosted in Azure Blob Storage, with a visitor counter powered by an Azure Function and Azure Table Storage. The infrastructure is deployed and updated via a CI/CD pipeline.",
+      "technologies": [
+        "Microsoft Azure",
+        "Azure Functions",
+        "Azure Blob Storage",
+        "Azure Table Storage",
+        "Azure DevOps",
+        "Python",
+        "Flask",
+        "Docker"
+      ],
+      "githubUrl": "https://github.com/wheeleruniverse/cgc-azure-resume",
+      "featured": false,
+      "category": "cloud"
+    },
+    {
+      "id": "cgc-azure-cicd",
+      "name": "Azure CI/CD for a Global Web App",
+      "description": "A globally-performant Ruby on Rails application deployed on Microsoft Azure with a complete CI/CD pipeline using Azure DevOps, ARM Templates, and Azure Front Door for content delivery.",
+      "technologies": [
+        "Microsoft Azure",
+        "Azure DevOps",
+        "Azure App Service",
+        "Azure Cosmos DB",
+        "Azure Front Door",
+        "ARM Templates",
+        "Ruby on Rails"
+      ],
+      "githubUrl": "https://github.com/wheeleruniverse/cgc-azure-cicd",
+      "featured": false,
+      "category": "cloud"
+    },
+    {
       "id": "cgc-multicloud-madness",
       "name": "Multicloud Serverless Image Processing Pipeline",
       "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
