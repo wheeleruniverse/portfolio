@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  ignorePatterns: ['dist', 'node_modules'],
   env: {
     node: true,
     es2022: true,
@@ -8,7 +9,6 @@ module.exports = {
   extends: [
     'eslint:recommended',
     '@vue/eslint-config-typescript',
-    '@vue/eslint-config-prettier',
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -22,6 +22,25 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
     'vue/multi-word-component-names': 'off',
-    'vue/no-unused-vars': 'warn',
   },
+  overrides: [
+    {
+      files: ['**/*.test.js', '**/*.spec.js'],
+      env: {
+        node: true,
+        jest: true,
+      },
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        vi: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+      },
+      rules: {
+        'no-undef': 'off'
+      }
+    }
+  ],
 };
