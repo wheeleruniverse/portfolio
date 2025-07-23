@@ -435,6 +435,16 @@
       "category": "web"
     },
     {
+      "id": "cgc-resume-from-json",
+      "name": "Resume Site from JSON",
+      "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
+      "technologies": ["Blazor", "C#", "Next.js", "Vercel"],
+      "githubUrl": "https://github.com/wheeleruniverse/cgc-resume-from-json",
+      "liveUrl": "https://cgc-resume-from-json.vercel.app/",
+      "featured": true,
+      "category": "web"
+    },
+    {
       "id": "wheelerrecommends",
       "name": "Wheeler Recommends Site",
       "description": "This repository contains the code for a serverless PHP movie recommendation engine. It demonstrates unconventional techniques for bold developers leveraging AWS Serverless technologies to host dynamic websites. The project prioritizes cost-efficiency, rapid scalability, and ease of maintenance.\n\n",
@@ -484,14 +494,27 @@
       "category": "data"
     },
     {
-      "id": "cgc-resume-from-json",
-      "name": "Resume Site from JSON",
-      "description": "Builds a resume website dynamically based on JSON data that can be modified at run-time and shared with a custom URL.",
-      "technologies": ["Blazor", "C#", "Next.js", "Vercel"],
-      "githubUrl": "https://github.com/wheeleruniverse/cgc-resume-from-json",
-      "liveUrl": "https://cgc-resume-from-json.vercel.app/",
-      "featured": false,
-      "category": "web"
+      "id": "multicloud-resume",
+      "name": "Multicloud Serverless Resume",
+      "description": "A comprehensive three-tier serverless resume application deployed across AWS, Azure, and GCP. This project showcases multicloud architecture using an Angular frontend, a Java Spring Boot backend, Infrastructure as Code with Terraform, and a full CI/CD pipeline with GitHub Actions.",
+      "technologies": [
+        "AWS",
+        "Azure",
+        "Google Cloud Platform",
+        "Terraform",
+        "GitHub Actions",
+        "Java",
+        "Spring Boot",
+        "Angular",
+        "TypeScript",
+        "Docker",
+        "DynamoDB",
+        "Cosmos DB",
+        "Firestore"
+      ],
+      "githubUrl": "https://github.com/wheeleruniverse/multicloud-resume",
+      "featured": true,
+      "category": "cloud"
     },
     {
       "id": "cgc-gcp-resume",
