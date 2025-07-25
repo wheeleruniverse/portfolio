@@ -415,6 +415,23 @@
   ],
   "projects": [
     {
+      "id": "infrastructure-registry",
+      "name": "AWS Infrastructure Registry",
+      "description": "A curated collection of reusable AWS Infrastructure as Code (IaC) templates and automation tools. This repository serves as a reference library for common AWS infrastructure components, enterprise baselines, and architectural patterns, utilizing CloudFormation, AWS CDK (TypeScript), and Go-based Lambda functions.",
+      "technologies": [
+        "AWS",
+        "CloudFormation",
+        "AWS CDK",
+        "Go",
+        "TypeScript",
+        "AWS Lambda",
+        "Infrastructure as Code"
+      ],
+      "githubUrl": "https://github.com/wheeleruniverse/infrastructure-registry/tree/master",
+      "featured": true,
+      "category": "cloud"
+    },
+    {
       "id": "portfolio",
       "name": "Wheeler Universe Portfolio",
       "description": "Interactive solar system portfolio built with Vue.js and TypeScript",
@@ -441,7 +458,7 @@
       "technologies": ["Blazor", "C#", "Next.js", "Vercel"],
       "githubUrl": "https://github.com/wheeleruniverse/cgc-resume-from-json",
       "liveUrl": "https://cgc-resume-from-json.vercel.app/",
-      "featured": true,
+      "featured": false,
       "category": "web"
     },
     {
@@ -701,25 +718,25 @@
   "community": {
     "blogPosts": [
       {
+        "id": "multi-cloud-serverless-showcase",
+        "title": "Conquering the Multi-Cloud Resume Challenge: My Journey to a Serverless Showcase",
+        "url": "https://blog.wheeleruniverse.com/read/multi-cloud-serverless-showcase",
+        "date": "2025-07-23",
+        "description": "I successfully built a comprehensive serverless resume application deployed across AWS, Azure, and Google Cloud Platform for the Meta Resume Challenge, demonstrating multi-cloud proficiency, Infrastructure as Code, and CI/CD, and gaining insights into cross-cloud performance and cost."
+      },
+      {
         "id": "claude-code-blog-aggregator",
         "title": "From Dusty Requirements to Live Website: How Claude Code Built My Blog Aggregator in a Single Day",
-        "url": "https://blog.wheeleruniverse.com/claude-code-blog-aggregator",
+        "url": "https://blog.wheeleruniverse.com/read/claude-code-blog-aggregator",
         "date": "2025-07-08",
         "description": "I transformed my lengthy requirements document into a live, production-ready blog aggregation website in a single day, all thanks to Claude Code and some careful prompt engineering."
       },
       {
         "id": "aws-cert-renewals-back-to-back",
         "title": "How I Crushed My AWS Certification Renewals Back-to-Back (and Why It Was a Bad Idea)",
-        "url": "https://blog.wheeleruniverse.com/aws-cert-renewals-back-to-back",
+        "url": "https://blog.wheeleruniverse.com/read/aws-cert-renewals-back-to-back",
         "date": "2024-05-09",
         "description": "I successfully renewed all 12 of my AWS certifications in just 22 days to align their dates, but I strongly advise against this intense approach due to the significant toll it took on my mental and physical well-being."
-      },
-      {
-        "id": "new-year-new-cloud-cost-savings-opportunities",
-        "title": "New Year, New Cost Savings Opportunities in Cloud Services",
-        "url": "https://blog.wheeleruniverse.com/new-year-new-cloud-cost-savings-opportunities",
-        "date": "2024-02-06",
-        "description": "In the ever-evolving cloud landscape, I've realized that true cost savings come not just from right-sizing, but from strategically selecting the \"right product\" or purpose-built cloud services to optimize expenses amidst continuous innovation."
       }
     ],
     "speakingEvents": [
@@ -730,7 +747,7 @@
         "description": "In this presentation, we will delve into the world of AWS cost savings and explore the various methods for reducing your AWS bill. From tagging strategies to leveraging reserved instances, we will discuss practical strategies for optimizing your AWS infrastructure and minimizing unnecessary expenses. We will also cover best practices and tooling for monitoring and managing your AWS usage and tips for identifying and eliminating unnecessary costs.",
         "date": "2024-05-29",
         "type": "Talk",
-        "url": "https://blog.wheeleruniverse.com/wmaug-optimizing-your-aws-bill"
+        "url": "https://blog.wheeleruniverse.com/watch/wmaug-optimizing-your-aws-bill"
       },
       {
         "id": "redmonk-conversation",
@@ -739,7 +756,7 @@
         "description": "Discussed trends in cloud-native development and the evolving role of developers in the cloud era.",
         "date": "2024-03-21",
         "type": "Interview",
-        "url": "https://blog.wheeleruniverse.com/redmonk-conversation"
+        "url": "https://blog.wheeleruniverse.com/watch/redmonk-conversation"
       },
       {
         "id": "bcc-aws-serverless-remix",
@@ -757,7 +774,7 @@
         "description": "As part of this panel, we discussed how the tech industry's \"smartness\" perception is a myth, emphasizing that diverse backgrounds and self-taught paths are valuable, and that successful entry and growth often hinge on candid storytelling, building relationships, and publicly sharing our learning journeys, despite facing inevitable challenges.",
         "date": "2023-04-18",
         "type": "Panel",
-        "url": "https://blog.wheeleruniverse.com/false-external-perception-of-the-tech-industry"
+        "url": "https://blog.wheeleruniverse.com/watch/false-external-perception-of-the-tech-industry"
       }
     ],
     "communityInvolvement": [

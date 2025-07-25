@@ -20,11 +20,21 @@
           class="project-card featured"
           :class="{ highlighted: highlightedProject === project.id }"
         >
-          <div class="project-image" v-if="getProjectImage(project)">
+          <div class="project-image" v-if="getProjectMedia(project)">
+            <video
+              v-if="isVideo(getProjectMedia(project))"
+              :src="getProjectMedia(project)"
+              autoplay
+              loop
+              muted
+              playsinline
+              @error="handleMediaError(project)"
+            />
             <img
-              :src="getProjectImage(project)"
+              v-else
+              :src="getProjectMedia(project)"
               :alt="project.name"
-              @error="handleImageError(project)"
+              @error="handleMediaError(project)"
             />
           </div>
           <div class="project-placeholder" v-else>
@@ -178,7 +188,8 @@ const route = useRoute();
 const { config } = usePortfolioConfig();
 const featuredProjects = ref<Project[]>([]);
 const highlightedProject = ref<string | null>(null);
-const projectImageCache = ref<Map<string, string>>(new Map());
+const projectMediaCache = ref<Map<string, string>>(new Map());
+const ALLOWED_EXTENSIONS = ['png', 'mp4'] as const;
 
 const loadConfig = async () => {
   // Filter featured projects
@@ -206,39 +217,84 @@ const scrollToProject = (projectId: string) => {
   }
 };
 
-const getProjectImage = (project: Project): string | undefined => {
+const getProjectMedia = (project: Project): string | undefined => {
   // Check cache first
-  if (projectImageCache.value.has(project.id)) {
-    return projectImageCache.value.get(project.id) || undefined;
+  if (projectMediaCache.value.has(project.id)) {
+    return projectMediaCache.value.get(project.id) || undefined;
   }
 
   // If project already has an image, use it
   if (project.image) {
-    projectImageCache.value.set(project.id, project.image);
+    projectMediaCache.value.set(project.id, project.image);
     return project.image;
   }
 
-  // For highlighted projects, try to load from public/projects directory
+  // For featured projects, try to load from public/projects directory
   if (project.featured) {
-    const projectImagePath = `/projects/${project.id}.png`;
-    // We'll cache this path and handle errors in the @error handler
-    projectImageCache.value.set(project.id, projectImagePath);
-    return projectImagePath;
+    // Try to find media file with allowed extensions
+    for (const ext of ALLOWED_EXTENSIONS) {
+      const mediaPath = `/projects/${project.id}.${ext}`;
+      // Cache the first valid extension we try
+      projectMediaCache.value.set(project.id, mediaPath);
+      return mediaPath;
+    }
   }
 
   return undefined;
 };
 
-const handleImageError = (project: Project) => {
+const isVideo = (mediaPath: string | undefined): boolean => {
+  if (!mediaPath) return false;
+  const extension = mediaPath.split('.').pop()?.toLowerCase();
+  return extension === 'mp4';
+};
+
+const validateMediaExtension = (mediaPath: string): void => {
+  const extension = mediaPath.split('.').pop()?.toLowerCase();
+  if (extension && !ALLOWED_EXTENSIONS.includes(extension as any)) {
+    throw new Error(
+      `Unsupported media extension: ${extension}. Allowed extensions: ${ALLOWED_EXTENSIONS.join(', ')}`
+    );
+  }
+};
+
+const handleMediaError = (project: Project) => {
+  const currentMedia = projectMediaCache.value.get(project.id);
+
+  if (currentMedia) {
+    try {
+      validateMediaExtension(currentMedia);
+    } catch (error) {
+      console.error(`Error loading media for project ${project.id}:`, error);
+      projectMediaCache.value.delete(project.id);
+      return;
+    }
+  }
+
   console.warn(
-    `Image not found for project ${project.id}, falling back to placeholder`
+    `Media not found for project ${project.id}, trying next extension or falling back to placeholder`
   );
+
+  // Try next extension if we're loading from projects directory
+  if (project.featured && currentMedia?.startsWith('/projects/')) {
+    const currentExt = currentMedia.split('.').pop()?.toLowerCase();
+    const currentIndex = ALLOWED_EXTENSIONS.indexOf(currentExt as any);
+
+    if (currentIndex >= 0 && currentIndex < ALLOWED_EXTENSIONS.length - 1) {
+      // Try next extension
+      const nextExt = ALLOWED_EXTENSIONS[currentIndex + 1];
+      const nextMediaPath = `/projects/${project.id}.${nextExt}`;
+      projectMediaCache.value.set(project.id, nextMediaPath);
+      return;
+    }
+  }
+
   // Remove from cache so it falls back to placeholder
-  projectImageCache.value.delete(project.id);
+  projectMediaCache.value.delete(project.id);
 
   // If the project had an original image, try to fall back to it
   if (project.image) {
-    projectImageCache.value.set(project.id, project.image);
+    projectMediaCache.value.set(project.id, project.image);
   }
 };
 
@@ -306,7 +362,6 @@ onMounted(() => {
 
 .featured-projects,
 .project-categories,
-.github-stats,
 .project-highlights {
   margin-bottom: 4rem;
 }
@@ -368,7 +423,8 @@ onMounted(() => {
   margin-bottom: 1rem;
 }
 
-.project-image img {
+.project-image img,
+.project-image video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -574,54 +630,6 @@ onMounted(() => {
   border: 1px solid rgba(14, 165, 233, 0.3);
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
-
-.stat-card {
-  @apply planet-card;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
-}
-
-.stat-icon {
-  font-size: 2rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.stat-content {
-  flex: 1;
-}
-
-.stat-number {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #ffd700;
-  font-family: 'Orbitron', monospace;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #ccc;
-  margin-top: 0.25rem;
-}
-
 .highlights-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -664,15 +672,6 @@ onMounted(() => {
 
   .categories-grid {
     grid-template-columns: 1fr;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .stat-card {
-    flex-direction: column;
-    text-align: center;
   }
 
   .highlights-grid {
