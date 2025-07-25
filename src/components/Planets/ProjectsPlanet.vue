@@ -324,10 +324,11 @@ const projectCategories = ref([
 const updateProjectCategories = () => {
   if (!config.value?.projects) return;
 
-  const webProjects = config.value.projects.filter(p => p.category === 'web');
-  const dataProjects = config.value.projects.filter(p => p.category === 'data');
+  // Filter out featured projects to avoid duplicates
+  const webProjects = config.value.projects.filter(p => p.category === 'web' && !p.featured);
+  const dataProjects = config.value.projects.filter(p => p.category === 'data' && !p.featured);
   const cloudProjects = config.value.projects.filter(
-    p => p.category === 'cloud'
+    p => p.category === 'cloud' && !p.featured
   );
 
   projectCategories.value[0].projects = webProjects;
