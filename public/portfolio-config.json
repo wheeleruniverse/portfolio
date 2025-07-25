@@ -535,7 +535,7 @@
     },
     {
       "id": "cgc-gcp-resume",
-      "name": "Serverless Resume on GCP (Multi-Repo)",
+      "name": "Serverless Resume on GCP",
       "description": "A complete serverless resume application on GCP, featuring a Vue.js frontend, a Flask API backend, and Terraform for IaC. Created for the A Cloud Guru Community Challenge.",
       "technologies": [
         "Google Cloud Platform",
