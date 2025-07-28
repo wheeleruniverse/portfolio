@@ -20,7 +20,11 @@
           class="project-card featured"
           :class="{ highlighted: highlightedProject === project.id }"
         >
-          <div class="project-image" v-if="getProjectMedia(project)">
+          <div
+            class="project-image"
+            v-if="getProjectMedia(project)"
+            :key="`media-${project.id}`"
+          >
             <video
               v-if="isVideo(getProjectMedia(project))"
               :src="getProjectMedia(project)"
@@ -37,7 +41,11 @@
               @error="handleMediaError(project)"
             />
           </div>
-          <div class="project-placeholder" v-else>
+          <div
+            class="project-placeholder"
+            v-else
+            :key="`placeholder-${project.id}`"
+          >
             <div class="placeholder-icon">🚀</div>
           </div>
           <div class="project-content">
@@ -79,9 +87,11 @@
 
     <section class="project-categories">
       <h3 class="subsection-title">Project Categories</h3>
-      <div class="categories-grid">
+
+      <!-- Web Applications and Data Engineering (stacked) -->
+      <div class="web-data-categories">
         <div
-          v-for="category in projectCategories"
+          v-for="category in webDataCategories"
           :key="category.name"
           class="category-card"
         >
@@ -95,6 +105,7 @@
               :id="`project-${project.id}`"
               class="mini-project"
               :class="{ highlighted: highlightedProject === project.id }"
+              @click="handleProjectClick(project)"
             >
               <div class="mini-project-header">
                 <h5 class="mini-project-title">{{ project.name }}</h5>
@@ -105,6 +116,7 @@
                     class="mini-link"
                     target="_blank"
                     rel="noopener noreferrer"
+                    @click.stop
                   >
                     🌐
                   </a>
@@ -114,6 +126,66 @@
                     class="mini-link"
                     target="_blank"
                     rel="noopener noreferrer"
+                    @click.stop
+                  >
+                    🔗
+                  </a>
+                </div>
+              </div>
+              <p class="mini-project-description">{{ project.description }}</p>
+              <div class="mini-project-tech">
+                <span
+                  v-for="tech in project.technologies.slice(0, 3)"
+                  :key="tech"
+                  class="mini-tech-badge"
+                >
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cloud & DevOps (separate) -->
+      <div class="cloud-categories">
+        <div
+          v-for="category in cloudCategories"
+          :key="category.name"
+          class="category-card"
+        >
+          <div class="category-icon">{{ category.icon }}</div>
+          <h4 class="category-title">{{ category.name }}</h4>
+          <p class="category-description">{{ category.description }}</p>
+          <div class="category-projects">
+            <div
+              v-for="project in category.projects"
+              :key="project.id"
+              :id="`project-${project.id}`"
+              class="mini-project"
+              :class="{ highlighted: highlightedProject === project.id }"
+              @click="handleProjectClick(project)"
+            >
+              <div class="mini-project-header">
+                <h5 class="mini-project-title">{{ project.name }}</h5>
+                <div class="mini-project-links">
+                  <a
+                    v-if="project.liveUrl"
+                    :href="project.liveUrl"
+                    class="mini-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    @click.stop
+                  >
+                    🌐
+                  </a>
+                  <a
+                    v-if="project.githubUrl"
+                    :href="project.githubUrl"
+                    class="mini-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    @click.stop
                   >
                     🔗
                   </a>
@@ -188,7 +260,9 @@ const route = useRoute();
 const { config } = usePortfolioConfig();
 const featuredProjects = ref<Project[]>([]);
 const highlightedProject = ref<string | null>(null);
-const projectMediaCache = ref<Map<string, string>>(new Map());
+const projectMediaState = ref<
+  Map<string, { attempt: number; showPlaceholder: boolean }>
+>(new Map());
 const ALLOWED_EXTENSIONS = ['png', 'mp4'] as const;
 
 const loadConfig = async () => {
@@ -218,29 +292,34 @@ const scrollToProject = (projectId: string) => {
 };
 
 const getProjectMedia = (project: Project): string | undefined => {
-  // Check cache first
-  if (projectMediaCache.value.has(project.id)) {
-    return projectMediaCache.value.get(project.id) || undefined;
-  }
-
   // If project already has an image, use it
   if (project.image) {
-    projectMediaCache.value.set(project.id, project.image);
     return project.image;
   }
 
-  // For featured projects, try to load from public/projects directory
-  if (project.featured) {
-    // Try to find media file with allowed extensions
-    for (const ext of ALLOWED_EXTENSIONS) {
-      const mediaPath = `/projects/${project.id}.${ext}`;
-      // Cache the first valid extension we try
-      projectMediaCache.value.set(project.id, mediaPath);
-      return mediaPath;
-    }
+  // Only try to load media for featured projects
+  if (!project.featured) {
+    return undefined;
   }
 
-  return undefined;
+  // Get or initialize the media state for this project
+  if (!projectMediaState.value.has(project.id)) {
+    projectMediaState.value.set(project.id, {
+      attempt: 0,
+      showPlaceholder: false,
+    });
+  }
+
+  const state = projectMediaState.value.get(project.id)!;
+
+  // If we've determined to show placeholder, return undefined
+  if (state.showPlaceholder) {
+    return undefined;
+  }
+
+  // Return the current attempt's media path
+  const ext = ALLOWED_EXTENSIONS[state.attempt];
+  return `/projects/${project.id}.${ext}`;
 };
 
 const isVideo = (mediaPath: string | undefined): boolean => {
@@ -249,56 +328,34 @@ const isVideo = (mediaPath: string | undefined): boolean => {
   return extension === 'mp4';
 };
 
-const validateMediaExtension = (mediaPath: string): void => {
-  const extension = mediaPath.split('.').pop()?.toLowerCase();
-  if (extension && !ALLOWED_EXTENSIONS.includes(extension as any)) {
-    throw new Error(
-      `Unsupported media extension: ${extension}. Allowed extensions: ${ALLOWED_EXTENSIONS.join(', ')}`
+const handleMediaError = (project: Project) => {
+  const state = projectMediaState.value.get(project.id);
+
+  if (!state) {
+    console.warn(`No media state found for project ${project.id}`);
+    return;
+  }
+
+  console.warn(
+    `Media failed for project ${project.id}, attempt ${state.attempt + 1}/${ALLOWED_EXTENSIONS.length}`
+  );
+
+  // Try next extension
+  if (state.attempt < ALLOWED_EXTENSIONS.length - 1) {
+    state.attempt++;
+    console.log(
+      `Trying next extension for ${project.id}: ${ALLOWED_EXTENSIONS[state.attempt]}`
+    );
+  } else {
+    // All extensions failed, show placeholder
+    state.showPlaceholder = true;
+    console.log(
+      `All media attempts failed for ${project.id}, showing placeholder`
     );
   }
 };
 
-const handleMediaError = (project: Project) => {
-  const currentMedia = projectMediaCache.value.get(project.id);
-
-  if (currentMedia) {
-    try {
-      validateMediaExtension(currentMedia);
-    } catch (error) {
-      console.error(`Error loading media for project ${project.id}:`, error);
-      projectMediaCache.value.delete(project.id);
-      return;
-    }
-  }
-
-  console.warn(
-    `Media not found for project ${project.id}, trying next extension or falling back to placeholder`
-  );
-
-  // Try next extension if we're loading from projects directory
-  if (project.featured && currentMedia?.startsWith('/projects/')) {
-    const currentExt = currentMedia.split('.').pop()?.toLowerCase();
-    const currentIndex = ALLOWED_EXTENSIONS.indexOf(currentExt as any);
-
-    if (currentIndex >= 0 && currentIndex < ALLOWED_EXTENSIONS.length - 1) {
-      // Try next extension
-      const nextExt = ALLOWED_EXTENSIONS[currentIndex + 1];
-      const nextMediaPath = `/projects/${project.id}.${nextExt}`;
-      projectMediaCache.value.set(project.id, nextMediaPath);
-      return;
-    }
-  }
-
-  // Remove from cache so it falls back to placeholder
-  projectMediaCache.value.delete(project.id);
-
-  // If the project had an original image, try to fall back to it
-  if (project.image) {
-    projectMediaCache.value.set(project.id, project.image);
-  }
-};
-
-const projectCategories = ref([
+const webDataCategories = ref([
   {
     name: 'Web Applications',
     icon: '🌐',
@@ -312,6 +369,9 @@ const projectCategories = ref([
     description: 'Data processing, ETL pipelines, and analytics solutions',
     projects: [] as Project[],
   },
+]);
+
+const cloudCategories = ref([
   {
     name: 'Cloud & DevOps',
     icon: '☁️',
@@ -335,9 +395,15 @@ const updateProjectCategories = () => {
     p => p.category === 'cloud' && !p.featured
   );
 
-  projectCategories.value[0].projects = webProjects;
-  projectCategories.value[1].projects = dataProjects;
-  projectCategories.value[2].projects = cloudProjects;
+  webDataCategories.value[0].projects = webProjects;
+  webDataCategories.value[1].projects = dataProjects;
+  cloudCategories.value[0].projects = cloudProjects;
+};
+
+const handleProjectClick = (project: Project) => {
+  if (project.githubUrl) {
+    window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
+  }
 };
 
 onMounted(() => {
@@ -381,7 +447,7 @@ onMounted(() => {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }
 
@@ -488,11 +554,6 @@ onMounted(() => {
   border: 1px solid rgba(14, 165, 233, 0.3);
 }
 
-.tech-badge.small {
-  padding: 0.2rem 0.5rem;
-  font-size: 0.7rem;
-}
-
 .project-links {
   display: flex;
   gap: 1rem;
@@ -529,9 +590,16 @@ onMounted(() => {
   color: white;
 }
 
-.categories-grid {
+.web-data-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.cloud-categories {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 
@@ -577,6 +645,15 @@ onMounted(() => {
   padding: 1rem;
   border-radius: 0.5rem;
   border-left: 3px solid #0ea5e9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mini-project:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(14, 165, 233, 0.2);
+  border-left-color: #ffd700;
 }
 
 .mini-project.highlighted {
@@ -600,17 +677,28 @@ onMounted(() => {
 
 .mini-project-links {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
 .mini-link {
   color: #0ea5e9;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  width: 16px;
+  height: 16px;
+  padding: 14px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
 .mini-link:hover {
   color: #0284c7;
+  background-color: rgba(14, 165, 233, 0.1);
 }
 
 .mini-project-description {
@@ -675,7 +763,11 @@ onMounted(() => {
     grid-template-columns: 1fr;
   }
 
-  .categories-grid {
+  .web-data-categories {
+    grid-template-columns: 1fr;
+  }
+
+  .cloud-categories {
     grid-template-columns: 1fr;
   }
 
