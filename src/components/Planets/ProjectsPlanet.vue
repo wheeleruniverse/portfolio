@@ -281,14 +281,48 @@ const loadConfig = async () => {
 };
 
 const scrollToProject = (projectId: string) => {
-  const element = document.getElementById(`project-${projectId}`);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    // Clear highlight after a few seconds
-    setTimeout(() => {
-      highlightedProject.value = null;
-    }, 3000);
-  }
+  // Add a delay to ensure the DOM is fully rendered
+  setTimeout(() => {
+    const element = document.getElementById(`project-${projectId}`);
+    if (element) {
+      // Scroll with more prominent centering
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest',
+      });
+
+      // Add a small additional delay to ensure smooth scroll completes
+      setTimeout(() => {
+        // Try to scroll again in case the first one didn't work perfectly
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest',
+        });
+      }, 100);
+
+      // Clear highlight after a longer duration
+      setTimeout(() => {
+        highlightedProject.value = null;
+      }, 8000);
+    } else {
+      // If element not found immediately, try again after a longer delay
+      setTimeout(() => {
+        const retryElement = document.getElementById(`project-${projectId}`);
+        if (retryElement) {
+          retryElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest',
+          });
+          setTimeout(() => {
+            highlightedProject.value = null;
+          }, 8000);
+        }
+      }, 500);
+    }
+  }, 100);
 };
 
 const getProjectMedia = (project: Project): string | undefined => {
@@ -359,8 +393,7 @@ const webDataCategories = ref([
   {
     name: 'Web Applications',
     icon: '🌐',
-    description:
-      'Full-stack web applications with modern frameworks and cloud deployment',
+    description: 'Full-stack web applications with modern frameworks',
     projects: [] as Project[],
   },
   {
@@ -469,20 +502,32 @@ onMounted(() => {
 }
 
 .project-card.highlighted {
-  border-color: rgba(255, 215, 0, 0.8);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-  animation: pulse-highlight 2s ease-in-out;
+  border-color: rgba(255, 215, 0, 1);
+  box-shadow:
+    0 0 30px rgba(255, 215, 0, 0.6),
+    0 0 60px rgba(255, 215, 0, 0.3);
+  animation: pulse-highlight 3s ease-in-out infinite;
+  transform: scale(1.02);
 }
 
 @keyframes pulse-highlight {
   0% {
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    box-shadow:
+      0 0 30px rgba(255, 215, 0, 0.6),
+      0 0 60px rgba(255, 215, 0, 0.3);
+    border-color: rgba(255, 215, 0, 1);
   }
   50% {
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    box-shadow:
+      0 0 40px rgba(255, 215, 0, 0.8),
+      0 0 80px rgba(255, 215, 0, 0.4);
+    border-color: rgba(255, 215, 0, 1);
   }
   100% {
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    box-shadow:
+      0 0 30px rgba(255, 215, 0, 0.6),
+      0 0 60px rgba(255, 215, 0, 0.3);
+    border-color: rgba(255, 215, 0, 1);
   }
 }
 
@@ -658,8 +703,11 @@ onMounted(() => {
 
 .mini-project.highlighted {
   border-left-color: #ffd700;
-  background: rgba(255, 215, 0, 0.1);
-  animation: pulse-highlight 2s ease-in-out;
+  border-left-width: 5px;
+  background: rgba(255, 215, 0, 0.15);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  animation: pulse-highlight 3s ease-in-out infinite;
+  transform: scale(1.02);
 }
 
 .mini-project-header {
