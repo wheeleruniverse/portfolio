@@ -20,7 +20,11 @@
           class="project-card featured"
           :class="{ highlighted: highlightedProject === project.id }"
         >
-          <div class="project-image" v-if="getProjectMedia(project)">
+          <div
+            class="project-image"
+            v-if="getProjectMedia(project)"
+            :key="`media-${project.id}`"
+          >
             <video
               v-if="isVideo(getProjectMedia(project))"
               :src="getProjectMedia(project)"
@@ -37,7 +41,11 @@
               @error="handleMediaError(project)"
             />
           </div>
-          <div class="project-placeholder" v-else>
+          <div
+            class="project-placeholder"
+            v-else
+            :key="`placeholder-${project.id}`"
+          >
             <div class="placeholder-icon">🚀</div>
           </div>
           <div class="project-content">
@@ -79,7 +87,7 @@
 
     <section class="project-categories">
       <h3 class="subsection-title">Project Categories</h3>
-      
+
       <!-- Web Applications and Data Engineering (stacked) -->
       <div class="web-data-categories">
         <div
@@ -138,7 +146,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Cloud & DevOps (separate) -->
       <div class="cloud-categories">
         <div
@@ -252,7 +260,9 @@ const route = useRoute();
 const { config } = usePortfolioConfig();
 const featuredProjects = ref<Project[]>([]);
 const highlightedProject = ref<string | null>(null);
-const projectMediaCache = ref<Map<string, string>>(new Map());
+const projectMediaState = ref<
+  Map<string, { attempt: number; showPlaceholder: boolean }>
+>(new Map());
 const ALLOWED_EXTENSIONS = ['png', 'mp4'] as const;
 
 const loadConfig = async () => {
@@ -282,28 +292,34 @@ const scrollToProject = (projectId: string) => {
 };
 
 const getProjectMedia = (project: Project): string | undefined => {
-  // Check cache first
-  if (projectMediaCache.value.has(project.id)) {
-    return projectMediaCache.value.get(project.id) || undefined;
-  }
-
   // If project already has an image, use it
   if (project.image) {
-    projectMediaCache.value.set(project.id, project.image);
     return project.image;
   }
 
-  // For featured projects, try to load from public/projects directory
-  if (project.featured) {
-    // Use the first allowed extension as default
-    const ext = ALLOWED_EXTENSIONS[0];
-    const mediaPath = `/projects/${project.id}.${ext}`;
-    // Cache the media path
-    projectMediaCache.value.set(project.id, mediaPath);
-    return mediaPath;
+  // Only try to load media for featured projects
+  if (!project.featured) {
+    return undefined;
   }
 
-  return undefined;
+  // Get or initialize the media state for this project
+  if (!projectMediaState.value.has(project.id)) {
+    projectMediaState.value.set(project.id, {
+      attempt: 0,
+      showPlaceholder: false,
+    });
+  }
+
+  const state = projectMediaState.value.get(project.id)!;
+
+  // If we've determined to show placeholder, return undefined
+  if (state.showPlaceholder) {
+    return undefined;
+  }
+
+  // Return the current attempt's media path
+  const ext = ALLOWED_EXTENSIONS[state.attempt];
+  return `/projects/${project.id}.${ext}`;
 };
 
 const isVideo = (mediaPath: string | undefined): boolean => {
@@ -312,48 +328,30 @@ const isVideo = (mediaPath: string | undefined): boolean => {
   return extension === 'mp4';
 };
 
-const validateMediaExtension = (mediaPath: string): void => {
-  const extension = mediaPath.split('.').pop()?.toLowerCase();
-  if (extension && !ALLOWED_EXTENSIONS.includes(extension as any)) {
-    throw new Error(
-      `Unsupported media extension: ${extension}. Allowed extensions: ${ALLOWED_EXTENSIONS.join(', ')}`
-    );
-  }
-};
-
 const handleMediaError = (project: Project) => {
-  const currentMedia = projectMediaCache.value.get(project.id);
+  const state = projectMediaState.value.get(project.id);
 
-  if (currentMedia) {
-    try {
-      validateMediaExtension(currentMedia);
-    } catch (error) {
-      console.error(`Error loading media for project ${project.id}:`, error);
-      projectMediaCache.value.delete(project.id);
-      return;
-    }
+  if (!state) {
+    console.warn(`No media state found for project ${project.id}`);
+    return;
   }
 
-  // Try next extension if we're loading from projects directory
-  if (project.featured && currentMedia?.startsWith('/projects/')) {
-    const currentExt = currentMedia.split('.').pop()?.toLowerCase();
-    const currentIndex = ALLOWED_EXTENSIONS.indexOf(currentExt as any);
+  console.warn(
+    `Media failed for project ${project.id}, attempt ${state.attempt + 1}/${ALLOWED_EXTENSIONS.length}`
+  );
 
-    if (currentIndex >= 0 && currentIndex < ALLOWED_EXTENSIONS.length - 1) {
-      // Try next extension
-      const nextExt = ALLOWED_EXTENSIONS[currentIndex + 1];
-      const nextMediaPath = `/projects/${project.id}.${nextExt}`;
-      projectMediaCache.value.set(project.id, nextMediaPath);
-      return;
-    }
-  }
-
-  // Remove from cache so it falls back to placeholder
-  projectMediaCache.value.delete(project.id);
-
-  // If the project had an original image, try to fall back to it
-  if (project.image) {
-    projectMediaCache.value.set(project.id, project.image);
+  // Try next extension
+  if (state.attempt < ALLOWED_EXTENSIONS.length - 1) {
+    state.attempt++;
+    console.log(
+      `Trying next extension for ${project.id}: ${ALLOWED_EXTENSIONS[state.attempt]}`
+    );
+  } else {
+    // All extensions failed, show placeholder
+    state.showPlaceholder = true;
+    console.log(
+      `All media attempts failed for ${project.id}, showing placeholder`
+    );
   }
 };
 
