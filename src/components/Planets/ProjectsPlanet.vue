@@ -79,9 +79,67 @@
 
     <section class="project-categories">
       <h3 class="subsection-title">Project Categories</h3>
-      <div class="categories-grid">
+      
+      <!-- Web Applications and Data Engineering (stacked) -->
+      <div class="web-data-categories">
         <div
-          v-for="category in projectCategories"
+          v-for="category in webDataCategories"
+          :key="category.name"
+          class="category-card"
+        >
+          <div class="category-icon">{{ category.icon }}</div>
+          <h4 class="category-title">{{ category.name }}</h4>
+          <p class="category-description">{{ category.description }}</p>
+          <div class="category-projects">
+            <div
+              v-for="project in category.projects"
+              :key="project.id"
+              :id="`project-${project.id}`"
+              class="mini-project"
+              :class="{ highlighted: highlightedProject === project.id }"
+            >
+              <div class="mini-project-header">
+                <h5 class="mini-project-title">{{ project.name }}</h5>
+                <div class="mini-project-links">
+                  <a
+                    v-if="project.liveUrl"
+                    :href="project.liveUrl"
+                    class="mini-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    🌐
+                  </a>
+                  <a
+                    v-if="project.githubUrl"
+                    :href="project.githubUrl"
+                    class="mini-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    🔗
+                  </a>
+                </div>
+              </div>
+              <p class="mini-project-description">{{ project.description }}</p>
+              <div class="mini-project-tech">
+                <span
+                  v-for="tech in project.technologies.slice(0, 3)"
+                  :key="tech"
+                  class="mini-tech-badge"
+                >
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Cloud & DevOps (separate) -->
+      <div class="cloud-categories">
+        <div
+          v-for="category in cloudCategories"
           :key="category.name"
           class="category-card"
         >
@@ -298,7 +356,7 @@ const handleMediaError = (project: Project) => {
   }
 };
 
-const projectCategories = ref([
+const webDataCategories = ref([
   {
     name: 'Web Applications',
     icon: '🌐',
@@ -312,6 +370,9 @@ const projectCategories = ref([
     description: 'Data processing, ETL pipelines, and analytics solutions',
     projects: [] as Project[],
   },
+]);
+
+const cloudCategories = ref([
   {
     name: 'Cloud & DevOps',
     icon: '☁️',
@@ -335,9 +396,9 @@ const updateProjectCategories = () => {
     p => p.category === 'cloud' && !p.featured
   );
 
-  projectCategories.value[0].projects = webProjects;
-  projectCategories.value[1].projects = dataProjects;
-  projectCategories.value[2].projects = cloudProjects;
+  webDataCategories.value[0].projects = webProjects;
+  webDataCategories.value[1].projects = dataProjects;
+  cloudCategories.value[0].projects = cloudProjects;
 };
 
 onMounted(() => {
@@ -381,7 +442,7 @@ onMounted(() => {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }
 
@@ -529,9 +590,16 @@ onMounted(() => {
   color: white;
 }
 
-.categories-grid {
+.web-data-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.cloud-categories {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 
@@ -675,7 +743,11 @@ onMounted(() => {
     grid-template-columns: 1fr;
   }
 
-  .categories-grid {
+  .web-data-categories {
+    grid-template-columns: 1fr;
+  }
+
+  .cloud-categories {
     grid-template-columns: 1fr;
   }
 
