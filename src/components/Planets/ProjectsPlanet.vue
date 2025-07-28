@@ -334,10 +334,6 @@ const handleMediaError = (project: Project) => {
     }
   }
 
-  console.warn(
-    `Media not found for project ${project.id}, trying next extension or falling back to placeholder`
-  );
-
   // Try next extension if we're loading from projects directory
   if (project.featured && currentMedia?.startsWith('/projects/')) {
     const currentExt = currentMedia.split('.').pop()?.toLowerCase();
