@@ -97,6 +97,7 @@
               :id="`project-${project.id}`"
               class="mini-project"
               :class="{ highlighted: highlightedProject === project.id }"
+              @click="handleProjectClick(project)"
             >
               <div class="mini-project-header">
                 <h5 class="mini-project-title">{{ project.name }}</h5>
@@ -107,6 +108,7 @@
                     class="mini-link"
                     target="_blank"
                     rel="noopener noreferrer"
+                    @click.stop
                   >
                     🌐
                   </a>
@@ -116,6 +118,7 @@
                     class="mini-link"
                     target="_blank"
                     rel="noopener noreferrer"
+                    @click.stop
                   >
                     🔗
                   </a>
@@ -153,6 +156,7 @@
               :id="`project-${project.id}`"
               class="mini-project"
               :class="{ highlighted: highlightedProject === project.id }"
+              @click="handleProjectClick(project)"
             >
               <div class="mini-project-header">
                 <h5 class="mini-project-title">{{ project.name }}</h5>
@@ -163,6 +167,7 @@
                     class="mini-link"
                     target="_blank"
                     rel="noopener noreferrer"
+                    @click.stop
                   >
                     🌐
                   </a>
@@ -172,6 +177,7 @@
                     class="mini-link"
                     target="_blank"
                     rel="noopener noreferrer"
+                    @click.stop
                   >
                     🔗
                   </a>
@@ -289,13 +295,12 @@ const getProjectMedia = (project: Project): string | undefined => {
 
   // For featured projects, try to load from public/projects directory
   if (project.featured) {
-    // Try to find media file with allowed extensions
-    for (const ext of ALLOWED_EXTENSIONS) {
-      const mediaPath = `/projects/${project.id}.${ext}`;
-      // Cache the first valid extension we try
-      projectMediaCache.value.set(project.id, mediaPath);
-      return mediaPath;
-    }
+    // Use the first allowed extension as default
+    const ext = ALLOWED_EXTENSIONS[0];
+    const mediaPath = `/projects/${project.id}.${ext}`;
+    // Cache the media path
+    projectMediaCache.value.set(project.id, mediaPath);
+    return mediaPath;
   }
 
   return undefined;
@@ -399,6 +404,12 @@ const updateProjectCategories = () => {
   webDataCategories.value[0].projects = webProjects;
   webDataCategories.value[1].projects = dataProjects;
   cloudCategories.value[0].projects = cloudProjects;
+};
+
+const handleProjectClick = (project: Project) => {
+  if (project.githubUrl) {
+    window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
+  }
 };
 
 onMounted(() => {
@@ -549,11 +560,6 @@ onMounted(() => {
   border: 1px solid rgba(14, 165, 233, 0.3);
 }
 
-.tech-badge.small {
-  padding: 0.2rem 0.5rem;
-  font-size: 0.7rem;
-}
-
 .project-links {
   display: flex;
   gap: 1rem;
@@ -645,6 +651,15 @@ onMounted(() => {
   padding: 1rem;
   border-radius: 0.5rem;
   border-left: 3px solid #0ea5e9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mini-project:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(14, 165, 233, 0.2);
+  border-left-color: #ffd700;
 }
 
 .mini-project.highlighted {
@@ -668,17 +683,28 @@ onMounted(() => {
 
 .mini-project-links {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
 .mini-link {
   color: #0ea5e9;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  width: 16px;
+  height: 16px;
+  padding: 14px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
 .mini-link:hover {
   color: #0284c7;
+  background-color: rgba(14, 165, 233, 0.1);
 }
 
 .mini-project-description {
