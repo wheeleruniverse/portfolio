@@ -718,6 +718,13 @@
   "community": {
     "blogPosts": [
       {
+        "id": "building-resume-bravo-tizer",
+        "title": "Building Resume Bravo-tizer: How AWS Serverless and Claude AI Transformed Our Resume Processing Workflow",
+        "url": "https://blog.wheeleruniverse.com/read/building-resume-bravo-tizer",
+        "date": "2025-07-29",
+        "description": "I engineered the 'Resume Bravo-tizer' using AWS Serverless and Claude AI to automate resume formatting, reducing processing time from hours to minutes per resume and freeing HR teams for strategic tasks."
+      },
+      {
         "id": "multi-cloud-serverless-showcase",
         "title": "Conquering the Multi-Cloud Resume Challenge: My Journey to a Serverless Showcase",
         "url": "https://blog.wheeleruniverse.com/read/multi-cloud-serverless-showcase",
