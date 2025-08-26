@@ -83,7 +83,7 @@ const handleGoHome = async () => {
 
 const downloadResume = () => {
   // This would link to your actual resume file
-  window.open(brandAssets.value?.resume || '/resume.pdf', '_blank');
+  window.open(brandAssets.value?.resume || '/justin-wheeler.pdf', '_blank');
 };
 
 // Watch for route changes to reset navigation state
