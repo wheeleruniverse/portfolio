@@ -1,4 +1,4 @@
-import type { Planet } from '@/types';
+import type { Planet, SkillCategory } from '@/types';
 import { readonly, ref } from 'vue';
 
 interface PortfolioConfig {
@@ -77,6 +77,7 @@ interface PortfolioConfig {
     date: string;
     description: string;
   }>;
+  skillCategories: SkillCategory[];
 }
 
 const config = ref<PortfolioConfig | null>(null);

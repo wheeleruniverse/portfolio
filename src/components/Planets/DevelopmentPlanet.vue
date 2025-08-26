@@ -12,7 +12,19 @@
 
     <section class="tech-stack-section">
       <h3 class="subsection-title">Technology Stack</h3>
-      <div class="tech-categories">
+
+      <!-- Loading state -->
+      <div v-if="isLoading" class="loading-message">
+        Loading technology skills...
+      </div>
+
+      <!-- Error state -->
+      <div v-if="error" class="error-message">
+        Error loading skills: {{ error }}
+      </div>
+
+      <!-- Tech stack grid -->
+      <div v-if="!isLoading && !error" class="tech-categories">
         <div
           v-for="category in techStack"
           :key="category.name"
@@ -69,99 +81,44 @@
 <script setup lang="ts">
 import ReturnToSolarSystem from '@/components/Navigation/ReturnToSolarSystem.vue';
 import { usePortfolioConfig } from '@/composables/usePortfolioConfig';
+import type { SkillCategory } from '@/types';
 import { onMounted, ref } from 'vue';
 
-const { config } = usePortfolioConfig();
+const { config, isLoading, error } = usePortfolioConfig();
 
-const loadConfig = async () => {
-  updateTechStackFromConfig();
+const techStack = ref<
+  Array<{
+    name: string;
+    technologies: Array<{
+      name: string;
+      level: string;
+      percentage: number;
+    }>;
+  }>
+>([]);
+
+const getLevelFromPercentage = (percentage: number): string => {
+  if (percentage >= 85) return 'Expert';
+  if (percentage >= 70) return 'Advanced';
+  if (percentage >= 50) return 'Intermediate';
+  return 'Beginner';
 };
 
-const techStack = ref([
-  {
-    name: 'Frontend',
-    technologies: [
-      { name: 'Vue.js', level: 'Advanced', percentage: 90 },
-      { name: 'React', level: 'Intermediate', percentage: 75 },
-      { name: 'TypeScript', level: 'Advanced', percentage: 85 },
-      { name: 'JavaScript', level: 'Expert', percentage: 95 },
-      { name: 'HTML/CSS', level: 'Expert', percentage: 95 },
-      { name: 'Tailwind CSS', level: 'Advanced', percentage: 88 },
-    ],
-  },
-  {
-    name: 'Backend',
-    technologies: [
-      { name: 'Node.js', level: 'Advanced', percentage: 85 },
-      { name: 'Python', level: 'Advanced', percentage: 80 },
-      { name: 'Java', level: 'Intermediate', percentage: 70 },
-      { name: 'C#', level: 'Intermediate', percentage: 65 },
-      { name: 'PHP', level: 'Intermediate', percentage: 60 },
-    ],
-  },
-  {
-    name: 'Database',
-    technologies: [
-      { name: 'PostgreSQL', level: 'Advanced', percentage: 85 },
-      { name: 'MySQL', level: 'Advanced', percentage: 80 },
-      { name: 'MongoDB', level: 'Intermediate', percentage: 75 },
-      { name: 'Redis', level: 'Intermediate', percentage: 70 },
-      { name: 'DynamoDB', level: 'Advanced', percentage: 82 },
-    ],
-  },
-  {
-    name: 'DevOps',
-    technologies: [
-      { name: 'Docker', level: 'Advanced', percentage: 85 },
-      { name: 'Kubernetes', level: 'Intermediate', percentage: 70 },
-      { name: 'CI/CD', level: 'Advanced', percentage: 88 },
-      { name: 'Terraform', level: 'Advanced', percentage: 85 },
-      { name: 'AWS CDK', level: 'Advanced', percentage: 90 },
-    ],
-  },
-]);
-
-const updateTechStackFromConfig = () => {
-  if (!config.value?.skills) return;
-
-  const getRandomLevel = () => {
-    const levels = ['Expert', 'Advanced', 'Intermediate'];
-    return levels[Math.floor(Math.random() * levels.length)];
-  };
-
-  const getRandomPercentage = (level: string) => {
-    switch (level) {
-      case 'Expert':
-        return Math.floor(Math.random() * 15) + 85; // 85-100%
-      case 'Advanced':
-        return Math.floor(Math.random() * 15) + 70; // 70-85%
-      case 'Intermediate':
-        return Math.floor(Math.random() * 20) + 50; // 50-70%
-      default:
-        return Math.floor(Math.random() * 20) + 30; // 30-50%
-    }
-  };
-
-  const categories = [
-    { name: 'Programming', key: 'programming' },
-    { name: 'Frontend', key: 'frontend' },
-    { name: 'Backend', key: 'backend' },
-    { name: 'DevOps', key: 'devops' },
-  ];
-
-  techStack.value = categories.map(category => ({
-    name: category.name,
-    technologies: config.value!.skills[
-      category.key as keyof typeof config.value.skills
-    ].map(tech => {
-      const level = getRandomLevel();
-      return {
-        name: tech,
-        level,
-        percentage: getRandomPercentage(level),
-      };
-    }),
-  }));
+const loadConfig = async () => {
+  if (config.value?.skillCategories) {
+    techStack.value = config.value.skillCategories.map(
+      (category: SkillCategory) => ({
+        name: category.category,
+        technologies: category.skills.map(
+          (skill: SkillCategory['skills'][0]) => ({
+            name: skill.name,
+            level: getLevelFromPercentage(skill.percentage),
+            percentage: skill.percentage,
+          })
+        ),
+      })
+    );
+  }
 };
 
 onMounted(() => {
@@ -416,6 +373,26 @@ const specializations = ref([
   border-radius: 1rem;
   font-size: 0.8rem;
   border: 1px solid rgba(79, 70, 229, 0.3);
+}
+
+.loading-message,
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
+
+.loading-message {
+  background: rgba(79, 70, 229, 0.1);
+  color: #a5b4fc;
+  border: 1px solid rgba(79, 70, 229, 0.2);
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 @media (max-width: 768px) {

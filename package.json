@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "build:clean": "npm run prettier:write && npm run lint && npm run typecheck && npm run test && npm run build",
+    "build:clean": "npm run prettier:write && npm run lint && npm run typecheck && npm run test:run && npm run build",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:check": "eslint .",
@@ -16,6 +16,7 @@
     "prettier:write": "prettier --write src/",
     "typecheck": "vue-tsc --noEmit",
     "test": "vitest",
+    "test:run": "vitest run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage"
   },

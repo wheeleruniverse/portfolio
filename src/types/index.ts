@@ -80,3 +80,12 @@ export interface SocialLink {
   iconType?: 'svg' | 'emoji';
   label: string;
 }
+
+export interface SkillCategory {
+  category: string;
+  skills: Array<{
+    name: string;
+    years: number;
+    percentage: number;
+  }>;
+}
