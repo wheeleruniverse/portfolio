@@ -415,6 +415,29 @@
   ],
   "projects": [
     {
+      "id": "cgc-lb-and-cdn",
+      "name": "AI Image Battle Arena",
+      "description": "A distributed AI image generation service featuring load balancing, CDN delivery, and intelligent provider orchestration using Google's Agent Development Kit. Built for the Pluralsight Cloud Portfolio Challenge, this project showcases modern cloud architecture with asynchronous image generation, head-to-head voting, and hot/cold storage architecture using Digital Ocean infrastructure deployed via Pulumi.",
+      "technologies": [
+        "Digital Ocean",
+        "Pulumi",
+        "Go",
+        "Next.js",
+        "Google ADK",
+        "Nginx",
+        "Valkey",
+        "GitHub Actions",
+        "CDN",
+        "Load Balancing",
+        "Framer Motion",
+        "Tailwind CSS"
+      ],
+      "githubUrl": "https://github.com/wheeleruniverse/cgc-lb-and-cdn",
+      "liveUrl": "https://wheeleraiduel.online",
+      "featured": true,
+      "category": "cloud"
+    },
+    {
       "id": "infrastructure-registry",
       "name": "AWS Infrastructure Registry",
       "description": "A curated collection of reusable AWS Infrastructure as Code (IaC) templates and automation tools. This repository serves as a reference library for common AWS infrastructure components, enterprise baselines, and architectural patterns, utilizing CloudFormation, AWS CDK (TypeScript), and Go-based Lambda functions.",
@@ -718,6 +741,13 @@
   "community": {
     "blogPosts": [
       {
+        "id": "cgc-lb-and-cdn",
+        "title": "Better Late Than Never: Tackling the 2022 Cloud Portfolio Challenge in 2025",
+        "url": "https://blog.wheeleruniverse.com/read/cgc-lb-and-cdn",
+        "date": "2025-10-20",
+        "description": "Three years after the deadline, I finally completed Pluralsight's Load Balancing & CDN challenge—but with 2025 tech that didn't exist back then. Here's how Google ADK, Pulumi, and Digital Ocean came together to build an AI-powered image battle arena."
+      },
+      {
         "id": "building-resume-bravo-tizer",
         "title": "Building Resume Bravo-tizer: How AWS Serverless and Claude AI Transformed Our Resume Processing Workflow",
         "url": "https://blog.wheeleruniverse.com/read/building-resume-bravo-tizer",
@@ -856,7 +886,8 @@
       "skills": [
         { "name": "AWS", "years": 8, "percentage": 95 },
         { "name": "Google Cloud", "years": 4, "percentage": 80 },
-        { "name": "Azure", "years": 3, "percentage": 65 }
+        { "name": "Azure", "years": 3, "percentage": 65 },
+        { "name": "Digital Ocean", "years": 1, "percentage": 70 }
       ]
     },
     {
@@ -896,6 +927,7 @@
         { "name": "CI/CD", "years": 7, "percentage": 90 },
         { "name": "Docker", "years": 6, "percentage": 85 },
         { "name": "Terraform", "years": 5, "percentage": 85 },
+        { "name": "Pulumi", "years": 1, "percentage": 75 },
         { "name": "Kubernetes", "years": 4, "percentage": 80 },
         { "name": "Jenkins", "years": 6, "percentage": 85 },
         { "name": "GitHub Actions", "years": 4, "percentage": 85 }
@@ -919,7 +951,8 @@
         { "name": "Step Functions", "years": 4, "percentage": 85 },
         { "name": "API Gateway", "years": 6, "percentage": 85 },
         { "name": "AWS SageMaker", "years": 3, "percentage": 75 },
-        { "name": "Claude AI", "years": 1, "percentage": 80 }
+        { "name": "Claude AI", "years": 1, "percentage": 80 },
+        { "name": "Google ADK", "years": 1, "percentage": 75 }
       ]
     }
   ]
